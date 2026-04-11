@@ -3,411 +3,433 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>echoppe241 B2B | Grossiste Made in Gabon</title>
+    <title>Echoppe241 | Le B2B Made in Gabon</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         :root {
-            --brand-green: #00853f; /* Vert Drapeau */
-            --brand-yellow: #fcd116; /* Jaune Drapeau */
-            --brand-blue: #3a75c4; /* Bleu Drapeau */
+            --gab-green: #00853f;
+            --gab-yellow: #fcd116;
+            --gab-blue: #3a75c4;
         }
-        .bg-gab-green { background-color: var(--brand-green); }
-        .text-gab-green { color: var(--brand-green); }
-        .bg-gab-yellow { background-color: var(--brand-yellow); }
-        .text-gab-yellow { color: var(--brand-yellow); }
-        .bg-gab-blue { background-color: var(--brand-blue); }
+        body { font-family: 'Inter', 'Segoe UI', sans-serif; background-color: #f8fafc; scroll-behavior: smooth; }
         
-        body {
-            font-family: 'Inter', sans-serif;
+        .bg-gab-green { background-color: var(--gab-green); }
+        .text-gab-green { color: var(--gab-green); }
+        .bg-gab-blue { background-color: var(--gab-blue); }
+        .text-gab-blue { color: var(--gab-blue); }
+        .bg-gab-yellow { background-color: var(--gab-yellow); }
+        
+        .brand-gradient { 
+            background: linear-gradient(135deg, var(--gab-blue) 0%, #1e40af 100%); 
         }
 
-        .product-card {
-            transition: transform 0.2s;
+        .product-card { transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+        .product-card:hover { transform: translateY(-4px); box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1); outline: 2px solid var(--gab-blue); }
+        
+        .cart-drawer, .auth-modal {
+            transform: translateX(100%);
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
-        .product-card:hover {
-            transform: scale(1.02);
-        }
+        .cart-drawer.open, .auth-modal.open { transform: translateX(0); }
 
-        .b2b-badge {
-            background: linear-gradient(135deg, var(--brand-green), var(--brand-blue));
+        .btn-gab {
+            background-color: var(--gab-blue);
             color: white;
-            padding: 2px 8px;
-            border-radius: 4px;
-            font-size: 0.7rem;
-            font-weight: bold;
+            transition: all 0.3s;
+        }
+        .btn-gab:hover {
+            background-color: #1e40af;
+            box-shadow: 0 4px 12px rgba(58, 117, 196, 0.3);
         }
 
-        /* Modal Blur */
-        .modal-overlay {
-            background-color: rgba(0, 0, 0, 0.6);
-            backdrop-filter: blur(8px);
+        .loader {
+            border: 2px solid #f3f3f3;
+            border-top: 2px solid var(--gab-blue);
+            border-radius: 50%;
+            width: 16px;
+            height: 16px;
+            animation: spin 1s linear infinite;
+            display: inline-block;
         }
-        .hidden-modal { display: none; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #f1f1f1; }
+        ::-webkit-scrollbar-thumb { background: var(--gab-blue); border-radius: 10px; }
     </style>
 </head>
-<body class="bg-slate-50 text-slate-900">
+<body class="antialiased text-slate-900">
 
-    <!-- Auth Modal (B2B Specialized) -->
-    <div id="authModal" class="modal-overlay fixed inset-0 z-[100] flex items-center justify-center p-4 hidden-modal">
-        <div class="bg-white rounded-xl shadow-2xl w-full max-w-lg overflow-hidden relative border-t-4 border-gab-green">
-            <button onclick="toggleAuthModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600">
-                <i class="fa-solid fa-xmark text-xl"></i>
-            </button>
-            
-            <div class="p-8">
-                <div class="text-center mb-6">
-                    <img src="https://i.ibb.co/2Q73j3X/echoppe241-logo.png" alt="Logo" class="h-12 mx-auto mb-2">
-                    <h2 id="modalTitle" class="text-2xl font-black text-slate-800 uppercase tracking-tighter">Portail Professionnel</h2>
-                    <p id="modalSubtitle" class="text-slate-500 italic">Accédez aux tarifs grossistes Made in Gabon</p>
-                </div>
-
-                <div class="flex border-b mb-6">
-                    <button onclick="switchTab('login')" id="loginTab" class="w-1/2 py-2 font-bold border-b-2 border-gab-green text-gab-green">Connexion Pro</button>
-                    <button onclick="switchTab('register')" id="registerTab" class="w-1/2 py-2 font-bold border-b-2 border-transparent text-slate-400 transition">Nouvelle Entreprise</button>
-                </div>
-
-                <!-- Login Form -->
-                <form id="loginForm" class="space-y-4">
-                    <div class="space-y-1">
-                        <label class="text-xs font-bold uppercase text-slate-500">Email Professionnel</label>
-                        <input type="email" required placeholder="contact@votre-boutique.ga" class="w-full px-4 py-3 rounded border border-slate-200 focus:ring-2 focus:ring-gab-green outline-none">
-                    </div>
-                    <div class="space-y-1">
-                        <label class="text-xs font-bold uppercase text-slate-500">Mot de passe</label>
-                        <input type="password" required placeholder="••••••••" class="w-full px-4 py-3 rounded border border-slate-200 focus:ring-2 focus:ring-gab-green outline-none">
-                    </div>
-                    <button type="submit" class="w-full bg-slate-900 text-white font-bold py-4 rounded-lg hover:bg-black transition">ACCÉDER AUX TARIFS</button>
-                </form>
-
-                <!-- Register Form (B2B Fields) -->
-                <form id="registerForm" class="space-y-4 hidden">
-                    <div class="grid grid-cols-2 gap-3">
-                        <div class="space-y-1">
-                            <label class="text-xs font-bold uppercase text-slate-500">Nom Entreprise / GIE</label>
-                            <input type="text" placeholder="Coopérative X" class="w-full px-3 py-2 rounded border border-slate-200">
-                        </div>
-                        <div class="space-y-1">
-                            <label class="text-xs font-bold uppercase text-slate-500">N° Commerce / NIF</label>
-                            <input type="text" placeholder="GAB-123456" class="w-full px-3 py-2 rounded border border-slate-200">
-                        </div>
-                    </div>
-                    <div class="space-y-1">
-                        <label class="text-xs font-bold uppercase text-slate-500">Secteur d'activité</label>
-                        <select class="w-full px-3 py-2 rounded border border-slate-200 bg-white">
-                            <option>Distribution / Boutique</option>
-                            <option>Hôtellerie / Restauration (CHR)</option>
-                            <option>Exportation</option>
-                            <option>Autre</option>
-                        </select>
-                    </div>
-                    <div class="space-y-1">
-                        <label class="text-xs font-bold uppercase text-slate-500">Téléphone (WhatsApp Pro)</label>
-                        <input type="tel" placeholder="077 00 00 00" class="w-full px-3 py-2 rounded border border-slate-200">
-                    </div>
-                    <button type="submit" class="w-full bg-gab-green text-white font-bold py-4 rounded-lg hover:bg-green-700 transition">CRÉER COMPTE GROSSISTE</button>
-                </form>
+    <!-- Top Notification Bar -->
+    <div class="bg-slate-900 text-white text-[11px] py-2">
+        <div class="max-w-7xl mx-auto px-4 flex justify-between items-center">
+            <div class="flex space-x-6">
+                <span onclick="toggleAuth('register')" class="hover:text-gab-yellow cursor-pointer transition font-medium">Devenir Vendeur Certifié</span>
+                <span class="hover:text-gab-yellow cursor-pointer transition">Centre d'aide</span>
+            </div>
+            <div class="flex items-center space-x-4">
+                <span class="hidden sm:inline"><i class="fa-solid fa-truck-fast text-gab-yellow mr-1"></i> Livraison Express 9 Provinces</span>
+                <span class="font-bold flex items-center gap-1">
+                    <img src="https://flagcdn.com/w20/ga.png" class="w-4 h-3 rounded-sm" alt="Gabon"> FCFA (XAF)
+                </span>
             </div>
         </div>
     </div>
 
-    <!-- Navigation -->
-    <nav class="bg-white shadow-sm sticky top-0 z-50 border-b border-slate-100">
-        <div class="max-w-7xl mx-auto px-4 lg:px-8">
-            <div class="flex justify-between h-20 items-center">
-                <div class="flex items-center space-x-2">
-                    <img src="https://i.ibb.co/2Q73j3X/echoppe241-logo.png" alt="echoppe241" class="h-10">
-                    <span class="bg-gab-yellow/20 text-gab-green px-2 py-0.5 rounded text-[10px] font-black tracking-widest uppercase border border-gab-yellow/30">B2B Pro</span>
-                </div>
-                
-                <div class="hidden md:flex items-center space-x-8 text-sm font-bold uppercase tracking-tight">
-                    <a href="#" class="text-gab-green">Catalogue</a>
-                    <a href="#" class="text-slate-600 hover:text-gab-green">Fournisseurs Locaux</a>
-                    <a href="#" class="text-slate-600 hover:text-gab-green">Logistique</a>
-                </div>
-
-                <div class="flex items-center space-x-6">
-                    <button onclick="toggleAuthModal()" class="hidden sm:block text-xs font-bold text-slate-700 hover:bg-slate-100 px-4 py-2 rounded-full border border-slate-200 transition">
-                        ESPACE CLIENT
-                    </button>
-                    <button class="relative">
-                        <i class="fa-solid fa-box-open text-xl text-slate-800"></i>
-                        <span class="absolute -top-2 -right-2 bg-gab-blue text-white text-[10px] rounded-full h-4 w-4 flex items-center justify-center font-bold">0</span>
-                    </button>
-                    <button class="md:hidden"><i class="fa-solid fa-bars-staggered text-xl"></i></button>
-                </div>
+    <!-- Main Navigation -->
+    <header class="bg-white sticky top-0 z-[60] shadow-sm border-b">
+        <div class="max-w-7xl mx-auto px-4 py-4 flex items-center gap-4 lg:gap-12">
+            <div class="flex-shrink-0 cursor-pointer" onclick="window.location.reload()">
+                <img src="https://i.ibb.co/2Q73j3X/echoppe241-logo.png" alt="Echoppe241 Logo" class="h-10 lg:h-14">
             </div>
-        </div>
-    </nav>
 
-    <!-- B2B Hero Section -->
-    <header class="relative bg-white pt-16 pb-24 border-b border-slate-100 overflow-hidden">
-        <div class="max-w-7xl mx-auto px-4 lg:px-8 flex flex-col md:flex-row items-center gap-16">
-            <div class="md:w-3/5">
-                <div class="inline-flex items-center space-x-2 bg-gab-green/10 text-gab-green px-3 py-1 rounded-full text-xs font-bold mb-6">
-                    <i class="fa-solid fa-certificate"></i>
-                    <span>100% PRODUITS GABONAIS EN GROS</span>
-                </div>
-                <h1 class="text-5xl md:text-7xl font-black text-slate-900 leading-none mb-6">
-                    Sourcing Local <br><span class="text-gab-green">Simplifié.</span>
-                </h1>
-                <p class="text-xl text-slate-600 mb-10 max-w-lg leading-relaxed">
-                    Connectez votre entreprise aux meilleurs producteurs du Gabon. Prix direct usine, logistique intégrée et traçabilité garantie.
-                </p>
-                <div class="flex flex-wrap gap-4">
-                    <button onclick="toggleAuthModal(); switchTab('register');" class="bg-gab-green text-white px-8 py-4 rounded font-bold shadow-xl shadow-gab-green/20 hover:bg-green-700 transition">
-                        DEVENIR REVENDEUR
-                    </button>
-                    <button class="bg-white border-2 border-slate-900 text-slate-900 px-8 py-4 rounded font-bold hover:bg-slate-900 hover:text-white transition">
-                        CONTACTER UN COMMERCIAL
+            <div class="flex-grow max-w-2xl relative">
+                <div class="flex border-2 border-gab-blue rounded-full overflow-hidden shadow-sm bg-slate-50 focus-within:ring-2 focus-within:ring-blue-100 transition-all">
+                    <input type="text" id="mainSearch" placeholder="Rechercher manioc, huile de palme, produits frais..." class="w-full px-6 py-2.5 outline-none text-sm bg-transparent">
+                    <button class="bg-gab-blue text-white px-6 hover:bg-blue-700 transition">
+                        <i class="fa-solid fa-magnifying-glass"></i>
                     </button>
                 </div>
             </div>
-            <div class="md:w-2/5 relative">
-                <div class="bg-gab-yellow/20 absolute -inset-4 rounded-full blur-3xl animate-pulse"></div>
-                <img src="https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=800&q=80" alt="Local Market Bulk" class="relative rounded-2xl shadow-2xl border-8 border-white">
+
+            <div class="flex items-center space-x-4 lg:space-x-8 text-slate-600">
+                <div onclick="toggleAuth('login')" class="cursor-pointer text-center group flex flex-col items-center">
+                    <div class="h-10 w-10 rounded-full bg-slate-100 flex items-center justify-center group-hover:bg-blue-50 transition">
+                        <i class="fa-solid fa-user-tie text-lg group-hover:text-gab-blue transition"></i>
+                    </div>
+                    <p class="text-[9px] font-bold uppercase mt-1 hidden sm:block">Compte Pro</p>
+                </div>
+                <div onclick="toggleCart()" class="cursor-pointer text-center relative group flex flex-col items-center">
+                    <div class="h-10 w-10 rounded-full bg-slate-100 flex items-center justify-center group-hover:bg-blue-50 transition">
+                        <i class="fa-solid fa-cart-shopping text-lg group-hover:text-gab-blue transition"></i>
+                        <span id="cartBadge" class="absolute top-0 right-0 bg-gab-green text-white text-[9px] rounded-full h-4 w-4 flex items-center justify-center font-bold ring-2 ring-white">0</span>
+                    </div>
+                    <p class="text-[9px] font-bold uppercase mt-1 hidden sm:block">Panier</p>
+                </div>
             </div>
         </div>
     </header>
 
-    <!-- B2B Stats -->
-    <section class="max-w-7xl mx-auto px-4 -mt-12 relative z-10">
-        <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
-            <div class="bg-slate-900 p-8 rounded-xl text-white shadow-xl">
-                <div class="text-gab-yellow text-3xl font-black mb-1">50+</div>
-                <div class="text-xs font-bold uppercase opacity-60 tracking-widest">Producteurs Locaux</div>
-            </div>
-            <div class="bg-white p-8 rounded-xl border border-slate-100 shadow-xl">
-                <div class="text-gab-green text-3xl font-black mb-1">-30%</div>
-                <div class="text-xs font-bold uppercase text-slate-500 tracking-widest">Prix vs Détail</div>
-            </div>
-            <div class="bg-white p-8 rounded-xl border border-slate-100 shadow-xl">
-                <div class="text-gab-blue text-3xl font-black mb-1">48H</div>
-                <div class="text-xs font-bold uppercase text-slate-500 tracking-widest">Livraison Province</div>
-            </div>
-            <div class="bg-white p-8 rounded-xl border border-slate-100 shadow-xl">
-                <div class="text-slate-800 text-3xl font-black mb-1">GAB</div>
-                <div class="text-xs font-bold uppercase text-slate-500 tracking-widest">Origine Certifiée</div>
-            </div>
-        </div>
-    </section>
+    <main class="max-w-7xl mx-auto px-4 py-8">
+        <!-- Hero Section -->
+        <div class="flex flex-col lg:flex-row gap-8 mb-16">
+            <aside class="hidden lg:block w-64 flex-shrink-0 bg-white rounded-2xl shadow-sm border border-slate-100 py-4 overflow-hidden">
+                <h3 class="px-6 pb-4 mb-2 border-b font-black text-[10px] uppercase tracking-widest text-slate-400">Rayons 241</h3>
+                <nav class="space-y-1">
+                    <a href="#" class="flex items-center px-6 py-3 text-sm font-medium hover:bg-blue-50 hover:text-gab-blue transition"><i class="fa-solid fa-wheat-awn w-8 text-gab-green"></i> Agriculture</a>
+                    <a href="#" class="flex items-center px-6 py-3 text-sm font-medium hover:bg-blue-50 hover:text-gab-blue transition"><i class="fa-solid fa-bottle-droplet w-8 text-gab-blue"></i> Transformation</a>
+                    <a href="#" class="flex items-center px-6 py-3 text-sm font-medium hover:bg-blue-50 hover:text-gab-blue transition"><i class="fa-solid fa-spa w-8 text-gab-green"></i> Cosmétique</a>
+                    <a href="#" class="flex items-center px-6 py-3 text-sm font-medium hover:bg-blue-50 hover:text-gab-blue transition"><i class="fa-solid fa-palette w-8 text-gab-yellow"></i> Artisanat</a>
+                    <a href="#" class="flex items-center px-6 py-3 text-sm font-medium hover:bg-blue-50 hover:text-gab-blue transition"><i class="fa-solid fa-fish w-8 text-gab-blue"></i> Produits de Mer</a>
+                </nav>
+            </aside>
 
-    <!-- B2B Catalog -->
-    <section class="py-24 max-w-7xl mx-auto px-4">
-        <div class="flex flex-col md:flex-row md:items-center justify-between mb-12 gap-4">
-            <div>
-                <h2 class="text-3xl font-black text-slate-900 uppercase">Catalogue Grossiste</h2>
-                <div class="h-1.5 w-20 bg-gab-yellow mt-2"></div>
-            </div>
-            <div class="flex items-center bg-white p-2 rounded-lg border border-slate-200">
-                <button class="px-4 py-2 bg-slate-100 rounded font-bold text-xs text-slate-800">TOUT</button>
-                <button class="px-4 py-2 hover:bg-slate-50 rounded font-bold text-xs text-slate-500 transition">ALIMENTAIRE</button>
-                <button class="px-4 py-2 hover:bg-slate-50 rounded font-bold text-xs text-slate-500 transition">ARTISANAT</button>
-                <button class="px-4 py-2 hover:bg-slate-50 rounded font-bold text-xs text-slate-500 transition">COSMÉTIQUE</button>
+            <div class="flex-grow h-[450px] brand-gradient rounded-[2rem] p-8 lg:p-16 text-white relative overflow-hidden shadow-2xl flex items-center">
+                <div class="relative z-10 max-w-xl">
+                    <span class="bg-gab-yellow/20 text-gab-yellow border border-gab-yellow/30 px-4 py-1.5 rounded-full text-[10px] font-black uppercase tracking-wider mb-8 inline-block">Ouverture Officielle Demain</span>
+                    <h2 class="text-5xl lg:text-7xl font-black leading-[0.9] mb-6 tracking-tighter">
+                        La Boutique <br><span class="text-gab-yellow italic">du Terroir.</span>
+                    </h2>
+                    <p class="text-lg text-blue-100/80 mb-10 leading-relaxed font-medium">Connectez votre business aux meilleurs producteurs locaux. Transparence totale, prix usine, livraison sécurisée.</p>
+                    <button class="bg-white text-gab-blue px-12 py-4 rounded-2xl font-black hover:scale-105 transition-all shadow-xl uppercase text-sm tracking-widest">Démarrer vos achats</button>
+                </div>
+                <div class="absolute -right-16 -bottom-16 opacity-5 text-[400px] font-black italic rotate-12 select-none">241</div>
             </div>
         </div>
 
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            <!-- Product 1: Food -->
-            <div class="product-card bg-white border border-slate-100 rounded-xl p-4 shadow-sm hover:shadow-xl transition">
-                <div class="aspect-square bg-slate-100 rounded-lg mb-4 relative overflow-hidden">
-                    <img src="https://images.unsplash.com/photo-1596040033229-a9821ebd058d?auto=format&fit=crop&w=500&q=80" alt="Café Gabonais" class="w-full h-full object-cover">
-                    <div class="absolute top-2 left-2 b2b-badge">M.O.Q: 10 KG</div>
-                </div>
-                <div class="space-y-1">
-                    <span class="text-[10px] font-bold text-gab-green uppercase tracking-tighter">Woleu-Ntem</span>
-                    <h3 class="font-black text-slate-800 uppercase text-sm leading-tight">Café Robusta Torréfié (Grain)</h3>
-                    <div class="flex items-baseline space-x-1 py-2">
-                        <span class="text-xl font-black text-slate-900">7.500</span>
-                        <span class="text-[10px] font-bold text-slate-500">FCFA / KG</span>
-                    </div>
-                    <div class="bg-slate-50 p-2 rounded text-[10px] text-slate-500 mb-4">
-                        <i class="fa-solid fa-tags mr-1"></i> Prix dégressif dès 50 KG
-                    </div>
-                    <button class="w-full py-3 bg-gab-green text-white rounded font-black text-xs hover:bg-green-700 transition uppercase">Devis de Gros</button>
-                </div>
+        <!-- Trust Badges -->
+        <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-16">
+            <div class="bg-white p-6 rounded-2xl border border-slate-100 flex items-center gap-4">
+                <i class="fa-solid fa-check-double text-2xl text-gab-green"></i>
+                <span class="text-xs font-bold text-slate-700">Qualité Labellisée</span>
             </div>
-
-            <!-- Product 2: Cosmetics -->
-            <div class="product-card bg-white border border-slate-100 rounded-xl p-4 shadow-sm hover:shadow-xl transition">
-                <div class="aspect-square bg-slate-100 rounded-lg mb-4 relative overflow-hidden">
-                    <img src="https://images.unsplash.com/photo-1620916566398-39f1143f2c0a?auto=format&fit=crop&w=500&q=80" alt="Huile de Moabi" class="w-full h-full object-cover">
-                    <div class="absolute top-2 left-2 b2b-badge">CARTON: 24 UNITES</div>
-                </div>
-                <div class="space-y-1">
-                    <span class="text-[10px] font-bold text-gab-green uppercase tracking-tighter">Ogooué-Maritime</span>
-                    <h3 class="font-black text-slate-800 uppercase text-sm leading-tight">Huile de Moabi Pur (250ml)</h3>
-                    <div class="flex items-baseline space-x-1 py-2">
-                        <span class="text-xl font-black text-slate-900">3.200</span>
-                        <span class="text-[10px] font-bold text-slate-500">FCFA / UNITÉ</span>
-                    </div>
-                    <div class="bg-slate-50 p-2 rounded text-[10px] text-slate-500 mb-4">
-                        <i class="fa-solid fa-boxes-stacked mr-1"></i> Stock disponible: 500+
-                    </div>
-                    <button class="w-full py-3 bg-gab-green text-white rounded font-black text-xs hover:bg-green-700 transition uppercase">Ajouter au Lot</button>
-                </div>
+            <div class="bg-white p-6 rounded-2xl border border-slate-100 flex items-center gap-4">
+                <i class="fa-solid fa-handshake-angle text-2xl text-gab-yellow"></i>
+                <span class="text-xs font-bold text-slate-700">Circuit Court</span>
             </div>
-
-            <!-- Product 3: Beverages -->
-            <div class="product-card bg-white border border-slate-100 rounded-xl p-4 shadow-sm hover:shadow-xl transition">
-                <div class="aspect-square bg-slate-100 rounded-lg mb-4 relative overflow-hidden">
-                    <img src="https://images.unsplash.com/photo-1595981267035-7b04ca84a82d?auto=format&fit=crop&w=500&q=80" alt="Jus Naturel" class="w-full h-full object-cover">
-                    <div class="absolute top-2 left-2 b2b-badge">PALETTE: 12 PACKS</div>
-                </div>
-                <div class="space-y-1">
-                    <span class="text-[10px] font-bold text-gab-green uppercase tracking-tighter">Estuaire</span>
-                    <h3 class="font-black text-slate-800 uppercase text-sm leading-tight">Pack Jus de Bissap Artisanal</h3>
-                    <div class="flex items-baseline space-x-1 py-2">
-                        <span class="text-xl font-black text-slate-900">12.000</span>
-                        <span class="text-[10px] font-bold text-slate-500">FCFA / PACK</span>
-                    </div>
-                    <div class="bg-slate-50 p-2 rounded text-[10px] text-slate-500 mb-4">
-                        <i class="fa-solid fa-truck-moving mr-1"></i> Franco de port dès 5 palettes
-                    </div>
-                    <button class="w-full py-3 bg-gab-green text-white rounded font-black text-xs hover:bg-green-700 transition uppercase">Commander</button>
-                </div>
+            <div class="bg-white p-6 rounded-2xl border border-slate-100 flex items-center gap-4">
+                <i class="fa-solid fa-truck-ramp-box text-2xl text-gab-blue"></i>
+                <span class="text-xs font-bold text-slate-700">Suivi Logistique</span>
             </div>
-
-            <!-- Product 4: Construction/Eco -->
-            <div class="product-card bg-white border border-slate-100 rounded-xl p-4 shadow-sm hover:shadow-xl transition">
-                <div class="aspect-square bg-slate-100 rounded-lg mb-4 relative overflow-hidden">
-                    <img src="https://images.unsplash.com/photo-1589939705384-5185137a7f0f?auto=format&fit=crop&w=500&q=80" alt="Briques Terre Cuite" class="w-full h-full object-cover">
-                    <div class="absolute top-2 left-2 b2b-badge">CHANTIER: 1000+</div>
-                </div>
-                <div class="space-y-1">
-                    <span class="text-[10px] font-bold text-gab-green uppercase tracking-tighter">Haut-Ogooué</span>
-                    <h3 class="font-black text-slate-800 uppercase text-sm leading-tight">Briques Éco-Terre compressées</h3>
-                    <div class="flex items-baseline space-x-1 py-2">
-                        <span class="text-xl font-black text-slate-900">450</span>
-                        <span class="text-[10px] font-bold text-slate-500">FCFA / PIÈCE</span>
-                    </div>
-                    <div class="bg-slate-50 p-2 rounded text-[10px] text-slate-500 mb-4">
-                        <i class="fa-solid fa-hourglass-half mr-1"></i> Délai prod: 15 jours
-                    </div>
-                    <button class="w-full py-3 bg-slate-800 text-white rounded font-black text-xs hover:bg-black transition uppercase">Demander Devis</button>
-                </div>
+            <div class="bg-white p-6 rounded-2xl border border-slate-100 flex items-center gap-4">
+                <i class="fa-solid fa-headset text-2xl text-slate-400"></i>
+                <span class="text-xs font-bold text-slate-700">Support 24/7</span>
             </div>
         </div>
-    </section>
 
-    <!-- Logistics Section -->
-    <section class="bg-slate-900 py-24 text-white">
-        <div class="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-2 gap-20 items-center">
-            <div>
-                <h2 class="text-4xl font-black mb-8 uppercase tracking-tighter">Logistique <span class="text-gab-yellow">Omni-Gabon</span></h2>
-                <div class="space-y-8">
-                    <div class="flex gap-6">
-                        <div class="h-12 w-12 bg-gab-green rounded flex items-center justify-center shrink-0">
-                            <i class="fa-solid fa-train text-xl"></i>
-                        </div>
-                        <div>
-                            <h4 class="font-bold text-lg">Transport SETRAG</h4>
-                            <p class="text-slate-400 text-sm">Gestion des expéditions lourdes via le chemin de fer pour le Haut-Ogooué et l'Ogooué-Lolo.</p>
-                        </div>
-                    </div>
-                    <div class="flex gap-6">
-                        <div class="h-12 w-12 bg-gab-blue rounded flex items-center justify-center shrink-0">
-                            <i class="fa-solid fa-ship text-xl"></i>
-                        </div>
-                        <div>
-                            <h4 class="font-bold text-lg">Cabotage Maritime</h4>
-                            <p class="text-slate-400 text-sm">Liaisons régulières Libreville - Port-Gentil - Gamba pour vos stocks volumineux.</p>
-                        </div>
-                    </div>
-                    <div class="flex gap-6">
-                        <div class="h-12 w-12 bg-gab-yellow rounded flex items-center justify-center shrink-0 text-slate-900">
-                            <i class="fa-solid fa-van-shuttle text-xl"></i>
-                        </div>
-                        <div>
-                            <h4 class="font-bold text-lg">Dernier Kilomètre</h4>
-                            <p class="text-slate-400 text-sm">Flotte de camionnettes pour livraison directe en boutique dans les grands centres urbains.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="bg-white/5 p-8 rounded-3xl border border-white/10">
-                <h3 class="text-2xl font-bold mb-6 italic text-center text-gab-yellow">"Le futur de la distribution au Gabon passe par le local."</h3>
-                <div class="space-y-4">
-                    <div class="bg-white/10 p-4 rounded-lg">
-                        <p class="text-sm font-bold uppercase mb-1">Total Commandes Pro 2024</p>
-                        <div class="h-2 w-full bg-white/10 rounded-full overflow-hidden">
-                            <div class="h-full bg-gab-green w-3/4"></div>
-                        </div>
-                        <p class="text-[10px] mt-2 text-slate-400">Objectif: 1 Milliard FCFA de flux local</p>
-                    </div>
-                    <img src="https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=500&q=80" alt="Warehouse" class="rounded-xl opacity-60">
-                </div>
+        <!-- Product Grid Header -->
+        <div class="flex items-center justify-between mb-8 border-b pb-6">
+            <h3 class="text-2xl font-black text-slate-800 uppercase tracking-tighter">Nos Offres de Lancement</h3>
+            <div class="flex gap-2">
+                <button class="px-4 py-2 text-xs font-bold border-2 border-slate-200 rounded-xl hover:bg-slate-50 transition">Filtrer par Province</button>
             </div>
         </div>
-    </section>
+        
+        <div id="productGrid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6 mb-20">
+            <!-- Injecté par JavaScript -->
+        </div>
+    </main>
 
-    <!-- Simple B2B Footer -->
-    <footer class="bg-white border-t border-slate-200 py-12">
-        <div class="max-w-7xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center gap-8">
-            <div class="flex items-center space-x-2">
-                <img src="https://i.ibb.co/2Q73j3X/echoppe241-logo.png" alt="Logo" class="h-8 opacity-50">
-                <span class="text-xs font-bold text-slate-400">B2B DIVISION GABON</span>
+    <!-- Footer Simple -->
+    <footer class="bg-slate-900 text-slate-400 py-12 px-4">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-8">
+            <img src="https://i.ibb.co/2Q73j3X/echoppe241-logo.png" alt="Echoppe241 Logo" class="h-10 brightness-0 invert opacity-50">
+            <div class="flex gap-8 text-xs font-medium">
+                <a href="#" class="hover:text-white transition">CGV</a>
+                <a href="#" class="hover:text-white transition">Politique de Confidentialité</a>
+                <a href="#" class="hover:text-white transition">Mentions Légales</a>
             </div>
-            <div class="flex space-x-8 text-xs font-bold text-slate-500 uppercase tracking-widest">
-                <a href="#" class="hover:text-gab-green">Conditions Grossistes</a>
-                <a href="#" class="hover:text-gab-green">Devenir Fournisseur</a>
-                <a href="#" class="hover:text-gab-green">API & Intégration</a>
-            </div>
-            <div class="text-xs text-slate-400">
-                &copy; 2024 echoppe241 - L'Union, le Travail, la Justice.
-            </div>
+            <p class="text-[10px]">&copy; 2024 Echoppe241. Tous droits réservés.</p>
         </div>
     </footer>
 
-    <script>
-        // Modal & Navigation Logic
-        const authModal = document.getElementById('authModal');
-        const loginForm = document.getElementById('loginForm');
-        const registerForm = document.getElementById('registerForm');
-        const loginTab = document.getElementById('loginTab');
-        const registerTab = document.getElementById('registerTab');
+    <!-- Auth Modal (Logiciel) -->
+    <div id="authModal" class="fixed inset-y-0 right-0 w-full max-w-md bg-white shadow-2xl z-[100] auth-modal flex flex-col border-l">
+        <div class="p-6 border-b flex justify-between items-center bg-slate-50">
+            <h2 id="modalTitle" class="font-black uppercase text-xs tracking-widest text-slate-500">Portail Echoppe241 Pro</h2>
+            <button onclick="toggleAuth()" class="text-3xl text-slate-300 hover:text-red-500 transition-colors">&times;</button>
+        </div>
+        
+        <div class="p-8 flex-grow overflow-y-auto">
+            <div class="flex gap-6 mb-10 border-b">
+                <button onclick="switchAuthTab('login')" id="loginTab" class="pb-3 border-b-2 border-gab-blue text-gab-blue font-black text-xs uppercase tracking-widest">Connexion</button>
+                <button onclick="switchAuthTab('register')" id="registerTab" class="pb-3 border-b-2 border-transparent text-slate-400 font-black text-xs uppercase tracking-widest">Créer un compte</button>
+            </div>
 
-        function toggleAuthModal() {
-            authModal.classList.toggle('hidden-modal');
+            <!-- Login Form -->
+            <form id="loginForm" class="space-y-6">
+                <div>
+                    <label class="block text-[10px] font-black uppercase text-slate-400 mb-2">Identifiant (Email ou Tel)</label>
+                    <input type="text" placeholder="ex: contact@entreprise.ga" class="w-full border-2 border-slate-100 p-4 rounded-2xl outline-none focus:border-gab-blue transition-colors bg-slate-50" required>
+                </div>
+                <div>
+                    <label class="block text-[10px] font-black uppercase text-slate-400 mb-2">Mot de passe</label>
+                    <input type="password" placeholder="••••••••" class="w-full border-2 border-slate-100 p-4 rounded-2xl outline-none focus:border-gab-blue transition-colors bg-slate-50" required>
+                </div>
+                <button type="submit" class="w-full btn-gab py-5 rounded-2xl font-black uppercase tracking-widest text-xs shadow-lg">Lancer la session</button>
+            </form>
+
+            <!-- Register Form -->
+            <form id="registerForm" class="hidden space-y-5">
+                <div>
+                    <label class="block text-[10px] font-black uppercase text-slate-400 mb-1">Nom du Business / Responsable</label>
+                    <input type="text" id="reg_name" placeholder="E-Commerce Gabon SARL" class="w-full border-2 border-slate-100 p-4 rounded-2xl outline-none focus:border-gab-blue transition-colors bg-slate-50" required>
+                </div>
+                <div>
+                    <label class="block text-[10px] font-black uppercase text-slate-400 mb-1">Numéro WhatsApp</label>
+                    <div class="flex gap-2">
+                        <span class="bg-slate-200 p-4 rounded-2xl text-xs font-bold">+241</span>
+                        <input type="tel" id="reg_phone" placeholder="077000000" class="flex-grow border-2 border-slate-100 p-4 rounded-2xl outline-none focus:border-gab-blue transition-colors bg-slate-50" required pattern="[0-9]{8,9}">
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-[10px] font-black uppercase text-slate-400 mb-1">Activité principale</label>
+                    <select id="reg_type" class="w-full border-2 border-slate-100 p-4 rounded-2xl outline-none focus:border-gab-blue transition-colors bg-slate-50">
+                        <option>Revendeur (Boutique)</option>
+                        <option>CHR (Hôtel/Restau)</option>
+                        <option>Producteur Locaux</option>
+                        <option>Acheteur Particulier</option>
+                    </select>
+                </div>
+                <button type="submit" id="reg_btn" class="w-full bg-gab-green text-white py-5 rounded-2xl font-black uppercase tracking-widest text-xs hover:bg-green-700 transition shadow-lg">Envoyer ma demande</button>
+                <p class="text-[10px] text-center text-slate-400 italic">Validation de compte sous 24h après vérification par nos agents.</p>
+            </form>
+        </div>
+    </div>
+
+    <!-- Cart Drawer -->
+    <div id="cartDrawer" class="fixed inset-y-0 right-0 w-full max-w-sm bg-white shadow-2xl z-[100] cart-drawer flex flex-col border-l">
+        <div class="p-6 bg-gab-blue text-white flex justify-between items-center">
+            <h2 class="font-black uppercase text-xs tracking-widest">Détails Panier</h2>
+            <button onclick="toggleCart()" class="text-3xl">&times;</button>
+        </div>
+        <div id="cartItems" class="flex-grow p-6 overflow-y-auto space-y-4">
+            <!-- Items injectés -->
+        </div>
+        <div class="p-8 border-t bg-slate-50">
+            <div class="flex justify-between font-black text-2xl mb-8">
+                <span class="text-slate-400 text-[10px] font-bold uppercase self-center">TOTAL</span>
+                <span id="cartTotal" class="text-gab-blue">0 FCFA</span>
+            </div>
+            <button onclick="finalizeOrder()" class="w-full btn-gab py-5 rounded-2xl font-black uppercase tracking-widest text-xs shadow-xl active:scale-95 transition-transform">Valider & Payer</button>
+        </div>
+    </div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+        import { getAuth, signInAnonymously } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+
+        // Production Config
+        const firebaseConfig = {
+            apiKey: "AIzaSyCEJJGhcyYWqmeI9D_lwk_qgE2J2GZhIlg",
+            authDomain: "communautedugabon.firebaseapp.com",
+            projectId: "communautedugabon",
+            appId: "1:647862371022:web:b209bfc8eb81accb1fc69f"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+        const auth = getAuth(app);
+        const appId = "echoppe241-prod-v1";
+
+        const initAuth = async () => {
+            try { await signInAnonymously(auth); } catch(e) { console.error("Auth failed"); }
+        };
+        initAuth();
+
+        // Register Logic with Retry
+        document.getElementById('registerForm').onsubmit = async (e) => {
+            e.preventDefault();
+            const btn = document.getElementById('reg_btn');
+            const originalText = btn.innerText;
+            
+            btn.disabled = true;
+            btn.innerHTML = `<div class="loader mr-2"></div> ENVOI...`;
+
+            const payload = {
+                name: document.getElementById('reg_name').value,
+                phone: document.getElementById('reg_phone').value,
+                type: document.getElementById('reg_type').value,
+                timestamp: serverTimestamp()
+            };
+
+            const submit = async (retries = 3) => {
+                try {
+                    await addDoc(collection(db, 'artifacts', appId, 'public', 'data', 'registrations'), payload);
+                    alert("Demande reçue ! Un conseiller vous contactera pour valider votre accès.");
+                    document.getElementById('registerForm').reset();
+                    toggleAuth();
+                } catch (err) {
+                    if (retries > 0) return await submit(retries - 1);
+                    alert("Délai de connexion dépassé. Veuillez vérifier votre accès internet.");
+                } finally {
+                    btn.disabled = false;
+                    btn.innerText = originalText;
+                }
+            };
+            submit();
+        };
+    </script>
+
+    <script>
+        const products = [
+            { id: 101, name: "Huile de Palme Rouge Premium", vendor: "E-Boutique Makokou", price: 18500, rating: 4.8, sold: "540+ livrés", unit: "Bidon 20L", img: "https://images.unsplash.com/photo-1620916566398-39f1143f2c0a?auto=format&fit=crop&w=400&q=80" },
+            { id: 102, name: "Manioc Doux d'Oyem (Sélection)", vendor: "Coopérative G2", price: 12500, rating: 4.9, sold: "2.1t", unit: "Sac 50kg", img: "https://images.unsplash.com/photo-1590779033100-9f60705a013d?auto=format&fit=crop&w=400&q=80" },
+            { id: 103, name: "Odika du Woleu-Ntem", vendor: "Saveurs d'Oyem", price: 7500, rating: 4.7, sold: "120 packs", unit: "Lot de 5", img: "https://images.unsplash.com/photo-1596040033229-a9821ebd058d?auto=format&fit=crop&w=400&q=80" },
+            { id: 104, name: "Savon Artisanal Moabi & Miel", vendor: "BioGabon", price: 15000, rating: 5.0, sold: "800+ unités", unit: "Carton de 20", img: "https://images.unsplash.com/photo-1605264964528-06403738d6dc?auto=format&fit=crop&w=400&q=80" },
+            { id: 105, name: "Piment de Mouila (Séchage Solaire)", vendor: "Mouila Market", price: 5000, rating: 4.5, sold: "45 sacs", unit: "Sachet 1kg", img: "https://images.unsplash.com/photo-1588252303782-cb80119abd6d?auto=format&fit=crop&w=400&q=80" },
+            { id: 106, name: "Crevettes de Port-Gentil (Séchées)", vendor: "Pêcheries Ogooué", price: 9500, rating: 4.6, sold: "88 commandes", unit: "Sachet 500g", img: "https://images.unsplash.com/photo-1533682805518-48d1f5b8cd3a?auto=format&fit=crop&w=400&q=80" }
+        ];
+
+        let cart = [];
+
+        function render() {
+            document.getElementById('productGrid').innerHTML = products.map(p => `
+                <div class="product-card bg-white rounded-[1.5rem] overflow-hidden shadow-sm border border-slate-100 flex flex-col h-full group">
+                    <div class="relative overflow-hidden h-48">
+                        <img src="${p.img}" class="h-full w-full object-cover group-hover:scale-110 transition-transform duration-500">
+                        <div class="absolute top-3 left-3 bg-gab-yellow text-slate-900 px-2.5 py-1 rounded-lg text-[9px] font-black uppercase shadow-sm">Certifié 241</div>
+                    </div>
+                    <div class="p-5 flex flex-col flex-grow">
+                        <p class="text-[9px] text-slate-400 font-bold uppercase tracking-widest mb-1">${p.vendor}</p>
+                        <h4 class="text-sm font-bold text-slate-800 line-clamp-2 leading-tight mb-3 h-10">${p.name}</h4>
+                        <div class="mt-auto">
+                            <div class="flex items-baseline gap-1 mb-3">
+                                <span class="text-xl font-black text-gab-blue">${p.price.toLocaleString()}</span>
+                                <span class="text-[10px] font-bold text-slate-400 uppercase">FCFA / ${p.unit}</span>
+                            </div>
+                            <div class="flex items-center text-[10px] text-slate-400 mb-4 bg-slate-50 p-2 rounded-lg">
+                                <i class="fa-solid fa-star text-gab-yellow mr-1"></i> <span class="font-bold text-slate-600">${p.rating}</span> <span class="mx-2 text-slate-200">|</span> ${p.sold}
+                            </div>
+                            <button onclick="addToCart(${p.id})" class="w-full btn-gab py-3 rounded-xl text-xs font-black uppercase tracking-tighter active:scale-95 transition-all">Acheter</button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
         }
 
-        // Close modal when clicking outside
-        authModal.addEventListener('click', (e) => {
-            if (e.target === authModal) toggleAuthModal();
-        });
+        function toggleCart() { document.getElementById('cartDrawer').classList.toggle('open'); }
+        function toggleAuth(tab = 'login') { 
+            document.getElementById('authModal').classList.toggle('open');
+            if(tab) switchAuthTab(tab);
+        }
 
-        function switchTab(tab) {
-            if (tab === 'login') {
-                loginForm.classList.remove('hidden');
-                registerForm.classList.add('hidden');
-                loginTab.classList.add('border-gab-green', 'text-gab-green');
-                loginTab.classList.remove('border-transparent', 'text-slate-400');
-                registerTab.classList.remove('border-gab-green', 'text-gab-green');
-                registerTab.classList.add('border-transparent', 'text-slate-400');
-                document.getElementById('modalTitle').innerText = "Portail Professionnel";
+        function switchAuthTab(tab) {
+            const lTab = document.getElementById('loginTab');
+            const rTab = document.getElementById('registerTab');
+            const lForm = document.getElementById('loginForm');
+            const rForm = document.getElementById('registerForm');
+
+            if(tab === 'login') {
+                lTab.classList.add('border-gab-blue', 'text-gab-blue'); lTab.classList.remove('border-transparent', 'text-slate-400');
+                rTab.classList.remove('border-gab-blue', 'text-gab-blue'); rTab.classList.add('border-transparent', 'text-slate-400');
+                lForm.classList.remove('hidden'); rForm.classList.add('hidden');
             } else {
-                loginForm.classList.add('hidden');
-                registerForm.classList.remove('hidden');
-                registerTab.classList.add('border-gab-green', 'text-gab-green');
-                registerTab.classList.remove('border-transparent', 'text-slate-400');
-                loginTab.classList.remove('border-gab-green', 'text-gab-green');
-                loginTab.classList.add('border-transparent', 'text-slate-400');
-                document.getElementById('modalTitle').innerText = "Demander un Compte Pro";
+                rTab.classList.add('border-gab-blue', 'text-gab-blue'); rTab.classList.remove('border-transparent', 'text-slate-400');
+                lTab.classList.remove('border-gab-blue', 'text-gab-blue'); lTab.classList.add('border-transparent', 'text-slate-400');
+                rForm.classList.remove('hidden'); lForm.classList.add('hidden');
             }
         }
 
-        // Form Submission Mocks
-        loginForm.onsubmit = (e) => {
-            e.preventDefault();
-            alert("Accès en cours de vérification par un administrateur...");
-            toggleAuthModal();
-        };
+        function addToCart(id) {
+            const p = products.find(x => x.id === id);
+            cart.push({...p, cartId: Date.now()});
+            updateCart();
+            if(!document.getElementById('cartDrawer').classList.contains('open')) toggleCart();
+        }
 
-        registerForm.onsubmit = (e) => {
-            e.preventDefault();
-            alert("Demande d'inscription envoyée ! Un commercial vous contactera sous 24h.");
-            toggleAuthModal();
-        };
+        function updateCart() {
+            document.getElementById('cartBadge').innerText = cart.length;
+            const total = cart.reduce((a, b) => a + b.price, 0);
+            document.getElementById('cartTotal').innerText = `${total.toLocaleString()} FCFA`;
+            
+            const container = document.getElementById('cartItems');
+            if(cart.length === 0) {
+                container.innerHTML = `
+                    <div class="flex flex-col items-center justify-center py-20 text-center">
+                        <div class="h-20 w-20 bg-slate-50 rounded-full flex items-center justify-center mb-4">
+                            <i class="fa-solid fa-basket-shopping text-3xl text-slate-200"></i>
+                        </div>
+                        <p class="text-slate-400 text-sm font-medium">Votre panier est vide.</p>
+                    </div>`;
+            } else {
+                container.innerHTML = cart.map((i, index) => `
+                    <div class="flex justify-between items-center p-4 bg-white rounded-2xl border border-slate-100 shadow-sm animate-in fade-in slide-in-from-right-4">
+                        <div class="flex items-center gap-4">
+                            <img src="${i.img}" class="h-12 w-12 rounded-xl object-cover ring-1 ring-slate-100">
+                            <div>
+                                <p class="font-bold text-slate-800 text-xs line-clamp-1">${i.name}</p>
+                                <p class="text-gab-blue font-black text-sm">${i.price.toLocaleString()} FCFA</p>
+                            </div>
+                        </div>
+                        <button onclick="remove(${index})" class="h-8 w-8 flex items-center justify-center text-slate-300 hover:text-red-500 hover:bg-red-50 rounded-full transition">&times;</button>
+                    </div>
+                `).join('');
+            }
+        }
+
+        function remove(idx) { cart.splice(idx, 1); updateCart(); }
+
+        function finalizeOrder() {
+            if(cart.length === 0) return;
+            const btn = event.target;
+            btn.disabled = true;
+            btn.innerHTML = `<div class="loader mr-2"></div> TRAITEMENT...`;
+
+            setTimeout(() => {
+                let msg = "*COMMANDE ECHOPPE241*\n--------------------------\n";
+                cart.forEach(i => msg += `• ${i.name} (${i.price.toLocaleString()} FCFA)\n`);
+                msg += `--------------------------\n*TOTAL: ${cart.reduce((a,b)=>a+b.price,0).toLocaleString()} FCFA*`;
+                window.open(`https://wa.me/241077736065?text=${encodeURIComponent(msg)}`);
+                btn.disabled = false;
+                btn.innerText = "Valider & Payer";
+            }, 800);
+        }
+
+        window.onload = render;
     </script>
 </body>
 </html>
