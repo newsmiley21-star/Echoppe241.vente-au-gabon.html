@@ -19,11 +19,6 @@
         .bg-gab-blue { background-color: var(--gab-blue); }
         .text-gab-blue { color: var(--gab-blue); }
 
-        .chat-window { height: 350px; }
-        .message { max-width: 85%; padding: 10px 15px; border-radius: 18px; margin-bottom: 8px; font-size: 13px; line-height: 1.4; }
-        .msg-admin { background: #f1f5f9; align-self: flex-start; color: #334155; border-bottom-left-radius: 4px; }
-        .msg-user { background: var(--gab-blue); color: white; align-self: flex-end; border-bottom-right-radius: 4px; }
-
         .cart-badge { top: -5px; right: -5px; }
         .animate-fade-in { animation: fadeIn 0.3s ease-in-out; }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
@@ -50,9 +45,9 @@
             </div>
 
             <div class="hidden lg:flex items-center gap-8 text-xs font-bold uppercase tracking-wider text-slate-600">
-                <button onclick="showSection('marketplace')" class="hover:text-gab-blue transition flex items-center gap-2">Boutique</button>
-                <button onclick="checkAuthAndShow('publish')" class="hover:text-gab-blue transition flex items-center gap-2">Vendre</button>
-                <button onclick="checkAuthAndShow('orders')" class="hover:text-gab-blue transition flex items-center gap-2">Commandes</button>
+                <button onclick="showSection('marketplace')" class="hover:text-gab-blue transition">Boutique</button>
+                <button onclick="checkAuthAndShow('publish')" class="hover:text-gab-blue transition">Vendre</button>
+                <button onclick="checkAuthAndShow('orders')" class="hover:text-gab-blue transition">Commandes</button>
             </div>
 
             <div class="flex items-center gap-3">
@@ -67,9 +62,7 @@
         </div>
     </header>
 
-    <!-- Main Content -->
     <main class="max-w-7xl mx-auto p-4 md:p-8">
-        
         <!-- SECTION: MARKETPLACE -->
         <section id="section-marketplace" class="space-y-8 animate-fade-in">
             <div class="bg-gradient-to-br from-gab-blue to-blue-800 rounded-[2.5rem] p-8 md:p-12 text-white relative overflow-hidden shadow-2xl">
@@ -81,13 +74,10 @@
                 </div>
                 <i class="fa-solid fa-shop absolute -right-10 -bottom-10 text-[200px] text-white/10 rotate-12"></i>
             </div>
-
-            <div id="productGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                <!-- Produits statiques -->
-            </div>
+            <div id="productGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6"></div>
         </section>
 
-        <!-- SECTION: PUBLIER (Réservée) -->
+        <!-- SECTION: PUBLIER -->
         <section id="section-publish" class="hidden max-w-2xl mx-auto py-10 animate-fade-in">
             <div class="bg-white rounded-[2.5rem] shadow-xl border border-slate-100 overflow-hidden">
                 <div class="bg-gab-green p-8 text-white">
@@ -97,7 +87,7 @@
                     <input type="text" id="pName" placeholder="Nom du produit" class="w-full bg-slate-50 border-2 border-slate-100 p-4 rounded-2xl outline-none focus:border-gab-green" required>
                     <input type="number" id="pPrice" placeholder="Prix (FCFA)" class="w-full bg-slate-50 border-2 border-slate-100 p-4 rounded-2xl outline-none focus:border-gab-green" required>
                     <select id="pProvince" class="w-full bg-slate-50 border-2 border-slate-100 p-4 rounded-2xl outline-none">
-                        <option>Estuaire</option><option>Woleu-Ntem</option><option>Ogooué-Maritime</option>
+                        <option>Estuaire</option><option>Woleu-Ntem</option><option>Ogooué-Maritime</option><option>Haut-Ogooué</option>
                     </select>
                     <input type="text" id="pImg" placeholder="Lien image" class="w-full bg-slate-50 border-2 border-slate-100 p-4 rounded-2xl outline-none" required>
                     <button type="submit" class="w-full bg-gab-green text-white py-5 rounded-2xl font-black uppercase tracking-widest">Publier</button>
@@ -110,7 +100,6 @@
             <h2 class="text-3xl font-black text-slate-800 mb-8">Historique d'achats</h2>
             <div id="orderList" class="space-y-4"></div>
         </section>
-
     </main>
 
     <!-- MODAL AUTHENTIFICATION -->
@@ -120,7 +109,6 @@
                 <h2 id="authTitle" class="text-2xl font-black text-slate-800 uppercase italic">Connexion</h2>
                 <button onclick="toggleAuthModal()" class="text-2xl text-slate-300 hover:text-red-500">&times;</button>
             </div>
-            
             <form id="authForm" class="space-y-4">
                 <div id="displayNameGroup" class="hidden">
                     <label class="block text-[10px] font-black text-slate-400 uppercase mb-1">Nom complet</label>
@@ -134,14 +122,10 @@
                     <label class="block text-[10px] font-black text-slate-400 uppercase mb-1">Mot de passe</label>
                     <input type="password" id="authPassword" class="w-full bg-slate-50 border-2 border-slate-100 p-4 rounded-2xl outline-none focus:border-gab-blue" placeholder="••••••••" required>
                 </div>
-                
                 <button type="submit" id="authSubmitBtn" class="w-full bg-gab-blue text-white py-5 rounded-2xl font-black uppercase tracking-widest hover:shadow-lg transition">Se connecter</button>
             </form>
-
             <div class="mt-6 text-center">
-                <button id="authSwitch" class="text-xs font-bold text-slate-500 hover:text-gab-blue underline">
-                    Pas de compte ? Créer un compte
-                </button>
+                <button id="authSwitch" class="text-xs font-bold text-slate-500 hover:text-gab-blue underline">Pas de compte ? Créer un compte</button>
             </div>
         </div>
     </div>
@@ -158,20 +142,29 @@
         </div>
     </div>
 
-    <!-- NOTIFICATION -->
-    <div id="notif" class="fixed top-20 left-1/2 -translate-x-1/2 z-[300] bg-slate-800 text-white px-6 py-3 rounded-full text-xs font-bold shadow-2xl hidden animate-bounce"></div>
+    <div id="notif" class="fixed top-20 left-1/2 -translate-x-1/2 z-[300] bg-slate-800 text-white px-6 py-3 rounded-full text-xs font-bold shadow-2xl hidden"></div>
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
         import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut, updateProfile } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
-        import { getFirestore, collection, addDoc, query, where, onSnapshot, orderBy, serverTimestamp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+        import { getFirestore, collection, addDoc, query, onSnapshot, orderBy, serverTimestamp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
-        // CONFIGURATION
-        const firebaseConfig = JSON.parse(__firebase_config);
+        // CONFIGURATION FIREBASE FOURNIE
+        const firebaseConfig = {
+            apiKey: "AIzaSyCEJJGhcyYWqmeI9D_lwk_qgE2J2GZhIlg",
+            authDomain: "communautedugabon.firebaseapp.com",
+            databaseURL: "https://communautedugabon-default-rtdb.firebaseio.com",
+            projectId: "communautedugabon",
+            storageBucket: "communautedugabon.firebasestorage.app",
+            messagingSenderId: "647862371022",
+            appId: "1:647862371022:web:b209bfc8eb81accb1fc69f",
+            measurementId: "G-T7415FPS91"
+        };
+
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
         const db = getFirestore(app);
-        const appId = typeof __app_id !== 'undefined' ? __app_id : 'echoppe241-prod';
+        const appId = "echoppe241-prod";
 
         let currentUser = null;
         let isSignUpMode = false;
@@ -182,7 +175,6 @@
             { id: 2, name: "Atanga de Makokou", price: 3500, province: "Ogooué-Ivindo", img: "https://images.unsplash.com/photo-1615141982883-c7ad0e69fd62?auto=format&fit=crop&w=400&q=80" }
         ];
 
-        // INITIALISATION AUTH
         onAuthStateChanged(auth, (user) => {
             currentUser = user;
             const btn = document.getElementById('authBtn');
@@ -194,11 +186,9 @@
             } else {
                 btn.innerHTML = `<i class="fa-solid fa-user mr-2"></i> Connexion`;
                 btn.onclick = toggleAuthModal;
-                document.getElementById('orderList').innerHTML = '<p class="text-center text-slate-400">Connectez-vous pour voir vos commandes.</p>';
             }
         });
 
-        // GESTION FORMULAIRE AUTH
         document.getElementById('authSwitch').onclick = () => {
             isSignUpMode = !isSignUpMode;
             document.getElementById('authTitle').innerText = isSignUpMode ? "Créer un compte" : "Connexion";
@@ -215,20 +205,19 @@
             const btn = document.getElementById('authSubmitBtn');
 
             btn.disabled = true;
-            btn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> Traitement...`;
+            btn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i>...`;
 
             try {
                 if (isSignUpMode) {
                     const res = await createUserWithEmailAndPassword(auth, email, pass);
                     await updateProfile(res.user, { displayName: name });
-                    notify("Bienvenue sur Echoppe241 !");
+                    notify("Compte créé avec succès !");
                 } else {
                     await signInWithEmailAndPassword(auth, email, pass);
-                    notify("Ravi de vous revoir !");
+                    notify("Heureux de vous revoir !");
                 }
             } catch (err) {
-                console.error(err);
-                notify("Erreur d'authentification : " + err.message);
+                notify("Erreur: " + err.message);
             } finally {
                 btn.disabled = false;
                 btn.innerText = isSignUpMode ? "S'inscrire" : "Se connecter";
@@ -237,61 +226,51 @@
 
         async function logout() {
             await signOut(auth);
-            notify("Vous avez été déconnecté.");
+            notify("Déconnecté.");
             showSection('marketplace');
         }
 
-        // NAVIGATION & UI
         window.showSection = (id) => {
             document.querySelectorAll('section').forEach(s => s.classList.add('hidden'));
             document.getElementById(`section-${id}`).classList.remove('hidden');
         };
 
         window.checkAuthAndShow = (id) => {
-            if (!currentUser) {
-                notify("Veuillez vous connecter pour accéder à cette rubrique.");
-                toggleAuthModal();
-            } else {
-                showSection(id);
-            }
+            if (!currentUser) { toggleAuthModal(); notify("Connectez-vous pour continuer."); }
+            else { showSection(id); }
         };
 
         window.toggleAuthModal = () => document.getElementById('authModal').classList.toggle('hidden');
-        function closeAuthModal() { document.getElementById('authModal').classList.add('hidden'); }
-
+        window.closeAuthModal = () => document.getElementById('authModal').classList.add('hidden');
         window.toggleCart = () => document.getElementById('cartSidebar').classList.toggle('translate-x-full');
 
-        function notify(msg) {
+        window.notify = (msg) => {
             const el = document.getElementById('notif');
-            el.innerText = msg;
-            el.classList.remove('hidden');
+            el.innerText = msg; el.classList.remove('hidden');
             setTimeout(() => el.classList.add('hidden'), 3000);
-        }
+        };
 
-        // BOUTIQUE LOGIQUE
         function renderProducts() {
             const grid = document.getElementById('productGrid');
             grid.innerHTML = staticProducts.map(p => `
-                <div class="bg-white rounded-[2rem] overflow-hidden shadow-sm border border-slate-100 p-5 group hover:shadow-xl transition">
-                    <img src="${p.img}" class="w-full h-48 object-cover rounded-2xl mb-4 group-hover:scale-105 transition">
+                <div class="bg-white rounded-[2rem] overflow-hidden shadow-sm border border-slate-100 p-5 hover:shadow-xl transition">
+                    <img src="${p.img}" class="w-full h-40 object-cover rounded-xl mb-4">
                     <h3 class="font-bold text-slate-800">${p.name}</h3>
                     <p class="text-gab-blue font-black mb-4">${p.price.toLocaleString()} FCFA</p>
-                    <button onclick="addToCart(${p.id})" class="w-full bg-slate-100 text-slate-600 py-3 rounded-xl text-[10px] font-black uppercase hover:bg-gab-blue hover:text-white transition">Ajouter</button>
+                    <button onclick="addToCart(${p.id})" class="w-full bg-slate-100 py-3 rounded-xl text-[10px] font-black uppercase hover:bg-gab-blue hover:text-white transition">Ajouter</button>
                 </div>
             `).join('');
         }
 
         window.addToCart = (id) => {
-            const p = staticProducts.find(x => x.id === id);
-            cart.push(p);
+            cart.push(staticProducts.find(x => x.id === id));
             updateCartUI();
-            notify("Ajouté au panier !");
+            notify("Ajouté au panier");
         };
 
         function updateCartUI() {
             document.getElementById('cartCount').innerText = cart.length;
-            const container = document.getElementById('cartItems');
-            container.innerHTML = cart.map((item, idx) => `
+            document.getElementById('cartItems').innerHTML = cart.map((item, idx) => `
                 <div class="flex justify-between items-center bg-slate-50 p-3 rounded-xl">
                     <span class="text-xs font-bold">${item.name}</span>
                     <button onclick="removeFromCart(${idx})" class="text-red-400">&times;</button>
@@ -303,19 +282,14 @@
 
         window.checkout = async () => {
             if (!currentUser) return toggleAuthModal();
-            if (cart.length === 0) return notify("Panier vide !");
+            if (cart.length === 0) return notify("Panier vide");
             
-            const total = cart.reduce((a,b) => a + b.price, 0);
             await addDoc(collection(db, 'artifacts', appId, 'users', currentUser.uid, 'orders'), {
-                total,
+                total: cart.reduce((a,b) => a + b.price, 0),
                 items: cart,
                 createdAt: serverTimestamp()
             });
-            cart = [];
-            updateCartUI();
-            toggleCart();
-            showSection('orders');
-            notify("Commande réussie !");
+            cart = []; updateCartUI(); toggleCart(); showSection('orders'); notify("Succès !");
         };
 
         function loadOrders() {
@@ -323,19 +297,15 @@
             const q = query(collection(db, 'artifacts', appId, 'users', currentUser.uid, 'orders'), orderBy('createdAt', 'desc'));
             onSnapshot(q, (snap) => {
                 const list = document.getElementById('orderList');
-                list.innerHTML = '';
+                list.innerHTML = snap.empty ? '<p class="text-slate-400">Aucune commande.</p>' : '';
                 snap.forEach(doc => {
                     const o = doc.data();
-                    const d = document.createElement('div');
-                    d.className = "bg-white p-6 rounded-2xl border border-slate-100 shadow-sm flex justify-between";
-                    d.innerHTML = `<div><p class="text-[10px] font-black text-slate-400 uppercase">Commande #${doc.id.slice(0,5)}</p><b>${o.total.toLocaleString()} FCFA</b></div> <span class="text-gab-green font-bold text-xs">Traitement...</span>`;
-                    list.appendChild(d);
+                    list.innerHTML += `<div class="bg-white p-6 rounded-3xl border border-slate-100 flex justify-between"><div><b>${o.total.toLocaleString()} FCFA</b><p class="text-[10px] text-slate-400">#${doc.id.slice(0,5)}</p></div><span class="text-gab-green font-bold text-xs uppercase">En cours</span></div>`;
                 });
             }, (err) => console.log(err));
         }
 
         renderProducts();
-
     </script>
 </body>
 </html>
