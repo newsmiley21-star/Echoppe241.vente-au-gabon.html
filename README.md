@@ -26,25 +26,33 @@
         /* Loader */
         .loader { border: 3px solid #f3f3f3; border-top: 3px solid var(--gab-blue); border-radius: 50%; width: 20px; height: 20px; animation: spin 1s linear infinite; display: inline-block; }
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        
+        #init-loader { z-index: 300; }
     </style>
 </head>
 <body class="pb-20">
 
     <div id="qrcode-container"></div>
 
-    <!-- ÉCRAN D'AUTH (S'affiche si non connecté) -->
-    <div id="auth-screen" class="fixed inset-0 bg-white z-[200] flex flex-col items-center justify-center px-6">
+    <!-- ÉCRAN DE CHARGEMENT INITIAL -->
+    <div id="init-loader" class="fixed inset-0 bg-white flex items-center justify-center">
+        <div class="text-center">
+            <div class="loader w-10 h-10 mb-4 border-t-gab-blue"></div>
+            <p class="text-xs font-bold text-slate-400 uppercase tracking-widest">Initialisation...</p>
+        </div>
+    </div>
+
+    <!-- ÉCRAN D'AUTH -->
+    <div id="auth-screen" class="hidden fixed inset-0 bg-white z-[200] flex flex-col items-center justify-center px-6">
         <div class="text-center mb-8">
             <img src="https://i.ibb.co/2Q73j3X/echoppe241-logo.png" alt="Logo" class="h-16 mx-auto mb-4">
             <h1 class="text-2xl font-black uppercase tracking-tighter">ECHOPPE<span class="text-gab-blue">241</span></h1>
             <p class="text-slate-500 text-sm">Le Marché des Grossistes du Gabon</p>
         </div>
 
-        <!-- Formulaire de Connexion / Inscription -->
         <div class="w-full max-w-sm space-y-4">
             <div id="auth-title" class="text-center font-bold text-slate-700 uppercase text-xs tracking-widest mb-2">Connexion</div>
             
-            <!-- Champs dynamiques pour l'inscription -->
             <div id="register-fields" class="hidden space-y-4">
                 <input type="text" id="auth-name" placeholder="Nom de l'entreprise / Prénom" class="w-full bg-slate-100 border-none p-4 rounded-2xl outline-none focus:ring-2 focus:ring-gab-blue transition-all">
                 <input type="tel" id="auth-phone" placeholder="Numéro WhatsApp (ex: 077...)" class="w-full bg-slate-100 border-none p-4 rounded-2xl outline-none focus:ring-2 focus:ring-gab-blue transition-all">
@@ -64,7 +72,7 @@
         </div>
     </div>
 
-    <!-- APP INTERFACE (Cachée par défaut) -->
+    <!-- APP INTERFACE -->
     <div id="app-content" class="hidden">
         <header class="bg-white sticky top-0 z-40 shadow-sm border-b">
             <div class="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
@@ -79,12 +87,7 @@
             </div>
             
             <div id="searchBar" class="px-4 pb-3 flex gap-2">
-                <input type="text" oninput="filterProducts(this.value)" placeholder="Rechercher..." class="flex-grow bg-slate-100 rounded-xl px-4 py-2 text-sm outline-none">
-                <select id="provinceFilter" onchange="filterByProvince(this.value)" class="bg-slate-100 rounded-xl px-2 py-2 text-[10px] font-bold uppercase">
-                    <option value="Toutes">Tout le Gabon</option>
-                    <option value="Estuaire">Estuaire</option>
-                    <option value="Ogooué-Maritime">Ogooué-Mar.</option>
-                </select>
+                <input type="text" id="searchInput" oninput="filterProducts(this.value)" placeholder="Rechercher..." class="flex-grow bg-slate-100 rounded-xl px-4 py-2 text-sm outline-none">
             </div>
         </header>
 
@@ -120,10 +123,10 @@
                             <button onclick="handleLogout()" class="bg-red-50 text-red-500 px-4 py-2 rounded-lg text-[10px] font-black uppercase">Déconnexion</button>
                         </div>
                         <h2 class="text-xl font-black mt-4 flex items-center gap-2">
-                            <span id="profileTitleName">Chargement...</span>
+                            <span id="profileTitleName">...</span>
                             <i class="fa-solid fa-circle-check text-gab-blue text-sm"></i>
                         </h2>
-                        <p class="text-slate-500 text-sm" id="profileBio">Vendeur vérifié • <span id="profileProvinceDisplay">...</span></p>
+                        <p class="text-slate-500 text-sm">Vendeur vérifié • <span id="profileProvinceDisplay">Estuaire</span></p>
                         <div class="mt-4 pt-4 border-t flex gap-4">
                             <div class="flex items-center gap-2 text-xs"><i class="fa-brands fa-whatsapp text-green-500 text-lg"></i> <span id="profilePhoneDisplay">...</span></div>
                         </div>
@@ -132,7 +135,6 @@
             </section>
         </main>
 
-        <!-- Nav -->
         <nav class="fixed bottom-0 inset-x-0 bg-white border-t h-16 flex items-center justify-around z-50">
             <button onclick="showSection('marketplace')" id="nav-marketplace" class="flex flex-col items-center text-gab-blue"><i class="fa-solid fa-house-chimney"></i><span class="text-[9px] font-bold">FLUX</span></button>
             <button onclick="showSection('publish')" id="nav-publish" class="flex flex-col items-center text-slate-400"><i class="fa-solid fa-square-plus"></i><span class="text-[9px] font-bold">VENDRE</span></button>
@@ -177,11 +179,13 @@
 
         // AUTH MONITOR
         onAuthStateChanged(auth, async (user) => {
+            document.getElementById('init-loader').classList.add('hidden');
             if (user) {
                 currentUser = user;
                 await syncUserProfile();
                 document.getElementById('auth-screen').classList.add('hidden');
                 document.getElementById('app-content').classList.remove('hidden');
+                initFeed();
             } else {
                 document.getElementById('auth-screen').classList.remove('hidden');
                 document.getElementById('app-content').classList.add('hidden');
@@ -214,7 +218,7 @@
                     if(!name || !phone) throw new Error("Nom et téléphone requis");
 
                     const res = await createUserWithEmailAndPassword(auth, email, pass);
-                    // Création du profil initial
+                    // Création immédiate du profil pour éviter les erreurs d'accès
                     await setDoc(doc(db, 'artifacts', appId, 'users', res.user.uid, 'profile', 'info'), {
                         name, phone, province: "Estuaire", avatar: "", createdAt: serverTimestamp()
                     });
@@ -222,7 +226,8 @@
                     await signInWithEmailAndPassword(auth, email, pass);
                 }
             } catch (err) {
-                notify(err.message.replace('Firebase:', ''));
+                console.error(err);
+                notify(err.message.includes("auth/") ? "Identifiants invalides" : "Erreur de connexion");
             } finally {
                 btn.disabled = false;
                 btn.innerHTML = `<span id="btn-text">${isRegisterMode ? "Créer mon compte" : "Se connecter"}</span>`;
@@ -232,17 +237,54 @@
         window.handleLogout = () => signOut(auth);
 
         async function syncUserProfile() {
-            const snap = await getDoc(doc(db, 'artifacts', appId, 'users', currentUser.uid, 'profile', 'info'));
-            if (snap.exists()) {
-                userData = snap.data();
+            try {
+                const profileRef = doc(db, 'artifacts', appId, 'users', currentUser.uid, 'profile', 'info');
+                const snap = await getDoc(profileRef);
+                
+                if (snap.exists()) {
+                    userData = snap.data();
+                } else {
+                    // Fallback si le profil n'existe pas (par ex. bug inscription)
+                    userData = { name: "Utilisateur", phone: "Non défini", province: "Estuaire", avatar: "" };
+                    await setDoc(profileRef, userData);
+                }
+                
                 document.getElementById('profileTitleName').innerText = userData.name;
                 document.getElementById('profilePhoneDisplay').innerText = userData.phone;
-                document.getElementById('profileProvinceDisplay').innerText = userData.province;
                 document.getElementById('userAvatar').src = userData.avatar || `https://ui-avatars.com/api/?name=${encodeURIComponent(userData.name)}&background=3a75c4&color=fff`;
+            } catch (e) {
+                console.error("Profil inaccessible:", e);
+                notify("Erreur profil - Vérifiez vos règles Firebase");
             }
         }
 
-        // NAV & FEED
+        function initFeed() {
+            const q = query(collection(db, 'artifacts', appId, 'public', 'products'), orderBy('createdAt', 'desc'));
+            onSnapshot(q, (snap) => {
+                const grid = document.getElementById('section-marketplace');
+                let html = "";
+                snap.forEach(d => {
+                    const p = d.data();
+                    html += `
+                        <div class="product-card overflow-hidden flex flex-col">
+                            <img src="${p.img}" class="h-32 w-full object-cover bg-slate-100">
+                            <div class="p-3">
+                                <h3 class="text-[11px] font-bold truncate uppercase">${p.name}</h3>
+                                <p class="text-xs font-black text-gab-blue">${(p.price || 0).toLocaleString()} F</p>
+                                <div class="flex gap-1 mt-2">
+                                    <button onclick="addToCart('${d.id}', '${p.name.replace(/'/g, "")}', ${p.price}, '${p.sellerPhone}')" class="flex-grow bg-slate-100 h-8 rounded-lg text-gab-blue active:scale-95 transition"><i class="fa-solid fa-cart-plus"></i></button>
+                                    <button onclick="window.open('https://wa.me/241${(p.sellerPhone || '').replace(/^0/, '')}')" class="w-8 h-8 bg-green-500 text-white rounded-lg flex items-center justify-center"><i class="fa-brands fa-whatsapp"></i></button>
+                                </div>
+                            </div>
+                        </div>`;
+                });
+                grid.innerHTML = html || `<p class="col-span-2 text-center py-10 text-slate-400 text-xs font-bold uppercase">Aucun stock disponible</p>`;
+            }, (err) => {
+                console.error("Erreur flux:", err);
+                notify("Erreur d'accès aux données public");
+            });
+        }
+
         window.showSection = (id) => {
             document.querySelectorAll('main section').forEach(s => s.classList.add('hidden'));
             document.getElementById(`section-${id}`).classList.remove('hidden');
@@ -252,46 +294,32 @@
 
         window.toggleCart = () => document.getElementById('cartSidebar').classList.toggle('translate-x-full');
 
-        onSnapshot(query(collection(db, 'artifacts', appId, 'public', 'products'), orderBy('createdAt', 'desc')), (snap) => {
-            const grid = document.getElementById('section-marketplace');
-            let html = "";
-            snap.forEach(d => {
-                const p = d.data();
-                html += `
-                    <div class="product-card overflow-hidden flex flex-col">
-                        <img src="${p.img}" class="h-32 w-full object-cover">
-                        <div class="p-3">
-                            <h3 class="text-[11px] font-bold truncate">${p.name}</h3>
-                            <p class="text-xs font-black text-gab-blue">${p.price.toLocaleString()} F</p>
-                            <div class="flex gap-1 mt-2">
-                                <button onclick="addToCart('${d.id}', '${p.name.replace(/'/g, "")}', ${p.price}, '${p.sellerPhone}')" class="flex-grow bg-slate-100 h-8 rounded-lg text-gab-blue"><i class="fa-solid fa-cart-plus"></i></button>
-                                <button onclick="window.open('https://wa.me/241${p.sellerPhone.replace(/^0/, '')}')" class="w-8 h-8 bg-green-500 text-white rounded-lg flex items-center justify-center"><i class="fa-brands fa-whatsapp"></i></button>
-                            </div>
-                        </div>
-                    </div>`;
-            });
-            grid.innerHTML = html || `<p class="col-span-2 text-center py-10 text-slate-400">Aucun produit disponible</p>`;
-        });
-
-        // ACTIONS
         window.addToCart = (id, name, price, sellerPhone) => {
             const item = cart.find(i => i.id === id);
             if(item) item.qty++; else cart.push({id, name, price, qty: 1, sellerPhone});
             document.getElementById('cartCount').innerText = cart.length;
             renderCart();
-            notify("Ajouté");
+            notify("Ajouté au panier");
         };
 
         function renderCart() {
             document.getElementById('cartItems').innerHTML = cart.map((i, idx) => `
-                <div class="bg-slate-50 p-3 rounded-xl flex justify-between items-center text-xs font-bold">
-                    <span>${i.name} (x${i.qty})</span>
-                    <button onclick="cart.splice(${idx},1);renderCart();document.getElementById('cartCount').innerText=cart.length" class="text-red-400"><i class="fa-solid fa-trash"></i></button>
+                <div class="bg-slate-50 p-3 rounded-xl flex justify-between items-center text-xs font-bold border">
+                    <div class="flex flex-col">
+                        <span>${i.name}</span>
+                        <span class="text-gab-blue">${(i.price*i.qty).toLocaleString()} F</span>
+                    </div>
+                    <div class="flex items-center gap-3">
+                        <span class="bg-white px-2 py-1 rounded border">x${i.qty}</span>
+                        <button onclick="cart.splice(${idx},1);renderCart();document.getElementById('cartCount').innerText=cart.length" class="text-red-400 p-2"><i class="fa-solid fa-trash"></i></button>
+                    </div>
                 </div>
             `).join('');
         }
 
         document.getElementById('pImgInput').onchange = (e) => {
+            const file = e.target.files[0];
+            if(!file) return;
             const reader = new FileReader();
             reader.onload = (ev) => {
                 pImageBase64 = ev.target.result;
@@ -299,51 +327,79 @@
                 document.getElementById('pPreview').classList.remove('hidden');
                 document.getElementById('pCamIcon').classList.add('hidden');
             };
-            reader.readAsDataURL(e.target.files[0]);
+            reader.readAsDataURL(file);
         };
 
         document.getElementById('productForm').onsubmit = async (e) => {
             e.preventDefault();
             if(!pImageBase64) return notify("Image requise");
-            await addDoc(collection(db, 'artifacts', appId, 'public', 'products'), {
-                name: document.getElementById('pName').value,
-                price: parseInt(document.getElementById('pPrice').value),
-                moq: document.getElementById('pMoq').value,
-                img: pImageBase64,
-                sellerPhone: userData.phone,
-                sellerName: userData.name,
-                createdAt: serverTimestamp()
-            });
-            notify("Stock publié !");
-            e.target.reset();
-            document.getElementById('pPreview').classList.add('hidden');
-            document.getElementById('pCamIcon').classList.remove('hidden');
-            showSection('marketplace');
+            
+            const btn = e.target.querySelector('button');
+            btn.disabled = true;
+            btn.innerHTML = `<div class="loader border-t-white"></div>`;
+
+            try {
+                await addDoc(collection(db, 'artifacts', appId, 'public', 'products'), {
+                    name: document.getElementById('pName').value,
+                    price: parseInt(document.getElementById('pPrice').value),
+                    moq: document.getElementById('pMoq').value,
+                    img: pImageBase64,
+                    sellerPhone: userData.phone,
+                    sellerName: userData.name,
+                    createdAt: serverTimestamp()
+                });
+                notify("Produit publié avec succès !");
+                e.target.reset();
+                pImageBase64 = "";
+                document.getElementById('pPreview').classList.add('hidden');
+                document.getElementById('pCamIcon').classList.remove('hidden');
+                showSection('marketplace');
+            } catch (err) {
+                notify("Erreur lors de la publication");
+            } finally {
+                btn.disabled = false;
+                btn.innerHTML = "Mettre en vente au Gabon";
+            }
         };
 
         window.finalizeOrder = async () => {
             if(!cart.length) return notify("Panier vide");
             const orderRef = Math.random().toString(36).substring(7).toUpperCase();
-            
             const qrContainer = document.getElementById('qrcode-container');
             qrContainer.innerHTML = "";
-            new QRCode(qrContainer, { text: `Ref:${orderRef}\nClient:${userData.phone}`, width: 128, height: 128 });
+            new QRCode(qrContainer, { text: `REF:${orderRef}|CLI:${userData.phone}`, width: 128, height: 128 });
 
             setTimeout(() => {
                 const qrImg = qrContainer.querySelector('img').src;
                 const docPdf = new window.jspdf.jsPDF();
+                docPdf.setFontSize(18);
                 docPdf.text("ECHOPPE 241 - BON DE COMMANDE", 20, 20);
-                docPdf.autoTable({ startY: 30, head: [['Produit', 'Qté', 'Total']], body: cart.map(i => [i.name, i.qty, (i.price*i.qty).toLocaleString()]) });
-                docPdf.addImage(qrImg, 'PNG', 20, docPdf.lastAutoTable.finalY + 10, 30, 30);
-                docPdf.save(`Echoppe_${orderRef}.pdf`);
+                docPdf.setFontSize(10);
+                docPdf.text(`Client: ${userData.name} | Tél: ${userData.phone}`, 20, 28);
                 
-                const waMsg = `*COMMANDE ECHOPPE241*%0ARef: ${orderRef}%0AClient: ${userData.name}%0A_Voir PDF généré_`;
+                docPdf.autoTable({ 
+                    startY: 35, 
+                    head: [['Produit', 'Qté', 'Total']], 
+                    body: cart.map(i => [i.name, i.qty, (i.price*i.qty).toLocaleString() + " F"]),
+                    theme: 'striped'
+                });
+                
+                docPdf.addImage(qrImg, 'PNG', 20, docPdf.lastAutoTable.finalY + 10, 30, 30);
+                docPdf.save(`Commande_${orderRef}.pdf`);
+                
+                const waMsg = `*COMMANDE ECHOPPE241*%0ARef: ${orderRef}%0AClient: ${userData.name}%0A%0A_Veuillez trouver mon bon de commande PDF ci-joint._`;
                 window.open(`https://wa.me/${ADMIN_WA.replace('+', '')}?text=${waMsg}`);
-                cart = []; renderCart(); toggleCart();
-            }, 500);
+                
+                cart = []; renderCart(); toggleCart(); document.getElementById('cartCount').innerText = "0";
+            }, 600);
         };
 
-        window.notify = (m) => { const el = document.getElementById('notif'); el.innerText = m; el.classList.remove('hidden'); setTimeout(() => el.classList.add('hidden'), 3000); };
+        window.notify = (m) => { 
+            const el = document.getElementById('notif'); 
+            el.innerText = m; 
+            el.classList.remove('hidden'); 
+            setTimeout(() => el.classList.add('hidden'), 3500); 
+        };
 
     </script>
 </body>
