@@ -7,7 +7,14 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Urbanist:wght@300;400;700;900&display=swap" rel="stylesheet">
-    
+     
+    <!-- Configuration de l'icône d'application (PWA / Mobile) -->
+    <link rel="icon" type="image/png" href="https://i.ibb.co/2Q73j3X/echoppe241-logo.png">
+    <link rel="apple-touch-icon" href="https://i.ibb.co/2Q73j3X/echoppe241-logo.png">
+    <meta name="apple-mobile-web-app-title" content="Echoppe241">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="theme-color" content="#0f172a">
     <style>
         :root {
             --brand-dark: #0f172a;
