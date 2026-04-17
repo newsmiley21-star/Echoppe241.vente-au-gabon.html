@@ -3,11 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="default">
-    <title>Echoppe241 | Officiel</title> 
+    <title>Echoppe241 | Master Edition</title> 
     
-    <!-- Styles & Fonts -->
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
@@ -21,68 +18,46 @@
             --dark: #0f172a;
         }
 
-        body { 
-            font-family: 'Inter', sans-serif; 
-            background-color: var(--white); 
-            color: var(--dark); 
-            margin: 0; 
-            overflow-x: hidden; 
-            -webkit-tap-highlight-color: transparent;
-        }
-
+        body { font-family: 'Inter', sans-serif; background-color: var(--white); color: var(--dark); margin: 0; overflow-x: hidden; -webkit-tap-highlight-color: transparent; }
         h1, h2, h3, .brand-font { font-family: 'Syne', sans-serif; text-transform: lowercase; }
 
-        /* Navigation Views */
         .view { display: none; }
         .view.active { display: block; animation: fadeIn 0.4s ease forwards; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* UI Elements */
         .card-neo { background: var(--white); border-radius: 24px; border: 1px solid #f1f5f9; box-shadow: 0 4px 12px rgba(58, 117, 196, 0.05); }
         .btn-blue { background: var(--primary-blue); color: var(--white); padding: 18px; border-radius: 20px; font-weight: 800; text-transform: uppercase; font-size: 11px; width: 100%; transition: 0.2s; border: none; cursor: pointer; }
         .btn-blue:active { transform: scale(0.98); opacity: 0.9; }
-        .btn-blue:disabled { opacity: 0.5; cursor: not-allowed; }
         
         .input-custom { background: #f8fafc; border-radius: 16px; padding: 16px; width: 100%; font-size: 14px; border: 2px solid transparent; outline: none; transition: 0.3s; }
         .input-custom:focus { border-color: var(--primary-blue); background: var(--white); }
 
         #toast { position: fixed; bottom: 100px; left: 50%; transform: translateX(-50%); z-index: 10000; background: var(--dark); color: var(--white); padding: 12px 24px; border-radius: 50px; font-size: 11px; font-weight: 700; display: none; text-align: center; min-width: 200px; box-shadow: 0 10px 25px rgba(0,0,0,0.2); }
 
-        .nav-item { color: #cbd5e1; transition: 0.3s; text-align: center; flex: 1; cursor: pointer; }
+        .nav-item { color: #cbd5e1; transition: 0.3s; text-align: center; flex: 1; cursor: pointer; border: none; background: none; }
         .nav-item.active { color: var(--primary-blue); }
 
         .modal-full { position: fixed; inset: 0; background: var(--white); z-index: 9000; overflow-y: auto; padding: 32px 24px; display: none; }
         
         #splash-screen { position: fixed; inset: 0; background: var(--white); z-index: 9999; display: flex; flex-direction: column; align-items: center; justify-content: center; transition: opacity 0.5s ease; }
         
-        /* Chat UI */
-        .chat-bubble { max-width: 85%; padding: 12px 16px; border-radius: 20px; font-size: 14px; margin-bottom: 8px; line-height: 1.5; position: relative; word-wrap: break-word; }
+        .chat-bubble { max-width: 85%; padding: 12px 16px; border-radius: 20px; font-size: 14px; margin-bottom: 8px; position: relative; word-wrap: break-word; }
         .chat-me { background: var(--primary-blue); color: white; align-self: flex-end; border-bottom-right-radius: 4px; }
         .chat-them { background: #f1f5f9; color: var(--dark); align-self: flex-start; border-bottom-left-radius: 4px; }
-        .chat-time { font-size: 8px; opacity: 0.5; margin-top: 4px; display: block; text-align: right; }
-
-        .order-bill-card { background: white; border: 2px solid var(--primary-blue); border-radius: 24px; padding: 20px; width: 260px; margin: 12px 0; box-shadow: 0 10px 20px rgba(58, 117, 196, 0.1); }
-        .status-pill { font-weight: 900; font-size: 9px; text-transform: uppercase; padding: 6px 12px; border-radius: 50px; display: inline-flex; items-center; gap: 6px; margin-top: 12px; }
-        .status-waiting { background: #fef3c7; color: #d97706; }
-        .status-paid { background: #dcfce7; color: #16a34a; }
-        .status-pending { background: #f1f5f9; color: #64748b; }
-
-        .role-badge { font-size: 8px; padding: 4px 10px; border-radius: 50px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.5px; }
-        .role-admin { background: #fee2e2; color: #ef4444; }
-        .role-seller { background: #dcfce7; color: #16a34a; }
-        .role-buyer { background: #e0f2fe; color: #0284c7; }
-
-        .photo-preview { width: 100%; height: 200px; border-radius: 24px; object-fit: cover; background: #f8fafc; display: flex; align-items: center; justify-content: center; border: 2px dashed #e2e8f0; cursor: pointer; overflow: hidden; }
         
-        /* Hide scrollbars */
+        .order-card { background: #fff; border: 2px solid var(--primary-blue); border-radius: 20px; padding: 16px; margin: 10px 0; color: var(--dark); }
+
+        .voice-wave { display: flex; align-items: center; gap: 2px; height: 20px; }
+        .voice-bar { width: 3px; background: currentColor; border-radius: 10px; animation: wave 1s infinite ease-in-out; }
+        @keyframes wave { 0%, 100% { height: 5px; } 50% { height: 15px; } }
+
         ::-webkit-scrollbar { display: none; }
     </style>
 </head>
 <body class="pb-24">
 
-    <div id="toast">Action confirmée !</div>
+    <div id="toast">Action effectuée</div>
 
-    <!-- SPLASH SCREEN -->
     <div id="splash-screen">
         <img src="https://i.ibb.co/RkhcRdCs/echoppe241-logo.png" class="w-24 h-24 mb-6">
         <div class="flex gap-2">
@@ -94,218 +69,209 @@
 
     <!-- AUTHENTICATION -->
     <div id="view-auth" class="view active min-h-screen flex items-center px-6">
-        <div class="w-full max-w-sm mx-auto">
-            <div class="text-center mb-12">
-                <img src="https://i.ibb.co/RkhcRdCs/echoppe241-logo.png" class="w-24 mx-auto mb-6">
-                <h1 class="text-4xl font-black text-blue-900 tracking-tighter">Bienvenue.</h1>
-                <p class="text-slate-400 text-sm mt-2 font-medium">Le commerce gabonais 100% sécurisé.</p>
-            </div>
-
+        <div class="w-full max-w-sm mx-auto text-center">
+            <img src="https://i.ibb.co/RkhcRdCs/echoppe241-logo.png" class="w-20 mx-auto mb-6">
+            <h1 class="text-4xl font-black text-blue-900 tracking-tighter mb-12 italic">echoppe<span class="text-[#fcd116]">241</span></h1>
+            
             <div id="login-form" class="space-y-4">
                 <input type="email" id="login-email" class="input-custom" placeholder="Email">
                 <input type="password" id="login-pass" class="input-custom" placeholder="Mot de passe">
-                <button onclick="handleLogin()" class="btn-blue shadow-xl shadow-blue-100 mt-2">Se connecter</button>
-                <p class="text-center text-xs text-slate-500 font-medium">Nouveau ici ? <span onclick="toggleAuth('register')" class="text-blue-600 font-bold cursor-pointer">Créer un compte</span></p>
+                <button onclick="handleLogin()" class="btn-blue shadow-xl shadow-blue-100">Connexion</button>
+                <p class="text-xs text-slate-500">Pas de compte ? <span onclick="toggleAuth('register')" class="text-blue-600 font-bold underline cursor-pointer">S'inscrire</span></p>
             </div>
 
-            <div id="register-form" class="space-y-4 hidden">
+            <div id="register-form" class="space-y-4 hidden text-left">
                 <input type="text" id="reg-name" class="input-custom" placeholder="Nom complet">
                 <input type="email" id="reg-email" class="input-custom" placeholder="Email">
-                <input type="password" id="reg-pass" class="input-custom" placeholder="Mot de passe">
-                <div class="flex gap-2 p-1.5 bg-slate-100 rounded-2xl">
-                    <button onclick="setRegRole('buyer')" id="role-btn-buyer" class="flex-1 py-3 rounded-xl text-[10px] font-black bg-white shadow-sm text-blue-600 uppercase transition">Acheteur</button>
-                    <button onclick="setRegRole('seller')" id="role-btn-seller" class="flex-1 py-3 rounded-xl text-[10px] font-black text-slate-400 uppercase transition">Vendeur</button>
-                </div>
-                <button onclick="handleRegister()" class="btn-blue bg-[#00853f] mt-2">S'inscrire</button>
-                <p class="text-center text-xs text-slate-500 font-medium">Déjà un compte ? <span onclick="toggleAuth('login')" class="text-blue-600 font-bold cursor-pointer">Connexion</span></p>
+                <input type="password" id="reg-pass" class="input-custom" placeholder="Mot de passe (6 car. min)">
+                <input type="password" id="reg-admin" class="input-custom" placeholder="Code Admin (Si applicable)">
+                <button onclick="handleRegister()" class="btn-blue bg-[#00853f]">Créer mon compte</button>
+                <p class="text-center text-xs text-slate-500">Déjà inscrit ? <span onclick="toggleAuth('login')" class="text-blue-600 font-bold underline cursor-pointer">Se connecter</span></p>
             </div>
         </div>
     </div>
 
-    <!-- APP CONTENT -->
+    <!-- APP -->
     <div id="app-content" style="display:none">
-        <!-- Header -->
         <header class="fixed top-0 inset-x-0 h-20 px-6 flex items-center justify-between bg-white/90 backdrop-blur-xl border-b border-slate-50 z-[500]">
             <div class="flex items-center gap-2">
-                <img src="https://i.ibb.co/RkhcRdCs/echoppe241-logo.png" class="w-9 h-9">
-                <h1 class="text-2xl font-black text-blue-900 italic">echoppe<span class="text-[#fcd116]">241</span></h1>
+                <img src="https://i.ibb.co/RkhcRdCs/echoppe241-logo.png" class="w-8 h-8">
+                <h1 class="text-xl font-black text-blue-900 italic">echoppe<span class="text-[#fcd116]">241</span></h1>
             </div>
             <div class="flex items-center gap-3">
                 <div class="text-right">
                     <p id="header-balance" class="text-sm font-black text-blue-600">0 F</p>
-                    <p class="text-[8px] font-black text-slate-400 uppercase tracking-widest">EchoppePay</p>
                 </div>
-                <img id="header-avatar" onclick="navigateTo('profile')" class="w-11 h-11 rounded-2xl bg-slate-100 border-2 border-white shadow-sm object-cover cursor-pointer">
+                <img id="header-avatar" onclick="navigateTo('profile')" class="w-10 h-10 rounded-xl bg-slate-100 object-cover cursor-pointer">
             </div>
         </header>
 
         <main class="max-w-xl mx-auto px-6 pt-24 pb-28">
-            <!-- ACCUEIL -->
+            <!-- HOME -->
             <div id="view-home" class="view active">
-                <div class="mb-10">
-                    <h2 class="text-3xl font-black text-blue-900 leading-tight">Le Marché<br><span class="text-[#fcd116]">Libre & Sûr.</span></h2>
-                </div>
-                <div id="product-list" class="grid grid-cols-2 gap-4">
-                    <!-- Produits injectés -->
-                </div>
+                <h2 class="text-2xl font-black text-blue-900 mb-6 tracking-tight">Marché local.</h2>
+                <div id="product-list" class="grid grid-cols-2 gap-4"></div>
             </div>
 
-            <!-- MESSAGERIE -->
+            <!-- MESSAGES -->
             <div id="view-messages" class="view">
-                <h2 class="text-3xl font-black text-blue-900 mb-8">Discussions.</h2>
-                <div id="conversations-list" class="space-y-3">
-                    <!-- Chats injectés -->
-                </div>
+                <h2 class="text-2xl font-black text-blue-900 mb-6 tracking-tight">Discussions.</h2>
+                <div id="conversations-list" class="space-y-3"></div>
             </div>
 
-            <!-- PROFIL & ADMIN -->
+            <!-- PROFILE -->
             <div id="view-profile" class="view">
-                <div class="card-neo p-8 text-center mb-8">
-                    <div class="relative w-24 h-24 mx-auto mb-6">
-                        <img id="p-avatar" class="w-24 h-24 rounded-[32px] object-cover border-4 border-slate-50 shadow-lg">
-                        <div id="admin-indicator" class="hidden absolute -top-1 -right-1 w-5 h-5 bg-red-500 rounded-full border-2 border-white"></div>
+                <div class="card-neo p-6 text-center mb-6">
+                    <div class="relative w-20 h-20 mx-auto mb-4">
+                        <img id="p-avatar" class="w-20 h-20 rounded-3xl object-cover border-4 border-white shadow-md">
+                        <div id="admin-badge" class="hidden absolute -top-1 -right-1 bg-red-500 text-white text-[8px] font-black px-2 py-1 rounded-full">ADMIN</div>
                     </div>
-                    <h3 id="p-name" class="font-black text-2xl text-blue-900">...</h3>
-                    <div id="p-role-tag" class="role-badge my-4 inline-block">...</div>
+                    <h3 id="p-name" class="font-black text-xl text-blue-900">...</h3>
+                    <p id="p-bio" class="text-xs text-slate-400 mt-1 mb-4 italic">Chargement...</p>
                     
-                    <div class="bg-blue-600 p-6 rounded-[32px] text-white mt-4 shadow-xl shadow-blue-100">
-                        <p class="text-[9px] font-bold opacity-70 uppercase tracking-widest mb-1">Portefeuille Digital</p>
-                        <p id="p-balance" class="text-2xl font-black">0 FCFA</p>
+                    <div class="bg-blue-600 p-5 rounded-3xl text-white text-left shadow-lg">
+                        <p class="text-[8px] font-black opacity-60 uppercase tracking-widest mb-1">Mon Solde Actuel</p>
+                        <p id="p-balance" class="text-xl font-black">0 FCFA</p>
                     </div>
                 </div>
 
-                <!-- SECTION ADMINISTRATION -->
-                <div id="admin-panel" class="hidden mb-10 space-y-6">
-                    <div class="flex items-center gap-3 mb-2">
-                        <div class="w-2 h-2 rounded-full bg-red-500 animate-pulse"></div>
-                        <h4 class="text-[10px] font-black text-red-500 uppercase tracking-widest">Commandes en attente de validation</h4>
-                    </div>
-                    <div id="admin-orders-queue" class="space-y-3">
-                        <!-- Commandes à valider -->
-                    </div>
+                <div id="admin-panel" class="hidden mb-8">
+                    <h4 class="text-[10px] font-black text-red-500 uppercase tracking-widest mb-4">Commandes & Recharges à valider</h4>
+                    <div id="admin-tasks" class="space-y-3"></div>
                 </div>
 
-                <div class="space-y-3">
-                    <button onclick="openModal('recharge-modal')" class="w-full p-5 bg-white border border-slate-100 rounded-2xl flex items-center justify-between group active:bg-slate-50 transition">
-                        <span class="text-xs font-black uppercase text-slate-700">Recharger EchoppePay</span>
-                        <i class="fa-solid fa-plus-circle text-blue-600 text-lg"></i>
-                    </button>
-                    <button id="btn-sell" onclick="openModal('publish-modal')" class="hidden w-full p-5 bg-white border border-slate-100 rounded-2xl flex items-center justify-between group active:bg-slate-50 transition">
-                        <span class="text-xs font-black uppercase text-slate-700">Publier un article</span>
-                        <i class="fa-solid fa-camera text-blue-600 text-lg"></i>
-                    </button>
-                    <button onclick="handleLogout()" class="w-full p-6 text-red-500 font-black text-[10px] uppercase tracking-widest">Déconnexion</button>
+                <div class="space-y-2">
+                    <button onclick="openModal('publish-modal')" class="w-full p-4 bg-slate-50 rounded-2xl flex items-center justify-between text-xs font-bold text-slate-700">Publier un article <i class="fa-solid fa-plus opacity-30"></i></button>
+                    <button onclick="openModal('edit-profile-modal')" class="w-full p-4 bg-slate-50 rounded-2xl flex items-center justify-between text-xs font-bold text-slate-700">Editer mon profil <i class="fa-solid fa-user-pen opacity-30"></i></button>
+                    <button onclick="openModal('recharge-modal')" class="w-full p-4 bg-slate-50 rounded-2xl flex items-center justify-between text-xs font-bold text-slate-700">Recharger mon compte <i class="fa-solid fa-wallet opacity-30"></i></button>
+                    <button onclick="handleLogout()" class="w-full p-4 text-red-500 font-black text-[10px] uppercase">Se déconnecter</button>
                 </div>
             </div>
         </main>
 
-        <!-- Navigation Bar -->
-        <nav class="fixed bottom-0 inset-x-0 h-22 bg-white/95 backdrop-blur-md border-t border-slate-50 flex items-center justify-around z-[500] pb-6 pt-2">
-            <button onclick="navigateTo('home')" id="nav-home" class="nav-item active"><i class="fa-solid fa-house-chimney text-xl"></i><p class="text-[8px] font-black mt-1">ACCUEIL</p></button>
-            <button onclick="navigateTo('messages')" id="nav-messages" class="nav-item"><i class="fa-solid fa-comment-dots text-xl"></i><p class="text-[8px] font-black mt-1">CHAT</p></button>
-            <button onclick="navigateTo('profile')" id="nav-profile" class="nav-item"><i class="fa-solid fa-user-ninja text-xl"></i><p class="text-[8px] font-black mt-1">PROFIL</p></button>
+        <nav class="fixed bottom-0 inset-x-0 h-20 bg-white/95 backdrop-blur-md border-t border-slate-100 flex items-center justify-around z-[500] pb-4">
+            <button onclick="navigateTo('home')" id="nav-home" class="nav-item active"><i class="fa-solid fa-house-chimney text-xl"></i><p class="text-[8px] font-black mt-1 uppercase">Accueil</p></button>
+            <button onclick="navigateTo('messages')" id="nav-messages" class="nav-item"><i class="fa-solid fa-comments text-xl"></i><p class="text-[8px] font-black mt-1 uppercase">Chat</p></button>
+            <button onclick="navigateTo('profile')" id="nav-profile" class="nav-item"><i class="fa-solid fa-circle-user text-xl"></i><p class="text-[8px] font-black mt-1 uppercase">Profil</p></button>
         </nav>
     </div>
 
-    <!-- MODALS -->
-    
-    <!-- Modal Chat -->
+    <!-- MODAL CHAT (Multi-fonctions + Bon de commande) -->
     <div id="chat-modal" class="modal-full !p-0">
         <div class="flex flex-col h-full bg-white">
-            <div class="p-6 border-b border-slate-50 flex items-center justify-between bg-white sticky top-0 z-[100]">
-                <div class="flex items-center gap-4">
-                    <button onclick="closeModal('chat-modal')" class="w-11 h-11 bg-slate-50 rounded-2xl flex items-center justify-center text-slate-600"><i class="fa-solid fa-chevron-left"></i></button>
-                    <div>
-                        <h3 id="chat-title" class="font-black text-blue-900 text-lg leading-none mb-1">...</h3>
-                        <p class="text-[9px] text-green-500 uppercase font-black tracking-widest">En ligne</p>
+            <div class="p-4 border-b border-slate-50 flex items-center justify-between sticky top-0 bg-white z-10">
+                <div class="flex items-center gap-3">
+                    <button onclick="closeModal('chat-modal')" class="w-10 h-10 bg-slate-50 rounded-xl flex items-center justify-center"><i class="fa-solid fa-chevron-left"></i></button>
+                    <div onclick="viewPartnerProfile()">
+                        <h3 id="chat-title" class="font-black text-blue-900 text-sm">...</h3>
+                        <p class="text-[8px] text-blue-500 font-black uppercase tracking-tighter">Profil & Localisation</p>
                     </div>
                 </div>
-                <div id="seller-tools" class="hidden">
-                    <button onclick="openModal('bill-modal')" class="h-11 px-5 bg-blue-600 text-white rounded-2xl text-[10px] font-black uppercase flex items-center gap-2 shadow-lg shadow-blue-100"><i class="fa-solid fa-file-invoice-dollar"></i> Créer Bon</button>
-                </div>
+                <button onclick="openModal('create-order-modal')" class="bg-blue-600 text-white text-[9px] font-black px-4 py-2 rounded-xl shadow-lg shadow-blue-100">CRÉER UN BON</button>
             </div>
-            <div id="chat-messages" class="flex-1 overflow-y-auto p-6 flex flex-col bg-slate-50/30"></div>
-            <div class="p-4 border-t border-slate-50 bg-white flex gap-2">
-                <input type="text" id="chat-input" class="input-custom !py-4 flex-1" placeholder="Ecrivez votre message...">
-                <button onclick="sendChatMessage()" class="w-14 h-14 bg-blue-600 text-white rounded-2xl flex items-center justify-center shadow-xl shadow-blue-100"><i class="fa-solid fa-paper-plane"></i></button>
+            
+            <div id="chat-messages" class="flex-1 overflow-y-auto p-4 flex flex-col bg-slate-50/20"></div>
+
+            <div class="px-4 py-2 flex items-center gap-4 bg-white border-t border-slate-50">
+                <button onclick="document.getElementById('chat-img').click()" class="text-slate-300"><i class="fa-solid fa-image"></i></button>
+                <input type="file" id="chat-img" class="hidden" accept="image/*" onchange="sendImgMessage(this)">
+                <button onclick="sendUserLocation()" class="text-slate-300"><i class="fa-solid fa-location-dot"></i></button>
+                <button id="voice-btn" onmousedown="startVoice()" onmouseup="stopVoice()" ontouchstart="startVoice()" ontouchend="stopVoice()" class="text-slate-300"><i class="fa-solid fa-microphone"></i></button>
+            </div>
+            <div class="p-4 flex gap-2">
+                <input type="text" id="chat-input" class="input-custom !py-3 flex-1" placeholder="Ecrire ici...">
+                <button onclick="sendMessage()" class="w-12 h-12 bg-blue-600 text-white rounded-xl shadow-lg"><i class="fa-solid fa-paper-plane"></i></button>
             </div>
         </div>
     </div>
 
-    <!-- Modal Bon de Commande -->
-    <div id="bill-modal" class="modal-full">
+    <!-- MODAL CRÉER BON DE COMMANDE -->
+    <div id="create-order-modal" class="modal-full">
         <div class="max-w-md mx-auto">
-            <div class="flex items-center justify-between mb-10">
-                <h2 class="text-3xl font-black text-blue-900">vendre.</h2>
-                <button onclick="closeModal('bill-modal')" class="w-11 h-11 bg-slate-100 rounded-full flex items-center justify-center"><i class="fa-solid fa-times"></i></button>
-            </div>
-            <div class="space-y-5">
-                <div class="p-5 bg-blue-50 rounded-3xl mb-4">
-                    <p class="text-[10px] font-black text-blue-700 uppercase mb-1">Sécurité Echoppe241</p>
-                    <p class="text-xs text-blue-600/80 leading-relaxed font-medium">L'argent du client sera bloqué par l'administration jusqu'à la livraison effective.</p>
-                </div>
-                <input type="text" id="bill-item" class="input-custom" placeholder="Nom de l'article">
-                <input type="number" id="bill-amount" class="input-custom" placeholder="Montant final (FCFA)">
-                <button onclick="sendOrderBill()" class="btn-blue mt-4">Envoyer le bon au client</button>
+            <h2 class="text-2xl font-black text-blue-900 mb-6 italic">Bon de Commande.</h2>
+            <div class="space-y-4">
+                <p class="text-[10px] font-bold text-slate-400 uppercase">Détails pour l'acheteur</p>
+                <input type="text" id="order-item" class="input-custom" placeholder="Désignation de l'article">
+                <input type="number" id="order-price" class="input-custom" placeholder="Prix final convenu (FCFA)">
+                <textarea id="order-note" class="input-custom h-24" placeholder="Conditions ou note spéciale..."></textarea>
+                <button onclick="submitOrder()" class="btn-blue mt-4">Envoyer le bon à l'acheteur</button>
+                <button onclick="closeModal('create-order-modal')" class="w-full py-4 text-xs font-bold text-slate-400">Annuler</button>
             </div>
         </div>
     </div>
 
-    <!-- Modal Publication Article -->
+    <!-- MODAL EDIT PROFILE -->
+    <div id="edit-profile-modal" class="modal-full">
+        <div class="max-w-md mx-auto">
+            <h2 class="text-2xl font-black text-blue-900 mb-6">Modifier Profil.</h2>
+            <div class="space-y-4">
+                <input type="text" id="edit-city" class="input-custom" placeholder="Votre ville">
+                <input type="text" id="edit-phone" class="input-custom" placeholder="Numéro de contact">
+                <textarea id="edit-bio" class="input-custom h-24" placeholder="Votre bio..."></textarea>
+                <button onclick="updateUserProfile()" class="btn-blue">Sauvegarder</button>
+                <button onclick="closeModal('edit-profile-modal')" class="w-full py-4 text-xs font-bold text-slate-400">Retour</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL PARTNER INFO -->
+    <div id="partner-modal" class="modal-full">
+        <div class="max-w-md mx-auto text-center pt-10">
+            <button onclick="closeModal('partner-modal')" class="absolute top-6 left-6"><i class="fa-solid fa-xmark"></i></button>
+            <img id="part-avatar" class="w-24 h-24 rounded-[32px] mx-auto object-cover border-4 border-white shadow-xl">
+            <h3 id="part-name" class="text-2xl font-black text-blue-900 mt-4">...</h3>
+            <p id="part-city" class="text-blue-600 font-bold text-xs uppercase tracking-widest mt-1">Ville</p>
+            <div class="bg-slate-50 p-6 rounded-3xl text-left mt-8">
+                <p class="text-[9px] font-black text-slate-400 uppercase mb-2">A propos</p>
+                <p id="part-bio" class="text-sm text-slate-600 font-medium italic">...</p>
+                <hr class="my-4 border-slate-100">
+                <p class="text-[9px] font-black text-slate-400 uppercase mb-2">Contact</p>
+                <p id="part-phone" class="text-sm font-bold text-blue-900">...</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL RECHARGE -->
+    <div id="recharge-modal" class="modal-full">
+        <div class="max-w-md mx-auto text-center">
+            <h2 class="text-2xl font-black text-blue-900 mb-10 italic">Recharge.</h2>
+            <div class="bg-blue-600 p-8 rounded-[40px] text-white text-left mb-8 shadow-2xl shadow-blue-100">
+                <p class="text-xs font-medium mb-6 leading-relaxed">Transférez le montant via <span class="font-black">Airtel Money (077 73 60 65)</span>. Entrez ensuite l'ID de transaction ici.</p>
+                <input type="number" id="rech-amount" class="w-full bg-white/10 p-4 rounded-2xl text-white outline-none mb-4 placeholder:text-white/40" placeholder="Montant">
+                <input type="text" id="rech-ref" class="w-full bg-white/10 p-4 rounded-2xl text-white outline-none placeholder:text-white/40" placeholder="Référence Transaction">
+            </div>
+            <button onclick="requestRecharge()" class="btn-blue">Envoyer aux Administrateurs</button>
+            <button onclick="closeModal('recharge-modal')" class="w-full py-4 mt-2 text-xs font-bold text-slate-400">Annuler</button>
+        </div>
+    </div>
+
+    <!-- MODAL PUBLISH -->
     <div id="publish-modal" class="modal-full">
         <div class="max-w-md mx-auto">
-            <div class="flex items-center justify-between mb-10">
-                <h2 class="text-3xl font-black text-blue-900">exposer.</h2>
-                <button onclick="closeModal('publish-modal')" class="w-11 h-11 bg-slate-100 rounded-full flex items-center justify-center"><i class="fa-solid fa-times"></i></button>
-            </div>
-            <div class="space-y-5">
-                <div onclick="document.getElementById('pub-file').click()" class="photo-preview" id="pub-preview-container">
-                    <div class="text-center">
-                        <i class="fa-solid fa-camera text-4xl text-slate-200 mb-3"></i>
-                        <p class="text-[9px] font-black text-slate-400 uppercase tracking-widest">Ajouter une photo</p>
-                    </div>
-                    <img id="pub-preview-img" class="hidden absolute inset-0 w-full h-full object-cover">
+            <h2 class="text-2xl font-black text-blue-900 mb-6 italic">Exposer.</h2>
+            <div class="space-y-4">
+                <div onclick="document.getElementById('pub-file').click()" class="h-48 w-full bg-slate-50 rounded-[32px] border-2 border-dashed border-slate-200 flex items-center justify-center overflow-hidden">
+                    <img id="pub-preview" class="hidden w-full h-full object-cover">
+                    <i id="pub-icon" class="fa-solid fa-camera text-slate-200 text-3xl"></i>
                 </div>
-                <input type="file" id="pub-file" accept="image/*" class="hidden" onchange="previewImage(this)">
-                
-                <input type="text" id="pub-name" class="input-custom" placeholder="Titre de l'annonce">
-                <input type="number" id="pub-price" class="input-custom" placeholder="Prix (FCFA)">
-                <textarea id="pub-desc" class="input-custom h-32" placeholder="Description de l'article..."></textarea>
-                <button onclick="publishProduct()" id="btn-pub-submit" class="btn-blue mt-4">Publier maintenant</button>
+                <input type="file" id="pub-file" class="hidden" accept="image/*" onchange="previewPub(this)">
+                <input type="text" id="pub-name" class="input-custom" placeholder="Nom de l'article">
+                <input type="number" id="pub-price" class="input-custom" placeholder="Prix">
+                <textarea id="pub-desc" class="input-custom h-24" placeholder="Description courte..."></textarea>
+                <button onclick="publishArticle()" class="btn-blue shadow-xl shadow-blue-50">Lancer la vente</button>
+                <button onclick="closeModal('publish-modal')" class="w-full py-4 text-xs font-bold text-slate-400">Annuler</button>
             </div>
         </div>
     </div>
 
-    <!-- Modal Recharge -->
-    <div id="recharge-modal" class="modal-full">
-        <div class="max-w-md mx-auto">
-            <div class="flex items-center justify-between mb-10">
-                <h2 class="text-3xl font-black text-blue-900">recharger.</h2>
-                <button onclick="closeModal('recharge-modal')" class="w-11 h-11 bg-slate-100 rounded-full flex items-center justify-center"><i class="fa-solid fa-times"></i></button>
-            </div>
-            <div class="bg-blue-600 p-8 rounded-[40px] text-white mb-8">
-                <p class="text-[10px] font-black uppercase tracking-widest opacity-70 mb-2">Instructions</p>
-                <p class="text-sm font-medium leading-relaxed mb-6">Effectuez votre dépôt au 077 73 60 65 (Airtel) ou 066 45 71 72 (Moov). Entrez ensuite la référence ci-dessous.</p>
-                <input type="number" id="rech-amount" class="w-full bg-white/10 border border-white/20 rounded-2xl p-4 text-white placeholder:text-white/40 mb-3 outline-none" placeholder="Montant déposé">
-                <input type="text" id="rech-ref" class="w-full bg-white/10 border border-white/20 rounded-2xl p-4 text-white placeholder:text-white/40 mb-6 outline-none" placeholder="Référence Transaction">
-                <button onclick="submitRecharge()" class="w-full bg-white text-blue-600 p-5 rounded-2xl font-black uppercase text-[10px]">Soumettre aux admins</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- Modal Detail Produit -->
-    <div id="detail-modal" class="modal-full">
-        <div id="detail-content" class="max-w-md mx-auto"></div>
-    </div>
-
-    <!-- Firebase Logic -->
+    <!-- SCRIPTS -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
         import { getAuth, onAuthStateChanged, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
-        import { getFirestore, doc, onSnapshot, setDoc, updateDoc, collection, addDoc, query, where, orderBy, serverTimestamp, increment, runTransaction } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+        import { getFirestore, doc, setDoc, onSnapshot, updateDoc, collection, addDoc, query, where, orderBy, serverTimestamp, increment, runTransaction } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
         const firebaseConfig = {
-            apiKey: "AIzaSyCEJJGhcyYWqmeI9D_lwk_qgE2J2GZhIlg",
+            apiKey: "", 
             authDomain: "communautedugabon.firebaseapp.com",
             projectId: "communautedugabon",
             storageBucket: "communautedugabon.firebasestorage.app",
@@ -316,15 +282,17 @@
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
         const db = getFirestore(app);
-        const appId = 'echoppe241-pwa-final-v1';
+        const appId = 'echoppe241-master-v3';
+        const ADMIN_SECRET = "GABON241";
 
         let user = null;
         let userData = null;
         let activeChatId = null;
-        let currentRegRole = 'buyer';
-        let currentPubBase64 = null;
+        let partnerId = null;
+        let recorder = null;
+        let voiceChunks = [];
 
-        // AUTH LISTENER
+        // --- AUTH & SETUP ---
         onAuthStateChanged(auth, (u) => {
             if (u) {
                 user = u;
@@ -333,17 +301,20 @@
                         userData = snap.data();
                         document.getElementById('view-auth').classList.remove('active');
                         document.getElementById('app-content').style.display = 'block';
-                        syncUserUI();
-                        loadAppData();
-                        if(userData.role === 'admin' || userData.isAdmin) setupAdminLogic();
+                        updateHeaderUI();
+                        loadAppContent();
+                        if(userData.isAdmin) loadAdminTasks();
                     } else {
-                        // Init new user profile
+                        const isAdm = localStorage.getItem('tmp_adm') === ADMIN_SECRET;
                         setDoc(doc(db, 'artifacts', appId, 'users', u.uid), {
-                            fullName: u.displayName || "Client Echoppe",
+                            fullName: localStorage.getItem('tmp_name') || 'Membre Echoppe',
                             walletBalance: 0,
-                            role: currentRegRole,
-                            isAdmin: false,
-                            avatar: `https://api.dicebear.com/7.x/avataaars/svg?seed=${u.uid}`
+                            isAdmin: isAdm,
+                            role: isAdm ? 'admin' : 'utilisateur',
+                            avatar: `https://api.dicebear.com/7.x/avataaars/svg?seed=${u.uid}`,
+                            bio: "Fier membre de la communauté Echoppe241.",
+                            city: "Libreville",
+                            phone: "Non renseigné"
                         });
                     }
                 });
@@ -355,131 +326,106 @@
             hideSplash();
         });
 
-        // AUTH ACTIONS
-        window.handleLogin = async () => {
+        window.handleLogin = () => {
             const e = document.getElementById('login-email').value;
             const p = document.getElementById('login-pass').value;
-            if(!e || !p) return showToast("Identifiants requis");
-            try { await signInWithEmailAndPassword(auth, e, p); } catch(err) { showToast("Accès refusé"); }
+            signInWithEmailAndPassword(auth, e, p).catch(() => showToast("Identifiants incorrects"));
         };
 
-        window.handleRegister = async () => {
+        window.handleRegister = () => {
             const n = document.getElementById('reg-name').value;
             const e = document.getElementById('reg-email').value;
             const p = document.getElementById('reg-pass').value;
-            if(!n || p.length < 6) return showToast("Vérifiez vos informations");
-            try { await createUserWithEmailAndPassword(auth, e, p); } catch(err) { showToast("Erreur d'inscription"); }
+            const a = document.getElementById('reg-admin').value;
+            if(!n || p.length < 6) return showToast("Veuillez remplir correctement");
+            localStorage.setItem('tmp_name', n);
+            localStorage.setItem('tmp_adm', a);
+            createUserWithEmailAndPassword(auth, e, p).catch(() => showToast("Erreur d'inscription"));
         };
 
         window.handleLogout = () => signOut(auth);
 
-        window.toggleAuth = (mode) => {
-            document.getElementById('login-form').classList.toggle('hidden', mode === 'register');
-            document.getElementById('register-form').classList.toggle('hidden', mode === 'login');
-        };
-
-        window.setRegRole = (role) => {
-            currentRegRole = role;
-            document.getElementById('role-btn-buyer').className = role === 'buyer' ? 'flex-1 py-3 rounded-xl text-[10px] font-black bg-white shadow-sm text-blue-600 uppercase transition' : 'flex-1 py-3 rounded-xl text-[10px] font-black text-slate-400 uppercase transition';
-            document.getElementById('role-btn-seller').className = role === 'seller' ? 'flex-1 py-3 rounded-xl text-[10px] font-black bg-white shadow-sm text-green-600 uppercase transition' : 'flex-1 py-3 rounded-xl text-[10px] font-black text-slate-400 uppercase transition';
-        };
-
-        // UI SYNC
-        function syncUserUI() {
+        // --- CORE UI ---
+        function updateHeaderUI() {
             document.getElementById('header-balance').innerText = `${userData.walletBalance} F`;
+            document.getElementById('p-balance').innerText = `${userData.walletBalance} FCFA`;
             document.getElementById('header-avatar').src = userData.avatar;
             document.getElementById('p-avatar').src = userData.avatar;
             document.getElementById('p-name').innerText = userData.fullName;
-            document.getElementById('p-balance').innerText = `${userData.walletBalance} FCFA`;
-            
-            const rb = document.getElementById('p-role-tag');
-            rb.innerText = userData.role;
-            rb.className = `role-badge role-${userData.role}`;
-
-            if(userData.role === 'seller' || userData.isAdmin) {
-                document.getElementById('btn-sell').classList.remove('hidden');
-            }
-            if(userData.isAdmin) {
-                document.getElementById('admin-indicator').classList.remove('hidden');
-                document.getElementById('admin-panel').classList.remove('hidden');
-            }
+            document.getElementById('p-bio').innerText = userData.bio;
+            if(userData.isAdmin) document.getElementById('admin-badge').classList.remove('hidden');
         }
 
-        // APP LOGIC
-        function loadAppData() {
-            // Products
+        function loadAppContent() {
+            // Marché
             onSnapshot(collection(db, 'artifacts', appId, 'public', 'data', 'products'), (snap) => {
                 const list = document.getElementById('product-list');
                 list.innerHTML = snap.docs.map(d => {
                     const p = d.data();
-                    return `<div onclick="openProduct('${d.id}')" class="card-neo overflow-hidden active:scale-95 transition">
-                        <img src="${p.image || 'https://images.unsplash.com/photo-1511556820780-d912e42b4980?w=400'}" class="h-36 w-full object-cover">
-                        <div class="p-4"><p class="text-[10px] font-black uppercase text-blue-900 truncate mb-1">${p.name}</p><p class="text-blue-600 font-bold text-xs">${p.price} F</p></div>
+                    return `<div onclick="startChatFromMarket('${p.sellerId}', '${p.sellerName}')" class="card-neo overflow-hidden active:scale-95 transition cursor-pointer">
+                        <img src="${p.image}" class="h-32 w-full object-cover">
+                        <div class="p-3">
+                            <p class="text-[9px] font-black uppercase truncate text-blue-900">${p.name}</p>
+                            <p class="text-blue-600 font-bold text-xs mt-1">${p.price} F</p>
+                        </div>
                     </div>`;
                 }).join('');
             });
 
-            // Chats List
+            // Discussions
             onSnapshot(query(collection(db, 'artifacts', appId, 'public', 'data', 'chats'), where('participants', 'array-contains', user.uid)), (snap) => {
-                const cList = document.getElementById('conversations-list');
-                cList.innerHTML = snap.docs.map(d => {
+                const list = document.getElementById('conversations-list');
+                list.innerHTML = snap.docs.map(d => {
                     const c = d.data();
-                    const otherName = c.names.find(n => n !== userData.fullName);
-                    return `<div onclick="openChat('${d.id}', '${otherName}')" class="p-5 bg-white border border-slate-50 rounded-[24px] flex items-center justify-between active:bg-slate-50 transition cursor-pointer">
-                        <div class="flex items-center gap-4">
-                            <div class="w-12 h-12 bg-blue-50 rounded-2xl flex items-center justify-center text-blue-600 font-black text-sm">${otherName[0]}</div>
-                            <div><p class="text-sm font-black text-blue-900">${otherName}</p><p class="text-[9px] text-slate-400 uppercase font-black tracking-widest">Voir la discussion</p></div>
-                        </div>
-                        <i class="fa-solid fa-chevron-right text-slate-200"></i>
+                    const opId = c.participants.find(p => p !== user.uid);
+                    const opName = c.names[opId] || "Utilisateur";
+                    return `<div onclick="openChat('${d.id}', '${opName}', '${opId}')" class="p-4 bg-white border border-slate-50 rounded-2xl flex items-center gap-3 active:bg-slate-50 transition shadow-sm">
+                        <div class="w-10 h-10 bg-blue-50 rounded-xl flex items-center justify-center text-blue-600 font-black text-xs">${opName[0]}</div>
+                        <div><p class="text-xs font-black text-blue-900">${opName}</p><p class="text-[8px] text-slate-300 font-bold tracking-widest uppercase">Ouvrir discussion</p></div>
                     </div>`;
                 }).join('');
-                if(snap.empty) cList.innerHTML = '<div class="text-center py-10 opacity-30 font-black uppercase text-[10px]">Aucune discussion.</div>';
             });
         }
 
-        // MESSAGING
-        window.openChat = (chatId, title) => {
+        // --- CHAT & MULTIMEDIA ---
+        window.openChat = (chatId, name, pId) => {
             activeChatId = chatId;
-            document.getElementById('chat-title').innerText = title;
+            partnerId = pId;
+            document.getElementById('chat-title').innerText = name;
             document.getElementById('chat-modal').style.display = 'block';
-            document.getElementById('seller-tools').style.display = userData.role === 'seller' ? 'block' : 'none';
-
+            
             onSnapshot(query(collection(db, 'artifacts', appId, 'public', 'data', 'chats', chatId, 'messages'), orderBy('timestamp', 'asc')), (snap) => {
                 const box = document.getElementById('chat-messages');
                 box.innerHTML = snap.docs.map(d => {
                     const m = d.data();
                     const isMe = m.senderId === user.uid;
-                    
-                    if(m.type === 'order_bill') {
-                        let btnUi = '';
-                        if(m.status === 'pending') {
-                            btnUi = isMe ? '<p class="text-[9px] italic opacity-40 text-center font-bold">En attente du client...</p>' : `<button onclick="buyerSubmitPayment('${d.id}', ${m.amount}, '${m.senderId}', '${m.itemName}')" class="btn-blue !py-3 !text-[9px]">Payer avec solde</button>`;
-                        } else if(m.status === 'waiting_admin') {
-                            btnUi = `<div class="status-pill status-waiting w-full justify-center"><i class="fa-solid fa-clock"></i> Validation Admin</div>`;
-                        } else {
-                            btnUi = `<div class="status-pill status-paid w-full justify-center"><i class="fa-solid fa-check-double"></i> Transaction Validée</div>`;
-                        }
+                    let content = m.text;
 
-                        return `<div class="self-center">
-                            <div class="order-bill-card">
-                                <p class="text-[9px] font-black text-blue-600 uppercase mb-3">Facture Vendeur</p>
-                                <h4 class="text-base font-black text-slate-800 leading-tight">${m.itemName}</h4>
-                                <p class="text-2xl font-black text-blue-900 mt-2">${m.amount} FCFA</p>
-                                <div class="mt-5">${btnUi}</div>
+                    if(m.type === 'order') {
+                        const status = m.status === 'paid' ? 'Payé - En attente validation Admin' : (m.status === 'validated' ? '✅ Livré & Validé' : 'En attente de paiement');
+                        const canPay = !isMe && m.status === 'pending';
+                        content = `<div class="order-card">
+                            <p class="text-[8px] font-black uppercase text-blue-600 mb-1">Bon de Commande</p>
+                            <p class="text-sm font-bold">${m.item}</p>
+                            <p class="text-xs text-blue-900 font-black mt-1">${m.price} FCFA</p>
+                            <p class="text-[9px] mt-2 italic text-slate-400">${m.note || ''}</p>
+                            <div class="mt-3 pt-3 border-t border-slate-50 flex items-center justify-between">
+                                <span class="text-[8px] font-black uppercase text-slate-400">${status}</span>
+                                ${canPay ? `<button onclick="payOrder('${d.id}', ${m.price}, '${m.senderId}')" class="bg-[#00853f] text-white text-[8px] font-black px-3 py-1 rounded-full">PAYER PAR SOLDE</button>` : ''}
                             </div>
                         </div>`;
                     }
+                    if(m.type === 'image') content = `<img src="${m.url}" class="rounded-xl w-full max-w-[200px] border border-white shadow-sm">`;
+                    if(m.type === 'location') content = `<div onclick="window.open('${m.url}')" class="flex items-center gap-2 underline text-[10px] font-black"><i class="fa-solid fa-map-location-dot"></i> Position GPS Partagée</div>`;
+                    if(m.type === 'voice') content = `<div class="voice-wave text-white"><div class="voice-bar"></div><div class="voice-bar" style="animation-delay:0.2s"></div><div class="voice-bar" style="animation-delay:0.4s"></div><span class="ml-2 text-[9px] font-black">Note Vocale</span></div>`;
 
-                    return `<div class="chat-bubble ${isMe ? 'chat-me' : 'chat-them'}">
-                        ${m.text}
-                        <span class="chat-time">${m.timestamp ? new Date(m.timestamp.seconds*1000).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}) : ''}</span>
-                    </div>`;
+                    return `<div class="chat-bubble ${isMe ? 'chat-me' : 'chat-them'}">${content}</div>`;
                 }).join('');
                 box.scrollTop = box.scrollHeight;
             });
         };
 
-        window.sendChatMessage = async () => {
+        window.sendMessage = async () => {
             const i = document.getElementById('chat-input');
             if(!i.value.trim()) return;
             await addDoc(collection(db, 'artifacts', appId, 'public', 'data', 'chats', activeChatId, 'messages'), {
@@ -488,154 +434,210 @@
             i.value = '';
         };
 
-        window.sendOrderBill = async () => {
-            const item = document.getElementById('bill-item').value;
-            const amount = parseInt(document.getElementById('bill-amount').value);
-            if(!item || !amount) return showToast("Informations manquantes");
+        window.sendImgMessage = (input) => {
+            const reader = new FileReader();
+            reader.onload = async (e) => {
+                await addDoc(collection(db, 'artifacts', appId, 'public', 'data', 'chats', activeChatId, 'messages'), {
+                    senderId: user.uid, url: e.target.result, type: 'image', timestamp: serverTimestamp()
+                });
+            };
+            reader.readAsDataURL(input.files[0]);
+        };
+
+        window.sendUserLocation = () => {
+            navigator.geolocation.getCurrentPosition(async (pos) => {
+                const url = `https://www.google.com/maps?q=${pos.coords.latitude},${pos.coords.longitude}`;
+                await addDoc(collection(db, 'artifacts', appId, 'public', 'data', 'chats', activeChatId, 'messages'), {
+                    senderId: user.uid, url: url, type: 'location', timestamp: serverTimestamp()
+                });
+            });
+        };
+
+        window.startVoice = async () => {
+            const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+            recorder = new MediaRecorder(stream);
+            recorder.ondataavailable = e => voiceChunks.push(e.data);
+            recorder.start();
+            document.getElementById('voice-btn').classList.replace('text-slate-300', 'text-red-500');
+        };
+
+        window.stopVoice = () => {
+            recorder.stop();
+            document.getElementById('voice-btn').classList.replace('text-red-500', 'text-slate-300');
+            recorder.onstop = async () => {
+                await addDoc(collection(db, 'artifacts', appId, 'public', 'data', 'chats', activeChatId, 'messages'), {
+                    senderId: user.uid, type: 'voice', timestamp: serverTimestamp()
+                });
+                voiceChunks = [];
+            };
+        };
+
+        // --- COMMANDES & BONS ---
+        window.submitOrder = async () => {
+            const item = document.getElementById('order-item').value;
+            const price = document.getElementById('order-price').value;
+            const note = document.getElementById('order-note').value;
+            if(!item || !price) return showToast("Remplissez le bon");
 
             await addDoc(collection(db, 'artifacts', appId, 'public', 'data', 'chats', activeChatId, 'messages'), {
-                senderId: user.uid, itemName: item, amount: amount, type: 'order_bill', status: 'pending', timestamp: serverTimestamp()
+                senderId: user.uid, 
+                item: item, 
+                price: parseInt(price), 
+                note: note, 
+                type: 'order', 
+                status: 'pending',
+                timestamp: serverTimestamp()
             });
-            closeModal('bill-modal');
-            showToast("Facture envoyée !");
+            showToast("Bon de commande envoyé");
+            closeModal('create-order-modal');
         };
 
-        // TRANSACTIONAL FLOW
-        window.buyerSubmitPayment = async (msgId, amount, sellerId, itemName) => {
-            if(userData.walletBalance < amount) return showToast("Solde insuffisant");
-            if(!confirm("Procéder au paiement ? L'argent sera mis sous séquestre par les admins.")) return;
-
-            try {
-                // Update message UI
-                await updateDoc(doc(db, 'artifacts', appId, 'public', 'data', 'chats', activeChatId, 'messages', msgId), { status: 'waiting_admin' });
-                
-                // Add to Global Admin Queue
-                await addDoc(collection(db, 'artifacts', appId, 'public', 'data', 'global_orders'), {
-                    chatId: activeChatId, msgId: msgId, buyerId: user.uid, buyerName: userData.fullName,
-                    sellerId: sellerId, itemName: itemName, amount: amount, status: 'waiting_admin', timestamp: serverTimestamp()
-                });
-                showToast("Demande transmise aux admins.");
-            } catch(e) { showToast("Erreur système."); }
-        };
-
-        window.adminProcessTransaction = async (orderId) => {
-            const oRef = doc(db, 'artifacts', appId, 'public', 'data', 'global_orders', orderId);
+        window.payOrder = async (msgId, amount, sellerId) => {
+            if(userData.walletBalance < amount) return showToast("Solde insuffisant !");
+            
             try {
                 await runTransaction(db, async (tx) => {
-                    const snap = await tx.get(oRef);
-                    const o = snap.data();
-                    
-                    const buyerRef = doc(db, 'artifacts', appId, 'users', o.buyerId);
-                    const sellerRef = doc(db, 'artifacts', appId, 'users', o.sellerId);
-                    const msgRef = doc(db, 'artifacts', appId, 'public', 'data', 'chats', o.chatId, 'messages', o.msgId);
-
-                    const bSnap = await tx.get(buyerRef);
-                    if(bSnap.data().walletBalance < o.amount) throw "Fonds insuffisants chez l'acheteur.";
-
-                    tx.update(buyerRef, { walletBalance: increment(-o.amount) });
-                    tx.update(sellerRef, { walletBalance: increment(o.amount) });
+                    const buyerRef = doc(db, 'artifacts', appId, 'users', user.uid);
+                    tx.update(buyerRef, { walletBalance: increment(-amount) });
+                    const msgRef = doc(db, 'artifacts', appId, 'public', 'data', 'chats', activeChatId, 'messages', msgId);
                     tx.update(msgRef, { status: 'paid' });
-                    tx.update(oRef, { status: 'paid' });
+                    
+                    // Créer tâche admin
+                    const taskRef = doc(collection(db, 'artifacts', appId, 'public', 'data', 'admin_tasks'));
+                    tx.set(taskRef, {
+                        type: 'order_validation',
+                        buyerId: user.uid,
+                        buyerName: userData.fullName,
+                        sellerId: sellerId,
+                        amount: amount,
+                        msgId: msgId,
+                        chatId: activeChatId,
+                        status: 'pending',
+                        createdAt: serverTimestamp()
+                    });
                 });
-                showToast("Transaction approuvée !");
-            } catch(e) { showToast(e); }
+                showToast("Paiement effectué. En attente de validation admin.");
+            } catch(e) { showToast("Echec du paiement"); }
         };
 
-        function setupAdminLogic() {
-            onSnapshot(query(collection(db, 'artifacts', appId, 'public', 'data', 'global_orders'), where('status', '==', 'waiting_admin')), (snap) => {
-                const q = document.getElementById('admin-orders-queue');
-                q.innerHTML = snap.docs.map(d => {
-                    const o = d.data();
-                    return `<div class="bg-white p-5 border border-red-50 rounded-3xl flex items-center justify-between shadow-sm">
-                        <div><p class="text-[10px] font-black text-blue-900 uppercase">${o.itemName}</p><p class="text-xs font-bold text-slate-500">${o.amount} F</p></div>
-                        <button onclick="adminProcessTransaction('${d.id}')" class="px-4 py-2 bg-green-600 text-white rounded-xl text-[9px] font-black uppercase">Approuver</button>
-                    </div>`;
-                }).join('');
-                if(snap.empty) q.innerHTML = '<p class="text-[9px] text-slate-300 italic text-center font-black">Aucune commande.</p>';
-            });
-        }
-
-        // PRODUCT ACTIONS
-        window.previewImage = (input) => {
-            const f = input.files[0];
-            if(!f) return;
-            const reader = new FileReader();
-            reader.onload = (e) => {
-                document.getElementById('pub-preview-img').src = e.target.result;
-                document.getElementById('pub-preview-img').classList.remove('hidden');
-                currentPubBase64 = e.target.result;
-            };
-            reader.readAsDataURL(f);
+        // --- PROFIL & ADMIN ---
+        window.updateUserProfile = async () => {
+            const city = document.getElementById('edit-city').value;
+            const phone = document.getElementById('edit-phone').value;
+            const bio = document.getElementById('edit-bio').value;
+            await updateDoc(doc(db, 'artifacts', appId, 'users', user.uid), { city, phone, bio });
+            showToast("Profil mis à jour");
+            closeModal('edit-profile-modal');
         };
 
-        window.publishProduct = async () => {
-            const n = document.getElementById('pub-name').value;
-            const p = document.getElementById('pub-price').value;
-            const d = document.getElementById('pub-desc').value;
-            if(!n || !p || !currentPubBase64) return showToast("Informations et photo requises");
-
-            const btn = document.getElementById('btn-pub-submit');
-            btn.disabled = true; btn.innerText = "ENVOI...";
-
-            try {
-                await addDoc(collection(db, 'artifacts', appId, 'public', 'data', 'products'), {
-                    name: n, price: parseInt(p), description: d, image: currentPubBase64,
-                    sellerId: user.uid, sellerName: userData.fullName, createdAt: serverTimestamp()
-                });
-                showToast("Publié avec succès !");
-                closeModal('publish-modal');
-                // reset
-                document.getElementById('pub-name').value = ""; document.getElementById('pub-price').value = "";
-                document.getElementById('pub-desc').value = ""; document.getElementById('pub-preview-img').classList.add('hidden');
-            } catch(e) { showToast("Erreur publication."); }
-            btn.disabled = false; btn.innerText = "PUBLIER MAINTENANT";
-        };
-
-        window.openProduct = (id) => {
-            onSnapshot(doc(db, 'artifacts', appId, 'public', 'data', 'products', id), (snap) => {
-                const p = snap.data();
-                document.getElementById('detail-content').innerHTML = `
-                    <button onclick="closeModal('detail-modal')" class="w-11 h-11 bg-slate-50 rounded-2xl mb-8 flex items-center justify-center"><i class="fa-solid fa-times"></i></button>
-                    <img src="${p.image}" class="w-full h-72 object-cover rounded-[40px] mb-8 shadow-2xl">
-                    <h2 class="text-3xl font-black text-blue-900 tracking-tight mb-2">${p.name}</h2>
-                    <p class="text-2xl font-black text-blue-600 mb-6">${p.price} FCFA</p>
-                    <div class="bg-slate-50 p-6 rounded-[32px] mb-10">
-                        <p class="text-xs font-black text-slate-400 uppercase tracking-widest mb-3">Détails de l'offre</p>
-                        <p class="text-slate-600 leading-relaxed text-sm font-medium">${p.description || 'Pas de description.'}</p>
-                    </div>
-                    <button onclick="startDirectChat('${p.sellerId}', '${p.sellerName}')" class="btn-blue shadow-xl shadow-blue-100">Contacter le vendeur</button>
-                `;
-                openModal('detail-modal');
+        window.viewPartnerProfile = () => {
+            onSnapshot(doc(db, 'artifacts', appId, 'users', partnerId), (snap) => {
+                const u = snap.data();
+                document.getElementById('part-avatar').src = u.avatar;
+                document.getElementById('part-name').innerText = u.fullName;
+                document.getElementById('part-city').innerText = u.city;
+                document.getElementById('part-bio').innerText = u.bio;
+                document.getElementById('part-phone').innerText = u.phone;
+                openModal('partner-modal');
             });
         };
 
-        window.startDirectChat = async (sid, sn) => {
-            if(sid === user.uid) return showToast("C'est votre annonce");
-            const cid = [user.uid, sid].sort().join('_');
-            await setDoc(doc(db, 'artifacts', appId, 'public', 'data', 'chats', cid), {
-                participants: [user.uid, sid], names: [userData.fullName, sn]
-            }, {merge:true});
-            closeModal('detail-modal');
-            openChat(cid, sn);
-        };
-
-        window.submitRecharge = async () => {
+        window.requestRecharge = async () => {
             const a = document.getElementById('rech-amount').value;
             const r = document.getElementById('rech-ref').value;
-            if(!a || !r) return showToast("Remplissez tout");
-            await addDoc(collection(db, 'artifacts', appId, 'public', 'data', 'recharge_requests'), {
-                userId: user.uid, amount: parseInt(a), ref: r, status: 'pending', createdAt: serverTimestamp()
+            if(!a || !r) return showToast("Informations manquantes");
+            await addDoc(collection(db, 'artifacts', appId, 'public', 'data', 'admin_tasks'), {
+                type: 'recharge',
+                uid: user.uid,
+                userName: userData.fullName,
+                amount: parseInt(a),
+                ref: r,
+                status: 'pending',
+                createdAt: serverTimestamp()
             });
-            showToast("Demande envoyée aux admins !");
+            showToast("Demande soumise aux administrateurs");
             closeModal('recharge-modal');
         };
 
-        // NAV & HELPERS
+        function loadAdminTasks() {
+            document.getElementById('admin-panel').classList.remove('hidden');
+            onSnapshot(query(collection(db, 'artifacts', appId, 'public', 'data', 'admin_tasks'), where('status', '==', 'pending')), (snap) => {
+                const box = document.getElementById('admin-tasks');
+                box.innerHTML = snap.docs.map(d => {
+                    const t = d.data();
+                    const isRech = t.type === 'recharge';
+                    return `<div class="bg-red-50 p-4 rounded-2xl flex items-center justify-between border border-red-100">
+                        <div>
+                            <p class="text-[9px] font-black uppercase text-red-500">${isRech ? 'Recharge' : 'Validation Vente'}</p>
+                            <p class="text-xs font-bold text-blue-900">${t.userName || t.buyerName}</p>
+                            <p class="text-[10px] font-black">${t.amount} FCFA</p>
+                        </div>
+                        <button onclick="validateAdminTask('${d.id}')" class="bg-green-600 text-white text-[9px] font-black px-4 py-2 rounded-xl">VALIDER</button>
+                    </div>`;
+                }).join('');
+            });
+        }
+
+        window.validateAdminTask = async (taskId) => {
+            const tDoc = doc(db, 'artifacts', appId, 'public', 'data', 'admin_tasks', taskId);
+            onSnapshot(tDoc, async (snap) => {
+                if(!snap.exists()) return;
+                const t = snap.data();
+                if(t.type === 'recharge') {
+                    await updateDoc(doc(db, 'artifacts', appId, 'users', t.uid), { walletBalance: increment(t.amount) });
+                } else {
+                    await updateDoc(doc(db, 'artifacts', appId, 'users', t.sellerId), { walletBalance: increment(t.amount) });
+                    await updateDoc(doc(db, 'artifacts', appId, 'public', 'data', 'chats', t.chatId, 'messages', t.msgId), { status: 'validated' });
+                }
+                await updateDoc(tDoc, { status: 'approved' });
+                showToast("Action validée avec succès");
+            }, { once: true });
+        };
+
+        window.publishArticle = async () => {
+            const n = document.getElementById('pub-name').value;
+            const p = document.getElementById('pub-price').value;
+            const d = document.getElementById('pub-desc').value;
+            if(!n || !p || !window.tmp_pub) return showToast("Complétez l'annonce");
+            await addDoc(collection(db, 'artifacts', appId, 'public', 'data', 'products'), {
+                name: n, price: parseInt(p), description: d, image: window.tmp_pub,
+                sellerId: user.uid, sellerName: userData.fullName, createdAt: serverTimestamp()
+            });
+            showToast("Article en ligne !");
+            closeModal('publish-modal');
+        };
+
+        window.previewPub = (input) => {
+            const reader = new FileReader();
+            reader.onload = e => {
+                document.getElementById('pub-preview').src = e.target.result;
+                document.getElementById('pub-preview').classList.remove('hidden');
+                document.getElementById('pub-icon').classList.add('hidden');
+                window.tmp_pub = e.target.result;
+            };
+            reader.readAsDataURL(input.files[0]);
+        };
+
+        window.startChatFromMarket = async (sid, sname) => {
+            if(sid === user.uid) return navigateTo('profile');
+            const cid = [user.uid, sid].sort().join('_');
+            const names = {}; names[user.uid] = userData.fullName; names[sid] = sname;
+            await setDoc(doc(db, 'artifacts', appId, 'public', 'data', 'chats', cid), {
+                participants: [user.uid, sid], names: names
+            }, {merge: true});
+            openChat(cid, sname, sid);
+        };
+
+        // --- NAVIGATION & UTILS ---
         window.navigateTo = (v) => {
             document.querySelectorAll('.view').forEach(e => e.classList.remove('active'));
             document.getElementById(`view-${v}`).classList.add('active');
             document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
             document.getElementById(`nav-${v}`).classList.add('active');
+        };
+        window.toggleAuth = (m) => {
+            document.getElementById('login-form').classList.toggle('hidden', m === 'register');
+            document.getElementById('register-form').classList.toggle('hidden', m === 'login');
         };
         window.openModal = (id) => document.getElementById(id).style.display = 'block';
         window.closeModal = (id) => document.getElementById(id).style.display = 'none';
