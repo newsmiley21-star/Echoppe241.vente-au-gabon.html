@@ -11,7 +11,7 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="Echoppe241">
     
-    <!-- Icône officielle Echoppe241 pour l'installation sur smartphone -->
+    <!-- Icône officielle Echoppe241 (Lien mis à jour) -->
     <link rel="icon" type="image/png" href="https://i.ibb.co/RkhcRdCs/echoppe241-logo.png">
     <link rel="apple-touch-icon" href="https://i.ibb.co/RkhcRdCs/echoppe241-logo.png">
 
@@ -28,6 +28,13 @@
         }
         body { font-family: 'Urbanist', sans-serif; background-color: #f8fafc; color: var(--brand-dark); }
         
+        /* Protection affichage logo */
+        .brand-logo {
+            max-height: 50px;
+            width: auto;
+            object-fit: contain;
+        }
+
         .role-card { transition: all 0.3s ease; cursor: pointer; border: 2px solid transparent; }
         .role-card.active { border-color: var(--brand-gold); background: #fffbeb; transform: translateY(-5px); }
 
@@ -67,6 +74,7 @@
 
     <!-- Navigation -->
     <header class="bg-white/90 backdrop-blur-md border-b sticky top-0 z-[100]">
+        <!-- Drapeaux Gabonais -->
         <div class="h-1 flex">
             <div class="flex-1 bg-[#00853f]"></div>
             <div class="flex-1 bg-[#fcd116]"></div>
@@ -74,7 +82,8 @@
         </div>
         <div class="max-w-7xl mx-auto px-4 py-3 flex justify-between items-center">
             <div class="flex items-center gap-3 cursor-pointer" onclick="location.reload()">
-                <img src="https://i.ibb.co/RkhcRdCs/echoppe241-logo.png" alt="Echoppe241 Logo" class="h-12 w-auto object-contain">
+                <!-- LOGO PRINCIPAL -->
+                <img src="https://i.ibb.co/RkhcRdCs/echoppe241-logo.png" alt="Echoppe241 Logo" class="brand-logo">
                 <div class="flex flex-col">
                     <span class="font-black text-xl tracking-tighter uppercase leading-none">ECHOPPE<span class="text-amber-500">241</span></span>
                     <span class="text-[8px] font-bold uppercase text-slate-400 tracking-[0.2em]">Supply Chain Gabon</span>
@@ -98,7 +107,7 @@
         <section id="view-admin" class="hidden space-y-6">
             <div class="flex items-center justify-between">
                 <h2 class="text-2xl font-black uppercase tracking-tighter italic">Console Administration</h2>
-                <div class="status-badge status-active">Mode Super-Admin</div>
+                <div class="px-3 py-1 bg-amber-100 text-amber-700 rounded-full text-[10px] font-black uppercase tracking-widest">Mode Super-Admin</div>
             </div>
             <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
                 <div class="bg-white p-5 rounded-3xl border shadow-sm">
@@ -124,7 +133,7 @@
                     <i class="fa-solid fa-user-check text-emerald-500"></i> Validation des Partenaires
                 </h3>
                 <div id="admin-pending-list" class="space-y-3">
-                    <p class="text-xs text-slate-400 italic text-center py-10">Aucune demande de validation en cours.</p>
+                    <p class="text-xs text-slate-400 italic text-center py-10">Chargement des demandes...</p>
                 </div>
             </div>
         </section>
@@ -197,7 +206,7 @@
             </div>
 
             <div id="market-grid" class="grid grid-cols-2 md:grid-cols-4 gap-6">
-                <!-- Chargement dynamique -->
+                <!-- Produits chargés par Firebase -->
             </div>
         </section>
     </main>
@@ -207,28 +216,23 @@
         <div class="bg-white w-full max-w-md rounded-[2.5rem] p-8 relative shadow-2xl">
             <button onclick="closeAuthModal()" class="absolute top-6 right-6 text-slate-300 text-2xl hover:text-slate-900 transition-colors">&times;</button>
             <div class="text-center mb-8">
-                <img src="https://i.ibb.co/RkhcRdCs/echoppe241-logo.png" alt="Logo" class="h-16 mx-auto mb-4">
+                <!-- LOGO DANS MODALE -->
+                <img src="https://i.ibb.co/RkhcRdCs/echoppe241-logo.png" alt="Logo" class="h-16 mx-auto mb-4 object-contain">
                 <h2 id="auth-title" class="text-2xl font-black uppercase tracking-tighter">Bienvenue</h2>
             </div>
             
             <form id="login-form" class="space-y-4">
-                <div class="space-y-1">
-                    <label class="text-[9px] font-black uppercase text-slate-400 ml-2">Email Professionnel</label>
-                    <input type="email" id="l-email" placeholder="nom@exemple.com" class="w-full bg-slate-50 p-4 rounded-2xl outline-none font-bold text-sm border focus:border-emerald-500 transition-all" required>
-                </div>
-                <div class="space-y-1">
-                    <label class="text-[9px] font-black uppercase text-slate-400 ml-2">Mot de passe</label>
-                    <input type="password" id="l-pass" placeholder="••••••••" class="w-full bg-slate-50 p-4 rounded-2xl outline-none font-bold text-sm border focus:border-emerald-500 transition-all" required>
-                </div>
+                <input type="email" id="l-email" placeholder="Email Professionnel" class="w-full bg-slate-50 p-4 rounded-2xl outline-none font-bold text-sm border focus:border-emerald-500 transition-all" required>
+                <input type="password" id="l-pass" placeholder="Mot de passe" class="w-full bg-slate-50 p-4 rounded-2xl outline-none font-bold text-sm border focus:border-emerald-500 transition-all" required>
                 <button type="submit" class="w-full bg-slate-900 text-white py-4 rounded-2xl font-black uppercase text-[10px] tracking-widest hover:bg-emerald-600 transition-all shadow-lg">Se connecter</button>
                 <p class="text-center text-[10px] font-bold text-slate-400 uppercase pt-4">Nouveau partenaire ? <button type="button" onclick="toggleAuthMode('reg')" class="text-emerald-600 underline font-black">Rejoindre le réseau</button></p>
             </form>
 
             <form id="reg-form" class="space-y-3 hidden">
-                <input type="text" id="r-name" placeholder="Nom de l'exploitation / Complet" class="w-full bg-slate-50 p-3.5 rounded-2xl outline-none font-bold text-sm border focus:border-emerald-500 transition-all" required>
+                <input type="text" id="r-name" placeholder="Nom de l'exploitation" class="w-full bg-slate-50 p-3.5 rounded-2xl outline-none font-bold text-sm border focus:border-emerald-500 transition-all" required>
                 <input type="email" id="r-email" placeholder="Email" class="w-full bg-slate-50 p-3.5 rounded-2xl outline-none font-bold text-sm border focus:border-emerald-500 transition-all" required>
                 <input type="tel" id="r-phone" placeholder="WhatsApp (+241)" class="w-full bg-slate-50 p-3.5 rounded-2xl outline-none font-bold text-sm border focus:border-emerald-500 transition-all" required>
-                <input type="password" id="r-pass" placeholder="Créer un mot de passe" class="w-full bg-slate-50 p-3.5 rounded-2xl outline-none font-bold text-sm border focus:border-emerald-500 transition-all" required>
+                <input type="password" id="r-pass" placeholder="Mot de passe" class="w-full bg-slate-50 p-3.5 rounded-2xl outline-none font-bold text-sm border focus:border-emerald-500 transition-all" required>
                 <div class="grid grid-cols-2 gap-2 py-2">
                     <div onclick="setRegRole('buyer')" id="role-b" class="role-card active p-3 rounded-2xl bg-slate-50 text-center border">
                         <i class="fa-solid fa-basket-shopping block mb-1 text-slate-400"></i>
@@ -239,7 +243,7 @@
                         <span class="text-[8px] font-black uppercase">Producteur</span>
                     </div>
                 </div>
-                <button type="submit" class="w-full bg-emerald-600 text-white py-4 rounded-2xl font-black uppercase text-[10px] tracking-widest shadow-xl shadow-emerald-100 hover:bg-emerald-700 transition-all">Finaliser l'inscription</button>
+                <button type="submit" class="w-full bg-emerald-600 text-white py-4 rounded-2xl font-black uppercase text-[10px] tracking-widest hover:bg-emerald-700 transition-all shadow-xl shadow-emerald-100">Inscription</button>
                 <p class="text-center text-[10px] font-bold text-slate-400 uppercase pt-4">Déjà inscrit ? <button type="button" onclick="toggleAuthMode('login')" class="text-slate-900 underline font-black">S'identifier</button></p>
             </form>
         </div>
@@ -251,17 +255,17 @@
             <button onclick="document.getElementById('publish-modal').classList.add('hidden')" class="absolute top-6 right-6 text-slate-300 text-2xl hover:text-slate-900">&times;</button>
             <h3 class="text-2xl font-black mb-6 uppercase tracking-tighter italic"><i class="fa-solid fa-truck-ramp-box mr-2 text-emerald-500"></i>Nouvelle Entrée Stock</h3>
             <form id="product-form" class="space-y-4">
-                <input type="text" id="p-name" placeholder="Désignation du produit" class="w-full bg-slate-50 p-4 rounded-2xl outline-none font-bold text-sm border" required>
+                <input type="text" id="p-name" placeholder="Désignation" class="w-full bg-slate-50 p-4 rounded-2xl outline-none font-bold text-sm border" required>
                 <div class="grid grid-cols-2 gap-4">
-                    <input type="number" id="p-price" placeholder="Prix Unitaire (FCFA)" class="w-full bg-slate-50 p-4 rounded-2xl outline-none font-bold text-sm border" required>
-                    <input type="number" id="p-qty" placeholder="Volume dispo" class="w-full bg-slate-50 p-4 rounded-2xl outline-none font-bold text-sm border" required>
+                    <input type="number" id="p-price" placeholder="Prix (FCFA)" class="w-full bg-slate-50 p-4 rounded-2xl outline-none font-bold text-sm border" required>
+                    <input type="number" id="p-qty" placeholder="Quantité" class="w-full bg-slate-50 p-4 rounded-2xl outline-none font-bold text-sm border" required>
                 </div>
                 <select id="p-prov" class="w-full bg-slate-50 p-4 rounded-2xl outline-none font-bold text-sm border cursor-pointer">
-                    <option value="" disabled selected>Province gabonaise d'origine</option>
+                    <option value="" disabled selected>Province d'origine</option>
                     <option>Estuaire</option><option>Haut-Ogooué</option><option>Moyen-Ogooué</option><option>Ngounié</option>
                     <option>Nyanga</option><option>Ogooué-Ivindo</option><option>Ogooué-Lolo</option><option>Ogooué-Maritime</option><option>Woleu-Ntem</option>
                 </select>
-                <button type="submit" class="w-full bg-slate-900 text-white py-4 rounded-2xl font-black uppercase text-[10px] tracking-widest shadow-xl hover:bg-emerald-600 transition-all">Enregistrer et Mettre en Ligne</button>
+                <button type="submit" class="w-full bg-slate-900 text-white py-4 rounded-2xl font-black uppercase text-[10px] tracking-widest shadow-xl">Valider l'entrée</button>
             </form>
         </div>
     </div>
@@ -275,16 +279,16 @@
                         <i class="fa-solid fa-user-tie text-emerald-400 text-xs"></i>
                     </div>
                     <div>
-                        <h4 id="chat-target" class="font-black text-sm uppercase tracking-tighter">Messagerie Directe</h4>
+                        <h4 id="chat-target" class="font-black text-sm uppercase tracking-tighter">Messagerie</h4>
                         <p class="text-[8px] font-bold text-emerald-400 uppercase tracking-widest">Canal sécurisé Echoppe241</p>
                     </div>
                 </div>
-                <button onclick="closeChat()" class="text-white/40 hover:text-white text-2xl transition-all">&times;</button>
+                <button onclick="closeChat()" class="text-white/40 hover:text-white text-2xl">&times;</button>
             </div>
             <div id="chat-messages" class="flex-grow p-5 overflow-y-auto flex flex-col gap-2 bg-slate-50"></div>
             <form id="chat-form" class="p-4 bg-white border-t flex gap-2">
-                <input type="text" id="chat-input" placeholder="Discuter de la commande..." class="flex-grow bg-slate-50 p-4 rounded-2xl outline-none font-bold text-sm border focus:border-emerald-500 transition-all">
-                <button class="bg-emerald-600 text-white w-12 h-12 rounded-2xl flex items-center justify-center shadow-lg hover:bg-emerald-700 transition-all"><i class="fa-solid fa-paper-plane"></i></button>
+                <input type="text" id="chat-input" placeholder="Ecrivez ici..." class="flex-grow bg-slate-50 p-4 rounded-2xl outline-none font-bold text-sm border">
+                <button class="bg-emerald-600 text-white w-12 h-12 rounded-2xl flex items-center justify-center shadow-lg"><i class="fa-solid fa-paper-plane"></i></button>
             </form>
         </div>
     </div>
@@ -298,13 +302,13 @@
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
         const db = getFirestore(app);
-        const appId = 'echoppe241-v1';
+        const appId = 'echoppe241-prod-v1';
 
         let currentUser = null;
         let selectedRegRole = 'buyer';
         let currentChatId = null;
 
-        // --- AUTH & USER STATE ---
+        // AUTH TRACKING
         onAuthStateChanged(auth, async (user) => {
             if (user) {
                 const userRef = doc(db, 'artifacts', appId, 'users', user.uid);
@@ -315,12 +319,14 @@
                     syncData();
                 } else if (user.isAnonymous) {
                     resetUI();
+                    syncData();
                 }
             } else {
                 signInAnonymously(auth);
             }
         });
 
+        // ACTIONS AUTH
         document.getElementById('reg-form').onsubmit = async (e) => {
             e.preventDefault();
             const email = document.getElementById('r-email').value;
@@ -334,16 +340,11 @@
                 const status = role === 'producer' ? 'pending' : 'active';
                 
                 await setDoc(doc(db, 'artifacts', appId, 'users', cred.user.uid), {
-                    fullName: name,
-                    email: email,
-                    phone: phone,
-                    role: role,
-                    status: status,
-                    createdAt: serverTimestamp()
+                    fullName: name, email, phone, role, status, createdAt: serverTimestamp()
                 });
                 closeAuthModal();
-                showToast("Compte partenaire créé !");
-            } catch (err) { showToast("Veuillez vérifier les informations."); }
+                showToast(role === 'producer' ? "Compte en attente de validation." : "Bienvenue sur Echoppe241 !");
+            } catch (err) { showToast("Erreur lors de l'inscription."); }
         };
 
         document.getElementById('login-form').onsubmit = async (e) => {
@@ -351,10 +352,10 @@
             try {
                 await signInWithEmailAndPassword(auth, document.getElementById('l-email').value, document.getElementById('l-pass').value);
                 closeAuthModal();
-            } catch (err) { showToast("Accès refusé. Vérifiez vos identifiants."); }
+            } catch (err) { showToast("Identifiants incorrects."); }
         };
 
-        // --- UI REFRESH ---
+        // UI MANAGEMENT
         function updateUI() {
             document.getElementById('auth-btn').classList.add('hidden');
             document.getElementById('logout-btn').classList.remove('hidden');
@@ -380,204 +381,72 @@
             document.getElementById('view-buyer').classList.remove('hidden');
         }
 
-        // --- REALTIME SYNC ---
+        // FIREBASE SYNC
         function syncData() {
+            // Stats Admin
             onSnapshot(collection(db, 'artifacts', appId, 'users'), (snap) => {
-                document.getElementById('stat-users').innerText = snap.size;
-                const pending = snap.docs.filter(d => d.data().status === 'pending');
+                const all = snap.docs.map(d => ({id: d.id, ...d.data()}));
+                document.getElementById('stat-users').innerText = all.length;
+                const pending = all.filter(u => u.status === 'pending');
                 document.getElementById('stat-pending').innerText = pending.length;
                 if (currentUser?.role === 'admin') renderAdminPending(pending);
             });
 
+            // Produits
             onSnapshot(collection(db, 'artifacts', appId, 'public', 'data', 'products'), (snap) => {
-                document.getElementById('stat-products').innerText = snap.size;
                 const products = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+                document.getElementById('stat-products').innerText = products.length;
                 renderMarket(products);
                 if (currentUser?.role === 'producer') renderInventory(products.filter(p => p.ownerId === currentUser.uid));
             });
         }
 
-        function renderAdminPending(list) {
-            const container = document.getElementById('admin-pending-list');
-            container.innerHTML = list.length ? '' : '<p class="text-xs text-slate-400 italic text-center py-10">Aucun nouveau partenaire à valider.</p>';
-            list.forEach(docSnap => {
-                const u = docSnap.data();
-                const div = document.createElement('div');
-                div.className = "flex justify-between items-center bg-slate-50 p-5 rounded-3xl border border-slate-100 hover:border-emerald-200 transition-colors";
-                div.innerHTML = `
-                    <div class="flex items-center gap-4">
-                        <div class="w-10 h-10 bg-white rounded-xl border flex items-center justify-center font-black text-xs text-slate-400">${u.fullName.charAt(0)}</div>
-                        <div>
-                            <p class="text-[11px] font-black uppercase text-slate-900">${u.fullName}</p>
-                            <p class="text-[9px] font-bold text-slate-400">WhatsApp: ${u.phone}</p>
-                        </div>
-                    </div>
-                    <button onclick="approveProducer('${docSnap.id}')" class="bg-emerald-600 text-white px-5 py-2.5 rounded-xl text-[9px] font-black uppercase shadow-lg shadow-emerald-50 hover:scale-105 transition-transform">Activer</button>
-                `;
-                container.appendChild(div);
-            });
-        }
-
-        window.approveProducer = async (uid) => {
-            await updateDoc(doc(db, 'artifacts', appId, 'users', uid), { status: 'active' });
-            showToast("Accès producteur activé avec succès !");
-        };
-
         function renderMarket(products) {
             const container = document.getElementById('market-grid');
-            container.innerHTML = '';
+            container.innerHTML = products.length ? '' : '<p class="col-span-full py-20 text-center text-slate-400 italic">Aucun arrivage pour le moment.</p>';
             products.forEach(p => {
                 const card = document.createElement('div');
-                card.className = "bg-white p-4 rounded-[2.5rem] border shadow-sm flex flex-col gap-3 group cursor-pointer hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1";
+                card.className = "bg-white p-4 rounded-[2.5rem] border shadow-sm group cursor-pointer hover:shadow-xl transition-all";
                 card.onclick = () => openChatWith(p.ownerId, p.ownerName);
                 card.innerHTML = `
-                    <div class="h-32 bg-slate-50 rounded-[1.8rem] overflow-hidden relative flex items-center justify-center border border-slate-50">
-                         <div class="absolute top-3 left-3 bg-white/95 backdrop-blur px-2 py-1 rounded-lg text-[8px] font-black uppercase text-emerald-600 shadow-sm border border-emerald-100">${p.province}</div>
-                         <i class="fa-solid fa-box-archive text-slate-200 text-4xl group-hover:scale-110 transition-transform"></i>
+                    <div class="h-32 bg-slate-50 rounded-[1.8rem] flex items-center justify-center border relative mb-3">
+                         <div class="absolute top-2 left-2 bg-white px-2 py-1 rounded-lg text-[7px] font-black uppercase text-emerald-600 border">${p.province}</div>
+                         <i class="fa-solid fa-box text-slate-200 text-3xl"></i>
                     </div>
-                    <div class="px-1">
-                        <h4 class="font-black text-xs uppercase group-hover:text-emerald-600 transition truncate">${p.name}</h4>
-                        <div class="flex items-baseline gap-1 mt-1">
-                            <p class="text-xl font-black text-slate-900">${p.price}</p>
-                            <p class="text-[8px] font-black text-slate-400 uppercase">FCFA / Unit</p>
-                        </div>
-                    </div>
-                    <div class="flex justify-between items-center mt-auto pt-3 border-t border-dashed border-slate-100 px-1">
-                        <div class="flex flex-col">
-                            <span class="text-[7px] font-black text-slate-300 uppercase leading-none mb-1">Producteur</span>
-                            <span class="text-[9px] font-black text-slate-800 uppercase tracking-tighter">${p.ownerName}</span>
-                        </div>
-                        <div class="w-10 h-10 bg-slate-900 text-white rounded-2xl flex items-center justify-center text-xs shadow-lg group-hover:bg-emerald-500 transition-colors"><i class="fa-solid fa-comment-dots"></i></div>
+                    <h4 class="font-black text-xs uppercase truncate">${p.name}</h4>
+                    <p class="text-lg font-black mt-1">${p.price} <span class="text-[8px] text-slate-400 uppercase tracking-widest">FCFA</span></p>
+                    <div class="flex justify-between items-center mt-3 pt-3 border-t border-dashed">
+                        <span class="text-[9px] font-black text-slate-800 uppercase">${p.ownerName}</span>
+                        <div class="w-8 h-8 bg-slate-900 text-white rounded-xl flex items-center justify-center text-xs"><i class="fa-solid fa-comment"></i></div>
                     </div>
                 `;
                 container.appendChild(card);
             });
         }
 
-        function renderInventory(myProducts) {
-            const container = document.getElementById('producer-inventory');
-            container.innerHTML = myProducts.length ? '' : '<div class="col-span-full py-10 text-center text-slate-400 italic text-xs">Aucun stock enregistré.</div>';
-            myProducts.forEach(p => {
-                const div = document.createElement('div');
-                div.className = "bg-slate-50 p-5 rounded-3xl border flex justify-between items-center hover:bg-white hover:shadow-md transition-all";
-                div.innerHTML = `
-                    <div>
-                        <p class="text-[10px] font-black uppercase text-slate-400 mb-1">Désignation</p>
-                        <p class="text-[11px] font-black uppercase text-slate-900 truncate max-w-[120px]">${p.name}</p>
-                        <p class="text-2xl font-black mt-1 text-emerald-600">${p.qty} <span class="text-[8px] text-slate-400 uppercase">Dispo</span></p>
-                    </div>
-                    <div class="flex flex-col gap-2">
-                         <button onclick="updateQty('${p.id}', ${p.qty + 1})" class="w-10 h-10 bg-white border border-slate-200 rounded-xl flex items-center justify-center text-sm font-black shadow-sm hover:border-emerald-500 transition-colors"><i class="fa-solid fa-plus"></i></button>
-                         <button onclick="updateQty('${p.id}', ${Math.max(0, p.qty - 1)})" class="w-10 h-10 bg-white border border-slate-200 rounded-xl flex items-center justify-center text-sm font-black shadow-sm hover:border-red-500 transition-colors"><i class="fa-solid fa-minus"></i></button>
-                    </div>
-                `;
-                container.appendChild(div);
-            });
-        }
-
-        window.updateQty = async (id, newQty) => {
-            await updateDoc(doc(db, 'artifacts', appId, 'public', 'data', 'products', id), { qty: newQty });
-        };
-
-        // --- PUBLICATION STOCK ---
-        document.getElementById('product-form').onsubmit = async (e) => {
-            e.preventDefault();
-            if (!currentUser || currentUser.status !== 'active') return showToast("Votre compte n'est pas encore validé par l'admin.");
-            
-            try {
-                await addDoc(collection(db, 'artifacts', appId, 'public', 'data', 'products'), {
-                    name: document.getElementById('p-name').value,
-                    price: Number(document.getElementById('p-price').value),
-                    qty: Number(document.getElementById('p-qty').value),
-                    province: document.getElementById('p-prov').value,
-                    ownerId: currentUser.uid,
-                    ownerName: currentUser.fullName,
-                    createdAt: serverTimestamp()
-                });
-                document.getElementById('publish-modal').classList.add('hidden');
-                document.getElementById('product-form').reset();
-                showToast("Stock WMS synchronisé !");
-            } catch (err) { showToast("Erreur système lors de la mise en stock."); }
-        };
-
-        // --- MESSAGERIE ---
-        async function openChatWith(targetId, targetName) {
-            if (!currentUser || currentUser.uid === targetId) return;
-            document.getElementById('chat-modal').classList.remove('hidden');
-            document.getElementById('chat-target').innerText = targetName;
-            currentChatId = [currentUser.uid, targetId].sort().join('_');
-            
-            onSnapshot(query(collection(db, 'artifacts', appId, 'public', 'data', 'chats', currentChatId, 'messages'), orderBy('createdAt', 'asc')), (snap) => {
-                const container = document.getElementById('chat-messages');
-                container.innerHTML = '';
-                snap.forEach(d => {
-                    const m = d.data();
-                    const b = document.createElement('div');
-                    b.className = `chat-bubble ${m.senderId === currentUser.uid ? 'chat-mine' : 'chat-theirs'}`;
-                    b.innerText = m.text;
-                    container.appendChild(b);
-                });
-                container.scrollTop = container.scrollHeight;
-            });
-        }
-
-        document.getElementById('chat-form').onsubmit = async (e) => {
-            e.preventDefault();
-            const input = document.getElementById('chat-input');
-            if (!input.value.trim() || !currentChatId) return;
-            await addDoc(collection(db, 'artifacts', appId, 'public', 'data', 'chats', currentChatId, 'messages'), {
-                text: input.value,
-                senderId: currentUser.uid,
-                createdAt: serverTimestamp()
-            });
-            input.value = '';
-        };
-
-        // --- UTILITIES ---
+        // UTILS
         function showToast(msg) {
             const t = document.getElementById('toast');
             document.getElementById('toast-msg').innerText = msg;
             t.classList.remove('hidden');
-            setTimeout(() => t.classList.add('hidden'), 4000);
+            setTimeout(() => t.classList.add('hidden'), 3500);
         }
 
         window.openAuthModal = () => document.getElementById('auth-modal').classList.remove('hidden');
         window.closeAuthModal = () => document.getElementById('auth-modal').classList.add('hidden');
-        window.closeChat = () => document.getElementById('chat-modal').classList.add('hidden');
         window.toggleAuthMode = (m) => {
             document.getElementById('login-form').classList.toggle('hidden', m === 'reg');
             document.getElementById('reg-form').classList.toggle('hidden', m === 'login');
-            document.getElementById('auth-title').innerText = m === 'reg' ? "Rejoindre le Réseau" : "Connexion Partenaire";
+            document.getElementById('auth-title').innerText = m === 'reg' ? "Devenir Partenaire" : "Connexion";
         };
         window.setRegRole = (r) => {
             selectedRegRole = r;
             document.getElementById('role-b').classList.toggle('active', r === 'buyer');
             document.getElementById('role-p').classList.toggle('active', r === 'producer');
         };
-        window.openPublishModal = () => document.getElementById('publish-modal').classList.remove('hidden');
         window.handleLogout = () => signOut(auth).then(() => location.reload());
-
-        // --- PWA MANIFEST (Simulé avec le logo officiel) ---
-        const manifest = {
-            name: "Echoppe 241 Supply Chain",
-            short_name: "Echoppe241",
-            start_url: ".",
-            display: "standalone",
-            background_color: "#f8fafc",
-            theme_color: "#0f172a",
-            icons: [{ 
-                src: "https://i.ibb.co/RkhcRdCs/echoppe241-logo.png", 
-                sizes: "512x512", 
-                type: "image/png",
-                purpose: "any maskable"
-            }]
-        };
-        const manifestBlob = new Blob([JSON.stringify(manifest)], {type: 'application/json'});
-        const manifestURL = URL.createObjectURL(manifestBlob);
-        const link = document.createElement('link');
-        link.rel = 'manifest';
-        link.href = manifestURL;
-        document.head.appendChild(link);
+        window.openPublishModal = () => document.getElementById('publish-modal').classList.remove('hidden');
+        window.closeChat = () => document.getElementById('chat-modal').classList.add('hidden');
 
     </script>
 </body>
