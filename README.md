@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>Echoppe241 | Officiel</title> 
+    <title>Echoppe241 | EchoppePay Pro</title> 
     
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
@@ -18,35 +18,39 @@
             --dark: #0f172a;
         }
 
-        body { font-family: 'Inter', sans-serif; background-color: var(--white); color: var(--dark); margin: 0; overflow-x: hidden; -webkit-tap-highlight-color: transparent; }
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; color: var(--dark); margin: 0; overflow-x: hidden; -webkit-tap-highlight-color: transparent; }
         h1, h2, h3, .brand-font { font-family: 'Syne', sans-serif; text-transform: lowercase; }
 
         .view { display: none; }
-        .view.active { display: block; animation: fadeIn 0.3s ease-out forwards; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+        .view.active { display: block; animation: fadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-        .card-neo { background: var(--white); border-radius: 24px; border: 1px solid #f1f5f9; box-shadow: 0 4px 12px rgba(58, 117, 196, 0.05); }
-        .btn-blue { background: var(--primary-blue); color: var(--white); padding: 18px; border-radius: 20px; font-weight: 800; text-transform: uppercase; font-size: 11px; width: 100%; transition: 0.2s; border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; }
-        .btn-blue:active { transform: scale(0.98); }
+        .card-neo { background: var(--white); border-radius: 28px; border: 1px solid rgba(226, 232, 240, 0.8); box-shadow: 0 10px 25px -5px rgba(58, 117, 196, 0.05); }
+        .btn-blue { background: var(--primary-blue); color: var(--white); padding: 16px; border-radius: 20px; font-weight: 800; text-transform: uppercase; font-size: 11px; width: 100%; transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1); border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; }
+        .btn-blue:active { transform: scale(0.96); opacity: 0.9; }
+        .btn-blue:disabled { background: #94a3b8; cursor: not-allowed; }
         
-        .input-custom { background: #f8fafc; border-radius: 16px; padding: 16px; width: 100%; font-size: 14px; border: 2px solid transparent; outline: none; transition: 0.3s; }
-        .input-custom:focus { border-color: var(--primary-blue); background: var(--white); }
+        .input-custom { background: #f1f5f9; border-radius: 18px; padding: 16px; width: 100%; font-size: 14px; border: 2px solid transparent; outline: none; transition: 0.3s; }
+        .input-custom:focus { border-color: var(--primary-blue); background: var(--white); box-shadow: 0 0 0 4px rgba(58, 117, 196, 0.1); }
 
-        #toast { position: fixed; bottom: 100px; left: 50%; transform: translateX(-50%); z-index: 10000; background: var(--dark); color: var(--white); padding: 12px 24px; border-radius: 50px; font-size: 11px; font-weight: 700; display: none; text-align: center; min-width: 250px; box-shadow: 0 10px 25px rgba(0,0,0,0.2); }
+        #toast { position: fixed; bottom: 100px; left: 50%; transform: translateX(-50%); z-index: 10000; background: var(--dark); color: var(--white); padding: 14px 28px; border-radius: 50px; font-size: 12px; font-weight: 700; display: none; text-align: center; min-width: 280px; box-shadow: 0 20px 40px rgba(0,0,0,0.3); }
 
-        .nav-item { color: #cbd5e1; transition: 0.3s; text-align: center; flex: 1; cursor: pointer; border: none; background: none; }
+        .nav-item { color: #94a3b8; transition: 0.3s; text-align: center; flex: 1; cursor: pointer; border: none; background: none; display: flex; flex-direction: column; align-items: center; justify-content: center; }
         .nav-item.active { color: var(--primary-blue); }
+        .nav-item.active i { transform: translateY(-2px); }
 
         .modal-full { position: fixed; inset: 0; background: var(--white); z-index: 9000; overflow-y: auto; display: none; }
         
-        #splash-screen { position: fixed; inset: 0; background: var(--white); z-index: 9999; display: flex; flex-direction: column; align-items: center; justify-content: center; transition: 0.5s; }
+        #splash-screen { position: fixed; inset: 0; background: var(--white); z-index: 9999; display: flex; flex-direction: column; align-items: center; justify-content: center; }
         
-        .chat-bubble { max-width: 85%; padding: 12px 16px; border-radius: 20px; font-size: 14px; margin-bottom: 8px; line-height: 1.5; position: relative; }
-        .chat-me { background: var(--primary-blue); color: white; align-self: flex-end; border-bottom-right-radius: 4px; }
-        .chat-them { background: #f1f5f9; color: var(--dark); align-self: flex-start; border-bottom-left-radius: 4px; }
-        
-        .order-card { background: #fff; border: 2px solid var(--primary-blue); border-radius: 20px; padding: 16px; margin: 8px 0; color: var(--dark); box-shadow: 0 4px 15px rgba(58, 117, 196, 0.1); width: 100%; }
-        
+        .wallet-card { background: linear-gradient(135deg, #3a75c4 0%, #1e40af 100%); border-radius: 32px; padding: 24px; color: white; position: relative; overflow: hidden; }
+        .wallet-card::before { content: ''; position: absolute; top: -20%; right: -10%; width: 150px; height: 150px; background: rgba(255,255,255,0.1); border-radius: 50%; }
+
+        .transaction-item { display: flex; align-items: center; justify-content: space-between; padding: 12px; background: white; border-radius: 20px; border: 1px solid #f1f5f9; margin-bottom: 8px; }
+
+        .avatar-option { width: 56px; height: 56px; border-radius: 16px; cursor: pointer; border: 3px solid transparent; transition: 0.2s; }
+        .avatar-option.selected { border-color: var(--primary-blue); transform: scale(1.1); box-shadow: 0 10px 15px -3px rgba(58, 117, 196, 0.2); }
+
         ::-webkit-scrollbar { display: none; }
     </style>
 </head>
@@ -56,220 +60,255 @@
 
     <!-- SplashScreen -->
     <div id="splash-screen">
-        <img src="https://i.ibb.co/RkhcRdCs/echoppe241-logo.png" class="w-24 h-24 mb-6" alt="Logo Echoppe241">
-        <div class="flex gap-2">
-            <div class="w-2 h-2 rounded-full bg-[#3a75c4] animate-bounce"></div>
-            <div class="w-2 h-2 rounded-full bg-[#fcd116] animate-bounce [animation-delay:0.2s]"></div>
-            <div class="w-2 h-2 rounded-full bg-[#00853f] animate-bounce [animation-delay:0.4s]"></div>
-        </div>
+        <img src="https://i.ibb.co/RkhcRdCs/echoppe241-logo.png" class="w-20 h-20 mb-6 animate-pulse" alt="Echoppe241">
+        <p class="text-[11px] font-black uppercase tracking-[0.3em] text-blue-900 opacity-50">Sécurisation EchoppePay...</p>
     </div>
 
-    <!-- Authentification -->
-    <div id="view-auth" class="view active min-h-screen flex items-center px-6">
+    <!-- Interface Auth (Identique mais simplifiée pour le focus) -->
+    <div id="view-auth" class="view active min-h-screen flex items-center px-8 bg-white">
         <div class="w-full max-w-sm mx-auto text-center">
-            <img src="https://i.ibb.co/RkhcRdCs/echoppe241-logo.png" class="w-20 mx-auto mb-6">
-            <h1 class="text-4xl font-black text-blue-900 tracking-tighter mb-12 italic">echoppe<span class="text-[#fcd116]">241</span></h1>
+            <img src="https://i.ibb.co/RkhcRdCs/echoppe241-logo.png" class="w-16 mx-auto mb-4">
+            <h1 class="text-4xl font-black text-blue-900 tracking-tighter mb-10 italic">echoppe<span class="text-[#fcd116]">241</span></h1>
             
             <div id="login-form" class="space-y-4">
                 <input type="email" id="login-email" class="input-custom" placeholder="Email">
                 <input type="password" id="login-pass" class="input-custom" placeholder="Mot de passe">
-                <button onclick="handleLogin()" class="btn-blue shadow-xl shadow-blue-100">Connexion</button>
-                <p class="text-xs text-slate-500">Pas de compte ? <span onclick="toggleAuth('register')" class="text-blue-600 font-bold underline cursor-pointer">S'inscrire</span></p>
+                <button onclick="handleLogin()" id="btn-login" class="btn-blue shadow-xl shadow-blue-100">Accéder à mon compte</button>
+                <button onclick="toggleAuth('register')" class="text-xs text-blue-600 font-bold uppercase tracking-widest mt-4">Nouveau ? Créer un compte</button>
             </div>
 
             <div id="register-form" class="space-y-4 hidden text-left">
-                <input type="text" id="reg-name" class="input-custom" placeholder="Nom complet">
+                <input type="text" id="reg-name" class="input-custom" placeholder="Nom Complet">
                 <input type="email" id="reg-email" class="input-custom" placeholder="Email">
-                <input type="password" id="reg-pass" class="input-custom" placeholder="Mot de passe (6 car. min)">
-                <input type="text" id="reg-invite" class="input-custom" placeholder="Code Invitation (Admin - Optionnel)">
-                <button onclick="handleRegister()" class="btn-blue bg-[#00853f]">Créer mon compte</button>
-                <p class="text-center text-xs text-slate-500">Déjà inscrit ? <span onclick="toggleAuth('login')" class="text-blue-600 font-bold underline cursor-pointer">Se connecter</span></p>
+                <input type="password" id="reg-pass" class="input-custom" placeholder="Mot de passe (6+ car.)">
+                <button onclick="handleRegister()" id="btn-reg" class="btn-blue bg-green-600">S'inscrire gratuitement</button>
+                <button onclick="toggleAuth('login')" class="w-full text-center text-xs text-slate-500 font-bold mt-4 uppercase">Retour à la connexion</button>
             </div>
         </div>
     </div>
 
-    <!-- Interface Applicative -->
+    <!-- App Principale -->
     <div id="app-content" style="display:none">
-        <header class="fixed top-0 inset-x-0 h-20 px-6 flex items-center justify-between bg-white/90 backdrop-blur-xl border-b border-slate-50 z-[500]">
+        <!-- Header -->
+        <header class="fixed top-0 inset-x-0 h-20 px-6 flex items-center justify-between bg-white/80 backdrop-blur-xl z-[500] border-b border-slate-100">
             <div class="flex items-center gap-2">
-                <img src="https://i.ibb.co/RkhcRdCs/echoppe241-logo.png" class="w-8 h-8">
-                <h1 class="text-xl font-black text-blue-900 italic">echoppe<span class="text-[#fcd116]">241</span></h1>
+                <div class="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center text-white text-xs font-black">E</div>
+                <h1 class="text-lg font-black text-blue-900 italic">echoppe<span class="text-yellow-500">241</span></h1>
             </div>
-            <div class="flex items-center gap-3">
-                <div class="text-right">
-                    <p id="header-balance" class="text-sm font-black text-blue-600">0 F</p>
-                </div>
-                <img id="header-avatar" onclick="navigateTo('profile')" class="w-10 h-10 rounded-xl bg-slate-100 object-cover cursor-pointer">
+            <div onclick="navigateTo('profile')" class="flex items-center gap-3 bg-slate-50 p-1.5 pr-4 rounded-2xl cursor-pointer active:scale-95 transition">
+                <img id="header-avatar" class="w-8 h-8 rounded-xl object-cover">
+                <p id="header-balance" class="text-xs font-black text-blue-900">0 F</p>
             </div>
         </header>
 
         <main class="max-w-xl mx-auto px-6 pt-24 pb-28">
-            <!-- Marché -->
+            
+            <!-- VUE : ACCUEIL / SHOP -->
             <div id="view-home" class="view active">
-                <h2 class="text-2xl font-black text-blue-900 mb-6 tracking-tight italic">Le Marché.</h2>
-                <div id="product-list" class="grid grid-cols-2 gap-4">
-                    <!-- Les produits arrivent ici -->
+                <div class="flex items-center justify-between mb-6">
+                    <h2 class="text-2xl font-black text-blue-900 italic">Découvrir.</h2>
+                    <button onclick="openModal('publish-modal')" class="px-4 py-2 bg-blue-50 text-blue-600 text-[10px] font-black uppercase rounded-xl">+ Vendre</button>
+                </div>
+                <div id="product-list" class="grid grid-cols-2 gap-4"></div>
+            </div>
+
+            <!-- VUE : ECHOPPE PAY (PORTefeuille) -->
+            <div id="view-wallet" class="view">
+                <h2 class="text-2xl font-black text-blue-900 mb-6 italic">EchoppePay.</h2>
+                
+                <div class="wallet-card mb-8 shadow-2xl shadow-blue-200">
+                    <div class="flex justify-between items-start mb-10">
+                        <div>
+                            <p class="text-[10px] font-black uppercase tracking-widest opacity-60">Solde Disponible</p>
+                            <h3 id="wallet-balance" class="text-3xl font-black mt-1">0 FCFA</h3>
+                        </div>
+                        <img src="https://i.ibb.co/RkhcRdCs/echoppe241-logo.png" class="w-10 opacity-30 grayscale brightness-200">
+                    </div>
+                    <div class="grid grid-cols-2 gap-3">
+                        <button onclick="openModal('recharge-modal')" class="bg-white/20 hover:bg-white/30 p-3 rounded-2xl text-[10px] font-black uppercase transition flex items-center justify-center gap-2"><i class="fa-solid fa-plus-circle"></i> Recharger</button>
+                        <button onclick="openModal('transfer-modal')" class="bg-white/20 hover:bg-white/30 p-3 rounded-2xl text-[10px] font-black uppercase transition flex items-center justify-center gap-2"><i class="fa-solid fa-paper-plane"></i> Transférer</button>
+                    </div>
+                </div>
+
+                <div class="mb-6">
+                    <h4 class="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-4">Transactions Récentes</h4>
+                    <div id="wallet-history" class="space-y-2">
+                        <!-- Historique financier ici -->
+                    </div>
                 </div>
             </div>
 
-            <!-- Messages -->
+            <!-- VUE : MESSAGES -->
             <div id="view-messages" class="view">
-                <h2 class="text-2xl font-black text-blue-900 mb-6 tracking-tight italic">Discussions.</h2>
-                <div id="conversations-list" class="space-y-3">
-                    <!-- Liste des chats -->
-                </div>
+                <h2 class="text-2xl font-black text-blue-900 mb-6 italic">Messages.</h2>
+                <div id="conversations-list" class="space-y-3"></div>
             </div>
 
-            <!-- Profil -->
+            <!-- VUE : PROFIL -->
             <div id="view-profile" class="view">
-                <div class="card-neo p-6 text-center mb-6">
-                    <div class="relative w-20 h-20 mx-auto mb-4">
-                        <img id="p-avatar" class="w-20 h-20 rounded-3xl object-cover border-4 border-white shadow-md">
-                        <div id="admin-badge" class="hidden absolute -top-1 -right-1 bg-red-500 text-white text-[8px] font-black px-2 py-1 rounded-full">ADMIN</div>
+                <div class="card-neo p-8 text-center mb-6">
+                    <div class="relative w-24 h-24 mx-auto mb-4">
+                        <img id="p-avatar" class="w-24 h-24 rounded-[32px] object-cover border-4 border-slate-50 shadow-xl">
+                        <div id="p-badge-admin" class="hidden absolute -bottom-2 -right-2 bg-red-600 text-white text-[8px] font-black px-2 py-1 rounded-lg border-2 border-white">ADMIN</div>
                     </div>
                     <h3 id="p-name" class="font-black text-xl text-blue-900">...</h3>
+                    <p id="p-email" class="text-[10px] text-slate-400 font-bold uppercase tracking-[0.2em] mt-1">...</p>
                     
-                    <div class="bg-blue-600 p-5 rounded-3xl text-white text-left shadow-lg mt-4">
-                        <p class="text-[8px] font-black opacity-60 uppercase tracking-widest mb-1">Mon Solde Echoppe</p>
-                        <p id="p-balance" class="text-xl font-black">0 FCFA</p>
+                    <div class="flex gap-2 mt-6">
+                        <button onclick="openModal('edit-profile-modal')" class="flex-1 p-3 bg-slate-50 text-blue-900 text-[10px] font-black uppercase rounded-xl border border-slate-100">Éditer Profil</button>
+                        <button onclick="handleLogout()" class="w-12 h-12 flex items-center justify-center bg-red-50 text-red-500 rounded-xl"><i class="fa-solid fa-power-off"></i></button>
                     </div>
                 </div>
 
-                <div id="admin-panel" class="hidden mb-8">
-                    <h4 class="text-[10px] font-black text-red-500 uppercase tracking-widest mb-4">Tâches en attente (Admin)</h4>
-                    <div id="admin-tasks" class="space-y-3"></div>
-                </div>
-
-                <div class="space-y-2">
-                    <button onclick="openModal('publish-modal')" class="w-full p-4 bg-slate-50 rounded-2xl flex items-center justify-between text-xs font-bold text-slate-700">Publier une annonce <i class="fa-solid fa-tag opacity-30"></i></button>
-                    <button onclick="openModal('recharge-modal')" class="w-full p-4 bg-slate-50 rounded-2xl flex items-center justify-between text-xs font-bold text-slate-700">Recharger mon compte <i class="fa-solid fa-wallet opacity-30"></i></button>
-                    <button onclick="handleLogout()" class="w-full p-4 text-red-500 font-black text-[10px] uppercase mt-4">Déconnexion</button>
+                <div class="space-y-3">
+                    <div class="p-4 bg-white border border-slate-100 rounded-2xl flex items-center justify-between">
+                        <div>
+                            <p class="text-[8px] font-black text-slate-400 uppercase">Identifiant EchoppePay</p>
+                            <p id="p-uid" class="text-[10px] font-mono font-bold text-blue-600">...</p>
+                        </div>
+                        <button onclick="copyUID()" class="text-blue-500"><i class="fa-solid fa-copy"></i></button>
+                    </div>
+                    
+                    <div id="admin-section" class="hidden">
+                        <h4 class="text-[10px] font-black text-red-500 uppercase tracking-widest mb-3 mt-6">Administration</h4>
+                        <div id="admin-tasks-list" class="space-y-2"></div>
+                    </div>
                 </div>
             </div>
         </main>
 
-        <!-- Navigation -->
-        <nav class="fixed bottom-0 inset-x-0 h-20 bg-white/95 backdrop-blur-md border-t border-slate-100 flex items-center justify-around z-[500] pb-4">
-            <button onclick="navigateTo('home')" id="nav-home" class="nav-item active"><i class="fa-solid fa-shop text-xl"></i><p class="text-[8px] font-black mt-1 uppercase">Shop</p></button>
+        <!-- Barre de Navigation -->
+        <nav class="fixed bottom-0 inset-x-0 h-22 bg-white/90 backdrop-blur-2xl border-t border-slate-100 flex items-center justify-around z-[500] pb-6 px-4">
+            <button onclick="navigateTo('home')" id="nav-home" class="nav-item active"><i class="fa-solid fa-house-chimney text-xl"></i><p class="text-[8px] font-black mt-1 uppercase">Shop</p></button>
+            <button onclick="navigateTo('wallet')" id="nav-wallet" class="nav-item"><i class="fa-solid fa-wallet text-xl"></i><p class="text-[8px] font-black mt-1 uppercase">Pay</p></button>
             <button onclick="navigateTo('messages')" id="nav-messages" class="nav-item"><i class="fa-solid fa-comment-dots text-xl"></i><p class="text-[8px] font-black mt-1 uppercase">Chat</p></button>
-            <button onclick="navigateTo('profile')" id="nav-profile" class="nav-item"><i class="fa-solid fa-user-circle text-xl"></i><p class="text-[8px] font-black mt-1 uppercase">Moi</p></button>
+            <button onclick="navigateTo('profile')" id="nav-profile" class="nav-item"><i class="fa-solid fa-circle-user text-xl"></i><p class="text-[8px] font-black mt-1 uppercase">Profil</p></button>
         </nav>
     </div>
 
-    <!-- Modale Chat -->
+    <!-- MODALE : TRANSFERT (ECHOPPEPAY) -->
+    <div id="transfer-modal" class="modal-full p-8">
+        <div class="max-w-md mx-auto">
+            <h2 class="text-2xl font-black text-blue-900 mb-2 italic">Envoyer Argent.</h2>
+            <p class="text-xs text-slate-400 mb-8 font-medium">Transférez instantanément vers un autre compte Echoppe241.</p>
+            
+            <div class="space-y-4">
+                <div>
+                    <p class="text-[9px] font-black text-slate-400 uppercase mb-2">ID du bénéficiaire (ou Email)</p>
+                    <input type="text" id="trans-dest" class="input-custom" placeholder="Ex: 8Xy2... ou email@mail.com">
+                </div>
+                <div>
+                    <p class="text-[9px] font-black text-slate-400 uppercase mb-2">Montant à envoyer (FCFA)</p>
+                    <input type="number" id="trans-amount" class="input-custom" placeholder="0">
+                </div>
+                <button onclick="processTransfer()" id="btn-transfer" class="btn-blue mt-4">Confirmer l'envoi</button>
+                <button onclick="closeModal('transfer-modal')" class="w-full py-4 text-xs font-bold text-slate-400 uppercase tracking-widest">Annuler</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODALE : RECHARGE (CARTE/CODE) -->
+    <div id="recharge-modal" class="modal-full p-8">
+        <div class="max-w-md mx-auto text-center">
+            <h2 class="text-2xl font-black text-blue-900 mb-6 italic">Rechargement.</h2>
+            <div class="bg-blue-50 p-6 rounded-3xl mb-8 border-2 border-dashed border-blue-200">
+                <p class="text-xs text-blue-800 font-bold mb-4">Saisissez le code de votre coupon de recharge Echoppe241 ou l'ID de transaction Airtel Money.</p>
+                <input type="text" id="rech-code" class="input-custom text-center !bg-white uppercase font-black tracking-widest" placeholder="CODE-241-XXXX">
+            </div>
+            <button onclick="processRecharge()" id="btn-recharge" class="btn-blue">Valider le coupon</button>
+            <button onclick="closeModal('recharge-modal')" class="w-full py-4 text-xs font-bold text-slate-400 mt-4 uppercase">Fermer</button>
+        </div>
+    </div>
+
+    <!-- MODALE : EDIT PROFIL -->
+    <div id="edit-profile-modal" class="modal-full p-8">
+        <div class="max-w-md mx-auto">
+            <h2 class="text-2xl font-black text-blue-900 mb-8 italic">Édition Profil.</h2>
+            <div class="space-y-6">
+                <div>
+                    <p class="text-[9px] font-black text-slate-400 uppercase mb-3">Changer mon nom</p>
+                    <input type="text" id="edit-name" class="input-custom">
+                </div>
+                <div>
+                    <p class="text-[9px] font-black text-slate-400 uppercase mb-3">Avatar Premium</p>
+                    <div id="avatar-list" class="flex flex-wrap gap-3"></div>
+                </div>
+                <button onclick="saveProfile()" id="btn-save-profile" class="btn-blue">Mettre à jour</button>
+                <button onclick="closeModal('edit-profile-modal')" class="w-full py-4 text-xs font-bold text-slate-400 uppercase">Retour</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODALE : CHAT (INDISPENSABLE) -->
     <div id="chat-modal" class="modal-full !p-0">
-        <div class="flex flex-col h-full bg-white">
-            <div class="p-4 border-b border-slate-50 flex items-center justify-between sticky top-0 bg-white z-10">
+        <div class="flex flex-col h-full bg-slate-50">
+            <div class="p-4 bg-white border-b flex items-center justify-between sticky top-0 z-50">
                 <div class="flex items-center gap-3">
-                    <button onclick="closeModal('chat-modal')" class="w-10 h-10 bg-slate-50 rounded-xl flex items-center justify-center"><i class="fa-solid fa-arrow-left"></i></button>
+                    <button onclick="closeModal('chat-modal')" class="w-10 h-10 bg-slate-50 rounded-xl flex items-center justify-center"><i class="fa-solid fa-chevron-left"></i></button>
                     <div>
-                        <h3 id="chat-title" class="font-black text-blue-900 text-sm">...</h3>
-                        <p class="text-[8px] text-slate-400 font-black uppercase">Transaction Sécurisée</p>
+                        <h3 id="chat-user-name" class="font-black text-blue-900 text-sm">...</h3>
+                        <p class="text-[8px] text-green-500 font-black uppercase">En ligne (Sécurisé)</p>
                     </div>
                 </div>
-                <button onclick="openModal('create-order-modal')" class="bg-blue-600 text-white text-[9px] font-black px-4 py-2 rounded-xl shadow-lg uppercase">Émettre un Bon</button>
+                <button onclick="openModal('create-bon-modal')" class="bg-blue-600 text-white text-[9px] font-black px-4 py-2 rounded-xl">CRÉER UN BON</button>
             </div>
-            <div id="chat-messages" class="flex-1 overflow-y-auto p-4 flex flex-col bg-slate-50/20"></div>
-            <div class="p-4 flex gap-2 border-t bg-white">
-                <input type="text" id="chat-input" class="input-custom !py-3 flex-1" placeholder="Votre message...">
-                <button onclick="sendMessage()" class="w-12 h-12 bg-blue-600 text-white rounded-xl shadow-lg flex items-center justify-center"><i class="fa-solid fa-paper-plane"></i></button>
+            <div id="chat-messages" class="flex-1 overflow-y-auto p-4 flex flex-col gap-3"></div>
+            <div class="p-4 bg-white border-t flex gap-2">
+                <input type="text" id="chat-input" class="input-custom !py-3 flex-1" placeholder="Écrire...">
+                <button onclick="sendChatMessage()" class="w-12 h-12 bg-blue-600 text-white rounded-xl shadow-lg flex items-center justify-center"><i class="fa-solid fa-paper-plane"></i></button>
             </div>
         </div>
     </div>
 
-    <!-- Modale Bon de Commande -->
-    <div id="create-order-modal" class="modal-full p-6">
+    <!-- MODALE : CRÉER UN BON -->
+    <div id="create-bon-modal" class="modal-full p-8">
         <div class="max-w-md mx-auto">
-            <h2 class="text-2xl font-black text-blue-900 mb-6 italic">Générer un Bon.</h2>
+            <h2 class="text-2xl font-black text-blue-900 mb-6 italic">Générer Bon.</h2>
             <div class="space-y-4">
-                <div class="p-4 bg-blue-50 rounded-2xl mb-4">
-                    <p class="text-[10px] text-blue-600 font-bold leading-relaxed">En payant ce bon, l'argent est placé sous séquestre par Echoppe241. Le vendeur n'est payé qu'après validation de la livraison par l'administrateur.</p>
-                </div>
-                <input type="text" id="order-item" class="input-custom" placeholder="Article (Ex: iPhone 12)">
-                <input type="number" id="order-price" class="input-custom" placeholder="Prix (FCFA)">
-                <button onclick="submitOrder()" class="btn-blue mt-4">Envoyer le Bon</button>
-                <button onclick="closeModal('create-order-modal')" class="w-full py-4 text-xs font-bold text-slate-400">Annuler</button>
+                <input type="text" id="bon-title" class="input-custom" placeholder="Nom du produit/service">
+                <input type="number" id="bon-price" class="input-custom" placeholder="Prix final (FCFA)">
+                <button onclick="submitBon()" id="btn-bon" class="btn-blue">Envoyer au client</button>
+                <button onclick="closeModal('create-bon-modal')" class="w-full py-4 text-xs font-bold text-slate-400 uppercase">Annuler</button>
             </div>
-        </div>
-    </div>
-
-    <!-- Modale Publication -->
-    <div id="publish-modal" class="modal-full p-6">
-        <div class="max-w-md mx-auto">
-            <h2 class="text-2xl font-black text-blue-900 mb-6 italic">Vendre.</h2>
-            <div class="space-y-4">
-                <input type="text" id="pub-name" class="input-custom" placeholder="Nom de l'article">
-                <input type="number" id="pub-price" class="input-custom" placeholder="Prix de vente (FCFA)">
-                <input type="text" id="pub-img" class="input-custom" placeholder="Lien de l'image (Ex: https://...)">
-                <button onclick="publishArticle()" class="btn-blue">Mettre en vente</button>
-                <button onclick="closeModal('publish-modal')" class="w-full py-4 text-xs font-bold text-slate-400">Fermer</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- Modale Recharge -->
-    <div id="recharge-modal" class="modal-full p-6">
-        <div class="max-w-md mx-auto text-center">
-            <h2 class="text-2xl font-black text-blue-900 mb-8 italic">Rechargement.</h2>
-            <div class="bg-blue-600 p-8 rounded-[40px] text-white text-left mb-6 shadow-2xl">
-                <p class="text-xs mb-4 opacity-80 uppercase font-black tracking-widest">Compte de dépôt</p>
-                <p class="text-2xl font-black mb-1">077 73 60 65</p>
-                <p class="text-[9px] font-bold opacity-60">Airtel Money (Echoppe241)</p>
-                <hr class="my-6 opacity-20">
-                <input type="number" id="rech-amount" class="w-full bg-white/10 p-4 rounded-2xl text-white outline-none mb-3 placeholder:text-white/40 font-bold" placeholder="Montant">
-                <input type="text" id="rech-ref" class="w-full bg-white/10 p-4 rounded-2xl text-white outline-none placeholder:text-white/40" placeholder="ID Transaction / Référence">
-            </div>
-            <button onclick="requestRecharge()" class="btn-blue">Soumettre la preuve</button>
-            <button onclick="closeModal('recharge-modal')" class="w-full py-4 text-xs font-bold text-slate-400">Fermer</button>
         </div>
     </div>
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
-        import { getAuth, onAuthStateChanged, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
-        import { getFirestore, doc, setDoc, onSnapshot, updateDoc, collection, addDoc, query, where, orderBy, serverTimestamp, increment, runTransaction, getDoc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+        import { getAuth, onAuthStateChanged, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, signInWithCustomToken, signInAnonymously } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getFirestore, doc, setDoc, onSnapshot, updateDoc, collection, addDoc, query, where, orderBy, serverTimestamp, increment, runTransaction, getDoc, getDocs } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
-        // FIREBASE CONFIG (Utilise vos paramètres originaux)
-        const firebaseConfig = {
-            apiKey: "AIzaSyCEJJGhcyYWqmeI9D_lwk_qgE2J2GZhIlg",
-            authDomain: "communautedugabon.firebaseapp.com",
-            databaseURL: "https://communautedugabon-default-rtdb.firebaseio.com",
-            projectId: "communautedugabon",
-            storageBucket: "communautedugabon.firebasestorage.app",
-            messagingSenderId: "647862371022",
-            appId: "1:647862371022:web:b209bfc8eb81accb1fc69f"
-        };
-
+        // INIT FIREBASE
+        const firebaseConfig = JSON.parse(__firebase_config);
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
         const db = getFirestore(app);
-        const appId = 'echoppe241-prod';
-        const CODE_ADMIN = "GABON241"; 
+        const appId = typeof __app_id !== 'undefined' ? __app_id : 'echoppe241-pro-v2';
 
         let user = null;
         let userData = null;
         let activeChatId = null;
 
-        // AUTH & PROFILE SYNC
+        // AUTH LISTENER
         onAuthStateChanged(auth, async (u) => {
             if (u) {
                 user = u;
+                // Ecouteur profil temps réel
                 onSnapshot(doc(db, 'artifacts', appId, 'users', u.uid), (snap) => {
                     if (snap.exists()) {
                         userData = snap.data();
                         document.getElementById('view-auth').classList.remove('active');
                         document.getElementById('app-content').style.display = 'block';
-                        syncUI();
-                        initAppListeners();
+                        updateGlobalUI();
+                        initListeners();
+                        initAvatarList();
                     } else {
-                        const name = localStorage.getItem('temp_name') || 'Membre';
-                        const isAdmin = localStorage.getItem('temp_admin') === 'true';
+                        // Init nouveau profil
+                        const name = localStorage.getItem('tmp_name') || 'Echoppe User';
                         setDoc(doc(db, 'artifacts', appId, 'users', u.uid), {
-                            fullName: name,
-                            walletBalance: 0,
-                            isAdmin: isAdmin,
+                            fullName: name, email: u.email, walletBalance: 0, 
                             avatar: `https://api.dicebear.com/7.x/avataaars/svg?seed=${u.uid}`,
-                            createdAt: serverTimestamp()
+                            isAdmin: false, createdAt: serverTimestamp()
                         });
                     }
                 });
@@ -281,245 +320,281 @@
             hideSplash();
         });
 
-        window.handleLogin = () => {
-            const e = document.getElementById('login-email').value;
-            const p = document.getElementById('login-pass').value;
-            signInWithEmailAndPassword(auth, e, p).catch(err => showToast(err.message));
-        };
-
-        window.handleRegister = () => {
-            const n = document.getElementById('reg-name').value;
-            const e = document.getElementById('reg-email').value;
-            const p = document.getElementById('reg-pass').value;
-            const c = document.getElementById('reg-invite').value;
-            if(!n || !e || p.length < 6) return showToast("Veuillez remplir correctement les champs.");
-            
-            localStorage.setItem('temp_name', n);
-            localStorage.setItem('temp_admin', c === CODE_ADMIN);
-            createUserWithEmailAndPassword(auth, e, p).catch(err => showToast(err.message));
-        };
-
-        window.handleLogout = () => signOut(auth);
-
-        function syncUI() {
-            document.getElementById('header-balance').innerText = `${userData.walletBalance} F`;
-            document.getElementById('p-balance').innerText = `${userData.walletBalance} FCFA`;
+        // UI UPDATES
+        function updateGlobalUI() {
+            if(!userData) return;
+            document.getElementById('header-balance').innerText = `${userData.walletBalance.toLocaleString()} F`;
+            document.getElementById('wallet-balance').innerText = `${userData.walletBalance.toLocaleString()} FCFA`;
             document.getElementById('header-avatar').src = userData.avatar;
             document.getElementById('p-avatar').src = userData.avatar;
             document.getElementById('p-name').innerText = userData.fullName;
+            document.getElementById('p-email').innerText = userData.email;
+            document.getElementById('p-uid').innerText = user.uid;
+            document.getElementById('edit-name').value = userData.fullName;
+
             if(userData.isAdmin) {
-                document.getElementById('admin-badge').classList.remove('hidden');
-                document.getElementById('admin-panel').classList.remove('hidden');
+                document.getElementById('p-badge-admin').classList.remove('hidden');
+                document.getElementById('admin-section').classList.remove('hidden');
             }
         }
 
-        // LISTENERS (PRODUITS & CHATS)
-        function initAppListeners() {
-            // Marché
+        // LISTENERS TEMPS RÉEL
+        function initListeners() {
+            if(!user) return;
+
+            // Marché Public
             onSnapshot(collection(db, 'artifacts', appId, 'public', 'data', 'products'), (snap) => {
                 const list = document.getElementById('product-list');
                 list.innerHTML = snap.docs.map(d => {
                     const p = d.data();
-                    return `<div onclick="startChat('${p.sellerId}', '${p.sellerName}')" class="card-neo overflow-hidden active:scale-95 transition cursor-pointer">
-                        <img src="${p.image || 'https://via.placeholder.com/300'}" class="h-32 w-full object-cover bg-slate-100">
-                        <div class="p-3">
-                            <p class="text-[10px] font-black text-blue-900 truncate uppercase">${p.name}</p>
-                            <p class="text-blue-600 font-bold text-xs mt-1">${p.price} F</p>
+                    return `<div onclick="startConversation('${p.sellerId}', '${p.sellerName}')" class="card-neo overflow-hidden active:scale-95 transition cursor-pointer">
+                        <div class="h-32 bg-slate-100 bg-cover bg-center" style="background-image:url('${p.image || ''}')"></div>
+                        <div class="p-4">
+                            <p class="text-[10px] font-black text-blue-900 uppercase truncate">${p.name}</p>
+                            <p class="text-blue-600 font-bold text-xs mt-1">${p.price.toLocaleString()} F</p>
                         </div>
                     </div>`;
                 }).join('');
             });
 
-            // Conversations
-            const qChat = query(collection(db, 'artifacts', appId, 'public', 'data', 'chats'), where('participants', 'array-contains', user.uid));
-            onSnapshot(qChat, (snap) => {
-                const list = document.getElementById('conversations-list');
-                list.innerHTML = snap.docs.map(d => {
-                    const c = d.data();
-                    const otherId = c.participants.find(p => p !== user.uid);
-                    const otherName = c.names[otherId] || "Utilisateur";
-                    return `<div onclick="openChatUI('${d.id}', '${otherName}')" class="p-4 bg-white border border-slate-50 rounded-2xl flex items-center gap-4 active:bg-slate-50">
-                        <div class="w-12 h-12 bg-blue-50 rounded-2xl flex items-center justify-center text-blue-600 font-black text-lg">${otherName[0]}</div>
-                        <div class="flex-1">
-                            <p class="text-sm font-black text-blue-900">${otherName}</p>
-                            <p class="text-[9px] text-slate-400 font-medium">Cliquer pour voir les messages</p>
-                        </div>
-                    </div>`;
-                }).join('');
-            });
-
-            // Tâches Admin
-            if(userData.isAdmin) {
-                const qAdmin = query(collection(db, 'artifacts', appId, 'public', 'data', 'admin_tasks'), where('status', '==', 'pending'));
-                onSnapshot(qAdmin, (snap) => {
-                    const box = document.getElementById('admin-tasks');
-                    box.innerHTML = snap.docs.map(d => {
-                        const t = d.data();
-                        const isRecharge = t.type === 'recharge';
-                        return `<div class="bg-white p-4 rounded-2xl flex items-center justify-between border-2 border-slate-50">
-                            <div>
-                                <p class="text-[8px] font-black uppercase ${isRecharge ? 'text-blue-600' : 'text-green-600'}">${isRecharge ? 'DÉPÔT' : 'VENTE'}</p>
-                                <p class="text-xs font-bold text-blue-900">${t.userName || t.buyerName}</p>
-                                <p class="text-[10px] font-black mt-1">${t.amount} FCFA</p>
+            // EchoppePay History (Privé)
+            onSnapshot(collection(db, 'artifacts', appId, 'users', user.uid, 'history'), (snap) => {
+                const list = document.getElementById('wallet-history');
+                const items = snap.docs.map(d => d.data()).sort((a,b) => (b.timestamp?.seconds || 0) - (a.timestamp?.seconds || 0));
+                if(items.length === 0) list.innerHTML = `<p class='text-[10px] italic text-slate-400'>Aucun mouvement.</p>`;
+                else list.innerHTML = items.map(t => `
+                    <div class="transaction-item">
+                        <div class="flex items-center gap-3">
+                            <div class="w-9 h-9 rounded-xl flex items-center justify-center ${t.amount > 0 ? 'bg-green-50 text-green-600' : 'bg-red-50 text-red-600'}">
+                                <i class="fa-solid ${t.amount > 0 ? 'fa-arrow-down-left' : 'fa-arrow-up-right'} text-xs"></i>
                             </div>
-                            <button onclick="approveTask('${d.id}')" class="bg-blue-600 text-white text-[9px] font-black px-4 py-2 rounded-xl">APPROUVER</button>
+                            <div>
+                                <p class="text-[11px] font-black text-blue-900">${t.label}</p>
+                                <p class="text-[8px] text-slate-400 uppercase font-bold">${t.timestamp ? new Date(t.timestamp.seconds*1000).toLocaleDateString() : 'Instant'}</p>
+                            </div>
+                        </div>
+                        <p class="text-xs font-black ${t.amount > 0 ? 'text-green-600' : 'text-red-600'}">${t.amount > 0 ? '+' : ''}${t.amount.toLocaleString()} F</p>
+                    </div>
+                `).join('');
+            });
+
+            // Admin Tasks
+            if(userData?.isAdmin) {
+                onSnapshot(collection(db, 'artifacts', appId, 'public', 'data', 'admin_tasks'), (snap) => {
+                    const list = document.getElementById('admin-tasks-list');
+                    const pending = snap.docs.filter(d => d.data().status === 'pending');
+                    list.innerHTML = pending.map(d => {
+                        const t = d.data();
+                        return `<div class="bg-white p-4 rounded-2xl border-2 border-slate-50 flex items-center justify-between">
+                            <div>
+                                <p class="text-[8px] font-black text-red-500 uppercase">${t.type}</p>
+                                <p class="text-[10px] font-bold text-blue-900">${t.userName}</p>
+                                <p class="text-[12px] font-black text-blue-600">${t.amount?.toLocaleString()} F</p>
+                            </div>
+                            <div class="flex gap-2">
+                                <button onclick="adminAction('${d.id}', true)" class="w-8 h-8 bg-green-500 text-white rounded-lg"><i class="fa-solid fa-check"></i></button>
+                                <button onclick="adminAction('${d.id}', false)" class="w-8 h-8 bg-slate-200 text-slate-500 rounded-lg"><i class="fa-solid fa-xmark"></i></button>
+                            </div>
                         </div>`;
                     }).join('');
                 });
             }
         }
 
-        // CHAT ENGINE
-        window.startChat = async (sid, sname) => {
-            if(sid === user.uid) return navigateTo('profile');
-            const cid = [user.uid, sid].sort().join('_');
-            const chatRef = doc(db, 'artifacts', appId, 'public', 'data', 'chats', cid);
-            const chatSnap = await getDoc(chatRef);
-            
-            if(!chatSnap.exists()) {
-                await setDoc(chatRef, {
-                    participants: [user.uid, sid],
-                    names: { [user.uid]: userData.fullName, [sid]: sname },
-                    lastUpdate: serverTimestamp()
+        // --- ECHOPPE PAY FUNCTIONS ---
+
+        window.processTransfer = async () => {
+            const destId = document.getElementById('trans-dest').value.trim();
+            const amount = parseInt(document.getElementById('trans-amount').value);
+            const btn = document.getElementById('btn-transfer');
+
+            if(!destId || isNaN(amount) || amount <= 0) return showToast("Données invalides");
+            if(userData.walletBalance < amount) return showToast("Solde insuffisant");
+            if(destId === user.uid) return showToast("Impossible vers soi-même");
+
+            btn.disabled = true;
+            try {
+                // Tentative de trouver par Email si ce n'est pas un UID
+                let targetUID = destId;
+                if(destId.includes('@')) {
+                    const usersRef = collection(db, 'artifacts', appId, 'users');
+                    const q = query(usersRef, where("email", "==", destId));
+                    const qs = await getDocs(q);
+                    if(qs.empty) throw new Error("Utilisateur non trouvé");
+                    targetUID = qs.docs[0].id;
+                }
+
+                await runTransaction(db, async (transaction) => {
+                    const fromRef = doc(db, 'artifacts', appId, 'users', user.uid);
+                    const toRef = doc(db, 'artifacts', appId, 'users', targetUID);
+                    
+                    const toSnap = await transaction.get(toRef);
+                    if(!toSnap.exists()) throw new Error("Destinataire inexistant");
+
+                    transaction.update(fromRef, { walletBalance: increment(-amount) });
+                    transaction.update(toRef, { walletBalance: increment(amount) });
+
+                    // Historiques
+                    const hFrom = doc(collection(db, 'artifacts', appId, 'users', user.uid, 'history'));
+                    const hTo = doc(collection(db, 'artifacts', appId, 'users', targetUID, 'history'));
+                    
+                    transaction.set(hFrom, { amount: -amount, label: `Transfert vers ${toSnap.data().fullName}`, timestamp: serverTimestamp() });
+                    transaction.set(hTo, { amount: amount, label: `Reçu de ${userData.fullName}`, timestamp: serverTimestamp() });
                 });
+                showToast("Transfert EchoppePay réussi !");
+                closeModal('transfer-modal');
+            } catch (e) {
+                showToast(e.message || "Erreur de transfert");
+            } finally {
+                btn.disabled = false;
             }
-            openChatUI(cid, sname);
+        };
+
+        window.processRecharge = async () => {
+            const code = document.getElementById('rech-code').value.trim();
+            if(!code) return showToast("Entrez un code");
+            
+            showToast("Demande soumise à l'admin...");
+            await addDoc(collection(db, 'artifacts', appId, 'public', 'data', 'admin_tasks'), {
+                type: 'RECHARGE', userId: user.uid, userName: userData.fullName, 
+                amount: 5000, reference: code, status: 'pending', timestamp: serverTimestamp()
+            });
+            closeModal('recharge-modal');
+        };
+
+        // --- PROFILE FUNCTIONS ---
+
+        window.initAvatarList = () => {
+            const box = document.getElementById('avatar-list');
+            box.innerHTML = "";
+            ['Gamer', 'Office', 'Fun', 'Creative', 'Tech', 'Music'].forEach(seed => {
+                const url = `https://api.dicebear.com/7.x/avataaars/svg?seed=${seed}`;
+                const img = document.createElement('img');
+                img.src = url;
+                img.className = `avatar-option ${userData.avatar === url ? 'selected' : ''}`;
+                img.onclick = () => {
+                    document.querySelectorAll('.avatar-option').forEach(el => el.classList.remove('selected'));
+                    img.classList.add('selected');
+                    userData.tmp_avatar = url;
+                };
+                box.appendChild(img);
+            });
+        };
+
+        window.saveProfile = async () => {
+            const name = document.getElementById('edit-name').value;
+            const avatar = userData.tmp_avatar || userData.avatar;
+            await updateDoc(doc(db, 'artifacts', appId, 'users', user.uid), { fullName: name, avatar: avatar });
+            showToast("Profil mis à jour !");
+            closeModal('edit-profile-modal');
+        };
+
+        // --- CHAT & BONS ---
+
+        window.startConversation = async (otherId, otherName) => {
+            if(otherId === user.uid) return showToast("C'est votre article");
+            const cid = [user.uid, otherId].sort().join('_');
+            activeChatId = cid;
+            
+            await setDoc(doc(db, 'artifacts', appId, 'public', 'data', 'chats', cid), {
+                participants: [user.uid, otherId],
+                names: { [user.uid]: userData.fullName, [otherId]: otherName },
+                lastUpdate: serverTimestamp()
+            }, { merge: true });
+
+            openChatUI(cid, otherName);
         };
 
         window.openChatUI = (cid, name) => {
             activeChatId = cid;
-            document.getElementById('chat-title').innerText = name;
+            document.getElementById('chat-user-name').innerText = name;
             document.getElementById('chat-modal').style.display = 'block';
             
-            const msgQuery = query(collection(db, 'artifacts', appId, 'public', 'data', 'chats', cid, 'messages'), orderBy('timestamp', 'asc'));
-            onSnapshot(msgQuery, (snap) => {
+            onSnapshot(collection(db, 'artifacts', appId, 'public', 'data', 'chats', cid, 'messages'), (snap) => {
                 const box = document.getElementById('chat-messages');
-                box.innerHTML = snap.docs.map(d => {
-                    const m = d.data();
+                const msgs = snap.docs.map(d => ({id: d.id, ...d.data()})).sort((a,b) => (a.timestamp?.seconds || 0) - (b.timestamp?.seconds || 0));
+                box.innerHTML = msgs.map(m => {
                     const isMe = m.senderId === user.uid;
-                    let content = m.text;
-
-                    if(m.type === 'order') {
-                        const statusColor = m.status === 'validated' ? 'text-green-500' : (m.status === 'paid' ? 'text-blue-500' : 'text-orange-500');
-                        content = `<div class="order-card">
-                            <p class="text-[7px] font-black uppercase text-blue-500 mb-2">BON DE COMMANDE</p>
-                            <p class="text-sm font-bold text-blue-900">${m.item}</p>
-                            <p class="text-lg font-black text-blue-600">${m.price} FCFA</p>
-                            <div class="mt-4 flex items-center justify-between border-t border-slate-50 pt-3">
-                                <span class="text-[8px] font-black ${statusColor} uppercase">${m.status}</span>
-                                ${(!isMe && m.status === 'pending') ? `<button onclick="payOrder('${d.id}', ${m.price}, '${m.senderId}')" class="bg-blue-600 text-white text-[8px] font-black px-4 py-2 rounded-lg">PAYER MAINTENANT</button>` : ''}
+                    if(m.type === 'bon') {
+                        return `<div class="bg-white p-5 rounded-3xl border-2 border-blue-600 shadow-xl max-w-[90%] ${isMe ? 'self-end' : 'self-start'}">
+                            <p class="text-[8px] font-black text-blue-600 uppercase mb-2">BON DE PAIEMENT</p>
+                            <p class="text-sm font-bold text-blue-900">${m.title}</p>
+                            <p class="text-xl font-black text-blue-600 my-2">${m.price.toLocaleString()} F</p>
+                            <div class="pt-3 border-t flex justify-between items-center">
+                                <span class="text-[9px] font-black uppercase ${m.status==='paid'?'text-green-500':'text-slate-400'}">${m.status==='paid'?'Payé':'En attente'}</span>
+                                ${(!isMe && m.status === 'pending') ? `<button onclick="payBon('${cid}','${m.id}',${m.price},'${m.senderId}')" class="bg-blue-600 text-white text-[9px] font-black px-4 py-2 rounded-xl">PAYER</button>` : ''}
                             </div>
                         </div>`;
                     }
-                    return `<div class="chat-bubble ${isMe ? 'chat-me' : 'chat-them'}">${content}</div>`;
+                    return `<div class="max-w-[80%] p-4 rounded-2xl text-sm ${isMe ? 'bg-blue-600 text-white self-end rounded-tr-none' : 'bg-white text-blue-900 self-start rounded-tl-none'}">${m.text}</div>`;
                 }).join('');
                 box.scrollTop = box.scrollHeight;
             });
         };
 
-        window.sendMessage = async () => {
+        window.sendChatMessage = async () => {
             const input = document.getElementById('chat-input');
             if(!input.value.trim()) return;
             await addDoc(collection(db, 'artifacts', appId, 'public', 'data', 'chats', activeChatId, 'messages'), {
                 senderId: user.uid, text: input.value, type: 'text', timestamp: serverTimestamp()
             });
-            input.value = '';
+            input.value = "";
         };
 
-        // GESTION DES BONS
-        window.submitOrder = async () => {
-            const item = document.getElementById('order-item').value;
-            const price = document.getElementById('order-price').value;
-            if(!item || !price) return showToast("Détails manquants.");
-
-            await addDoc(collection(db, 'artifacts', appId, 'public', 'data', 'chats', activeChatId, 'messages'), {
-                senderId: user.uid, item, price: parseInt(price), type: 'order', status: 'pending', timestamp: serverTimestamp()
-            });
-            closeModal('create-order-modal');
-            showToast("Bon envoyé.");
-        };
-
-        window.payOrder = async (msgId, amount, sellerId) => {
-            if(userData.walletBalance < amount) return showToast("Solde insuffisant.");
+        window.payBon = async (cid, mid, amount, sellerId) => {
+            if(userData.walletBalance < amount) return showToast("Solde insuffisant");
             try {
-                await runTransaction(db, async (tx) => {
-                    tx.update(doc(db, 'artifacts', appId, 'users', user.uid), { walletBalance: increment(-amount) });
-                    tx.update(doc(db, 'artifacts', appId, 'public', 'data', 'chats', activeChatId, 'messages', msgId), { status: 'paid' });
-                    
-                    const adminTaskRef = doc(collection(db, 'artifacts', appId, 'public', 'data', 'admin_tasks'));
-                    tx.set(adminTaskRef, {
-                        type: 'payout', amount, sellerId, buyerId: user.uid, buyerName: userData.fullName, 
-                        msgId, chatId: activeChatId, status: 'pending', createdAt: serverTimestamp()
-                    });
+                await runTransaction(db, async (transaction) => {
+                    const uRef = doc(db, 'artifacts', appId, 'users', user.uid);
+                    const mRef = doc(db, 'artifacts', appId, 'public', 'data', 'chats', cid, 'messages', mid);
+                    transaction.update(uRef, { walletBalance: increment(-amount) });
+                    transaction.update(mRef, { status: 'paid' });
+                    // Tâche Admin pour escrow
+                    const tRef = doc(collection(db, 'artifacts', appId, 'public', 'data', 'admin_tasks'));
+                    transaction.set(tRef, { type: 'ESCROW_PAY', userId: user.uid, userName: userData.fullName, sellerId: sellerId, amount: amount, status: 'pending', timestamp: serverTimestamp() });
                 });
-                showToast("Paiement sous séquestre réussi !");
-            } catch(e) { showToast("Échec de la transaction."); }
+                showToast("Payé ! L'admin valide la transaction.");
+            } catch(e) { showToast("Erreur paiement"); }
         };
 
-        // FONCTIONS ADMIN & PUBLICATION
-        window.approveTask = async (tid) => {
-            const tRef = doc(db, 'artifacts', appId, 'public', 'data', 'admin_tasks', tid);
-            const tSnap = await getDoc(tRef);
-            if(!tSnap.exists()) return;
-            const t = tSnap.data();
+        // --- AUTH & HELPERS ---
 
-            if(t.type === 'recharge') {
-                await updateDoc(doc(db, 'artifacts', appId, 'users', t.uid), { walletBalance: increment(t.amount) });
-            } else if(t.type === 'payout') {
-                await updateDoc(doc(db, 'artifacts', appId, 'users', t.sellerId), { walletBalance: increment(t.amount) });
-                await updateDoc(doc(db, 'artifacts', appId, 'public', 'data', 'chats', t.chatId, 'messages', t.msgId), { status: 'validated' });
-            }
-            await updateDoc(tRef, { status: 'completed' });
-            showToast("Action confirmée.");
+        window.handleLogin = () => {
+            const e = document.getElementById('login-email').value;
+            const p = document.getElementById('login-pass').value;
+            signInWithEmailAndPassword(auth, e, p).catch(() => showToast("Erreur connexion"));
         };
 
-        window.publishArticle = async () => {
-            const n = document.getElementById('pub-name').value;
-            const p = document.getElementById('pub-price').value;
-            const i = document.getElementById('pub-img').value;
-            if(!n || !p) return showToast("Veuillez remplir le titre et le prix.");
-            
-            await addDoc(collection(db, 'artifacts', appId, 'public', 'data', 'products'), {
-                name: n, price: parseInt(p), image: i, sellerId: user.uid, sellerName: userData.fullName, createdAt: serverTimestamp()
-            });
-            showToast("Annonce publiée !");
-            closeModal('publish-modal');
+        window.handleRegister = () => {
+            const n = document.getElementById('reg-name').value;
+            const e = document.getElementById('reg-email').value;
+            const p = document.getElementById('reg-pass').value;
+            if(p.length < 6) return showToast("Pass trop court");
+            localStorage.setItem('tmp_name', n);
+            createUserWithEmailAndPassword(auth, e, p).catch(() => showToast("Erreur création"));
         };
 
-        window.requestRecharge = async () => {
-            const a = document.getElementById('rech-amount').value;
-            const r = document.getElementById('rech-ref').value;
-            if(!a || !r) return showToast("Veuillez remplir tous les champs.");
-            await addDoc(collection(db, 'artifacts', appId, 'public', 'data', 'admin_tasks'), {
-                type: 'recharge', uid: user.uid, userName: userData.fullName, amount: parseInt(a), ref: r, status: 'pending', createdAt: serverTimestamp()
-            });
-            showToast("Demande soumise !");
-            closeModal('recharge-modal');
-        };
+        window.handleLogout = () => signOut(auth);
 
-        // NAVIGATION & UI HELPERS
         window.navigateTo = (v) => {
             document.querySelectorAll('.view').forEach(el => el.classList.remove('active'));
             document.getElementById(`view-${v}`).classList.add('active');
             document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
             document.getElementById(`nav-${v}`).classList.add('active');
         };
-        window.toggleAuth = (m) => {
-            document.getElementById('login-form').classList.toggle('hidden', m === 'register');
-            document.getElementById('register-form').classList.toggle('hidden', m === 'login');
-        };
+
         window.openModal = (id) => document.getElementById(id).style.display = 'block';
         window.closeModal = (id) => document.getElementById(id).style.display = 'none';
         window.showToast = (m) => {
             const t = document.getElementById('toast'); t.innerText = m; t.style.display = 'block';
             setTimeout(() => t.style.display = 'none', 3000);
         };
-        function hideSplash() {
-            setTimeout(() => {
-                const s = document.getElementById('splash-screen');
-                if (s) { s.style.opacity = '0'; setTimeout(() => s.style.display = 'none', 500); }
-            }, 1000);
-        }
+        window.copyUID = () => {
+            const el = document.createElement('textarea'); el.value = user.uid; document.body.appendChild(el);
+            el.select(); document.execCommand('copy'); document.body.removeChild(el);
+            showToast("ID Copié !");
+        };
+        function hideSplash() { setTimeout(() => { const s = document.getElementById('splash-screen'); if(s){ s.style.opacity='0'; setTimeout(()=>s.style.display='none',500); } }, 1200); }
     </script>
 </body>
 </html>
