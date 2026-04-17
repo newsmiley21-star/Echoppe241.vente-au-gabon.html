@@ -41,11 +41,11 @@
         
         #splash-screen { position: fixed; inset: 0; background: var(--white); z-index: 9999; display: flex; flex-direction: column; align-items: center; justify-content: center; transition: 0.5s; }
         
-        .chat-bubble { max-width: 80%; padding: 12px 16px; border-radius: 20px; font-size: 14px; margin-bottom: 8px; line-height: 1.5; }
+        .chat-bubble { max-width: 85%; padding: 12px 16px; border-radius: 20px; font-size: 14px; margin-bottom: 8px; line-height: 1.5; position: relative; }
         .chat-me { background: var(--primary-blue); color: white; align-self: flex-end; border-bottom-right-radius: 4px; }
         .chat-them { background: #f1f5f9; color: var(--dark); align-self: flex-start; border-bottom-left-radius: 4px; }
         
-        .order-card { background: #fff; border: 2px solid var(--primary-blue); border-radius: 20px; padding: 16px; margin: 8px 0; color: var(--dark); box-shadow: 0 4px 15px rgba(58, 117, 196, 0.1); }
+        .order-card { background: #fff; border: 2px solid var(--primary-blue); border-radius: 20px; padding: 16px; margin: 8px 0; color: var(--dark); box-shadow: 0 4px 15px rgba(58, 117, 196, 0.1); width: 100%; }
         
         ::-webkit-scrollbar { display: none; }
     </style>
@@ -54,9 +54,9 @@
 
     <div id="toast">Action effectuée</div>
 
-    <!-- Splash Screen -->
+    <!-- SplashScreen -->
     <div id="splash-screen">
-        <img src="https://i.ibb.co/RkhcRdCs/echoppe241-logo.png" class="w-24 h-24 mb-6">
+        <img src="https://i.ibb.co/RkhcRdCs/echoppe241-logo.png" class="w-24 h-24 mb-6" alt="Logo Echoppe241">
         <div class="flex gap-2">
             <div class="w-2 h-2 rounded-full bg-[#3a75c4] animate-bounce"></div>
             <div class="w-2 h-2 rounded-full bg-[#fcd116] animate-bounce [animation-delay:0.2s]"></div>
@@ -81,14 +81,14 @@
                 <input type="text" id="reg-name" class="input-custom" placeholder="Nom complet">
                 <input type="email" id="reg-email" class="input-custom" placeholder="Email">
                 <input type="password" id="reg-pass" class="input-custom" placeholder="Mot de passe (6 car. min)">
-                <input type="password" id="reg-admin" class="input-custom" placeholder="Code Invitation (Admin)">
+                <input type="text" id="reg-invite" class="input-custom" placeholder="Code Invitation (Admin - Optionnel)">
                 <button onclick="handleRegister()" class="btn-blue bg-[#00853f]">Créer mon compte</button>
                 <p class="text-center text-xs text-slate-500">Déjà inscrit ? <span onclick="toggleAuth('login')" class="text-blue-600 font-bold underline cursor-pointer">Se connecter</span></p>
             </div>
         </div>
     </div>
 
-    <!-- Interface Principale -->
+    <!-- Interface Applicative -->
     <div id="app-content" style="display:none">
         <header class="fixed top-0 inset-x-0 h-20 px-6 flex items-center justify-between bg-white/90 backdrop-blur-xl border-b border-slate-50 z-[500]">
             <div class="flex items-center gap-2">
@@ -104,16 +104,20 @@
         </header>
 
         <main class="max-w-xl mx-auto px-6 pt-24 pb-28">
-            <!-- Shop -->
+            <!-- Marché -->
             <div id="view-home" class="view active">
-                <h2 class="text-2xl font-black text-blue-900 mb-6 tracking-tight">Le Marché.</h2>
-                <div id="product-list" class="grid grid-cols-2 gap-4"></div>
+                <h2 class="text-2xl font-black text-blue-900 mb-6 tracking-tight italic">Le Marché.</h2>
+                <div id="product-list" class="grid grid-cols-2 gap-4">
+                    <!-- Les produits arrivent ici -->
+                </div>
             </div>
 
             <!-- Messages -->
             <div id="view-messages" class="view">
-                <h2 class="text-2xl font-black text-blue-900 mb-6 tracking-tight">Discussions.</h2>
-                <div id="conversations-list" class="space-y-3"></div>
+                <h2 class="text-2xl font-black text-blue-900 mb-6 tracking-tight italic">Discussions.</h2>
+                <div id="conversations-list" class="space-y-3">
+                    <!-- Liste des chats -->
+                </div>
             </div>
 
             <!-- Profil -->
@@ -132,18 +136,19 @@
                 </div>
 
                 <div id="admin-panel" class="hidden mb-8">
-                    <h4 class="text-[10px] font-black text-red-500 uppercase tracking-widest mb-4">Administration</h4>
+                    <h4 class="text-[10px] font-black text-red-500 uppercase tracking-widest mb-4">Tâches en attente (Admin)</h4>
                     <div id="admin-tasks" class="space-y-3"></div>
                 </div>
 
                 <div class="space-y-2">
-                    <button onclick="openModal('publish-modal')" class="w-full p-4 bg-slate-50 rounded-2xl flex items-center justify-between text-xs font-bold text-slate-700">Vendre un article <i class="fa-solid fa-tag opacity-30"></i></button>
-                    <button onclick="openModal('recharge-modal')" class="w-full p-4 bg-slate-50 rounded-2xl flex items-center justify-between text-xs font-bold text-slate-700">Recharger Solde <i class="fa-solid fa-wallet opacity-30"></i></button>
+                    <button onclick="openModal('publish-modal')" class="w-full p-4 bg-slate-50 rounded-2xl flex items-center justify-between text-xs font-bold text-slate-700">Publier une annonce <i class="fa-solid fa-tag opacity-30"></i></button>
+                    <button onclick="openModal('recharge-modal')" class="w-full p-4 bg-slate-50 rounded-2xl flex items-center justify-between text-xs font-bold text-slate-700">Recharger mon compte <i class="fa-solid fa-wallet opacity-30"></i></button>
                     <button onclick="handleLogout()" class="w-full p-4 text-red-500 font-black text-[10px] uppercase mt-4">Déconnexion</button>
                 </div>
             </div>
         </main>
 
+        <!-- Navigation -->
         <nav class="fixed bottom-0 inset-x-0 h-20 bg-white/95 backdrop-blur-md border-t border-slate-100 flex items-center justify-around z-[500] pb-4">
             <button onclick="navigateTo('home')" id="nav-home" class="nav-item active"><i class="fa-solid fa-shop text-xl"></i><p class="text-[8px] font-black mt-1 uppercase">Shop</p></button>
             <button onclick="navigateTo('messages')" id="nav-messages" class="nav-item"><i class="fa-solid fa-comment-dots text-xl"></i><p class="text-[8px] font-black mt-1 uppercase">Chat</p></button>
@@ -159,57 +164,63 @@
                     <button onclick="closeModal('chat-modal')" class="w-10 h-10 bg-slate-50 rounded-xl flex items-center justify-center"><i class="fa-solid fa-arrow-left"></i></button>
                     <div>
                         <h3 id="chat-title" class="font-black text-blue-900 text-sm">...</h3>
-                        <p class="text-[8px] text-blue-500 font-black uppercase">En ligne</p>
+                        <p class="text-[8px] text-slate-400 font-black uppercase">Transaction Sécurisée</p>
                     </div>
                 </div>
-                <button onclick="openModal('create-order-modal')" class="bg-blue-600 text-white text-[9px] font-black px-4 py-2 rounded-xl shadow-lg">GÉRER UN BON</button>
+                <button onclick="openModal('create-order-modal')" class="bg-blue-600 text-white text-[9px] font-black px-4 py-2 rounded-xl shadow-lg uppercase">Émettre un Bon</button>
             </div>
-            
             <div id="chat-messages" class="flex-1 overflow-y-auto p-4 flex flex-col bg-slate-50/20"></div>
-
             <div class="p-4 flex gap-2 border-t bg-white">
-                <input type="text" id="chat-input" class="input-custom !py-3 flex-1" placeholder="Ecrivez ici...">
+                <input type="text" id="chat-input" class="input-custom !py-3 flex-1" placeholder="Votre message...">
                 <button onclick="sendMessage()" class="w-12 h-12 bg-blue-600 text-white rounded-xl shadow-lg flex items-center justify-center"><i class="fa-solid fa-paper-plane"></i></button>
             </div>
         </div>
     </div>
 
-    <!-- Autres Modales -->
+    <!-- Modale Bon de Commande -->
     <div id="create-order-modal" class="modal-full p-6">
         <div class="max-w-md mx-auto">
             <h2 class="text-2xl font-black text-blue-900 mb-6 italic">Générer un Bon.</h2>
             <div class="space-y-4">
-                <input type="text" id="order-item" class="input-custom" placeholder="Article(s)">
-                <input type="number" id="order-price" class="input-custom" placeholder="Prix Total (FCFA)">
+                <div class="p-4 bg-blue-50 rounded-2xl mb-4">
+                    <p class="text-[10px] text-blue-600 font-bold leading-relaxed">En payant ce bon, l'argent est placé sous séquestre par Echoppe241. Le vendeur n'est payé qu'après validation de la livraison par l'administrateur.</p>
+                </div>
+                <input type="text" id="order-item" class="input-custom" placeholder="Article (Ex: iPhone 12)">
+                <input type="number" id="order-price" class="input-custom" placeholder="Prix (FCFA)">
                 <button onclick="submitOrder()" class="btn-blue mt-4">Envoyer le Bon</button>
-                <button onclick="closeModal('create-order-modal')" class="w-full py-4 text-xs font-bold text-slate-400">Retour</button>
+                <button onclick="closeModal('create-order-modal')" class="w-full py-4 text-xs font-bold text-slate-400">Annuler</button>
             </div>
         </div>
     </div>
 
-    <div id="recharge-modal" class="modal-full p-6">
-        <div class="max-w-md mx-auto text-center">
-            <h2 class="text-2xl font-black text-blue-900 mb-8 italic">Rechargement.</h2>
-            <div class="bg-blue-600 p-8 rounded-[40px] text-white text-left mb-6 shadow-2xl">
-                <p class="text-xs mb-4 opacity-80">Transférez sur le <span class="font-black">077 73 60 65</span> (Airtel Money)</p>
-                <input type="number" id="rech-amount" class="w-full bg-white/10 p-4 rounded-2xl text-white outline-none mb-3 placeholder:text-white/40 font-bold" placeholder="Montant">
-                <input type="text" id="rech-ref" class="w-full bg-white/10 p-4 rounded-2xl text-white outline-none placeholder:text-white/40" placeholder="Référence Transaction">
-            </div>
-            <button onclick="requestRecharge()" class="btn-blue">Envoyer Preuve</button>
-            <button onclick="closeModal('recharge-modal')" class="w-full py-4 text-xs font-bold text-slate-400">Annuler</button>
-        </div>
-    </div>
-
+    <!-- Modale Publication -->
     <div id="publish-modal" class="modal-full p-6">
         <div class="max-w-md mx-auto">
             <h2 class="text-2xl font-black text-blue-900 mb-6 italic">Vendre.</h2>
             <div class="space-y-4">
-                <input type="text" id="pub-name" class="input-custom" placeholder="Titre de l'annonce">
-                <input type="number" id="pub-price" class="input-custom" placeholder="Prix (FCFA)">
-                <input type="text" id="pub-img-url" class="input-custom" placeholder="URL de l'image (Lien direct)">
-                <button onclick="publishArticle()" class="btn-blue">Publier l'annonce</button>
-                <button onclick="closeModal('publish-modal')" class="w-full py-4 text-xs font-bold text-slate-400">Retour</button>
+                <input type="text" id="pub-name" class="input-custom" placeholder="Nom de l'article">
+                <input type="number" id="pub-price" class="input-custom" placeholder="Prix de vente (FCFA)">
+                <input type="text" id="pub-img" class="input-custom" placeholder="Lien de l'image (Ex: https://...)">
+                <button onclick="publishArticle()" class="btn-blue">Mettre en vente</button>
+                <button onclick="closeModal('publish-modal')" class="w-full py-4 text-xs font-bold text-slate-400">Fermer</button>
             </div>
+        </div>
+    </div>
+
+    <!-- Modale Recharge -->
+    <div id="recharge-modal" class="modal-full p-6">
+        <div class="max-w-md mx-auto text-center">
+            <h2 class="text-2xl font-black text-blue-900 mb-8 italic">Rechargement.</h2>
+            <div class="bg-blue-600 p-8 rounded-[40px] text-white text-left mb-6 shadow-2xl">
+                <p class="text-xs mb-4 opacity-80 uppercase font-black tracking-widest">Compte de dépôt</p>
+                <p class="text-2xl font-black mb-1">077 73 60 65</p>
+                <p class="text-[9px] font-bold opacity-60">Airtel Money (Echoppe241)</p>
+                <hr class="my-6 opacity-20">
+                <input type="number" id="rech-amount" class="w-full bg-white/10 p-4 rounded-2xl text-white outline-none mb-3 placeholder:text-white/40 font-bold" placeholder="Montant">
+                <input type="text" id="rech-ref" class="w-full bg-white/10 p-4 rounded-2xl text-white outline-none placeholder:text-white/40" placeholder="ID Transaction / Référence">
+            </div>
+            <button onclick="requestRecharge()" class="btn-blue">Soumettre la preuve</button>
+            <button onclick="closeModal('recharge-modal')" class="w-full py-4 text-xs font-bold text-slate-400">Fermer</button>
         </div>
     </div>
 
@@ -218,7 +229,7 @@
         import { getAuth, onAuthStateChanged, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
         import { getFirestore, doc, setDoc, onSnapshot, updateDoc, collection, addDoc, query, where, orderBy, serverTimestamp, increment, runTransaction, getDoc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
-        // VOS CONFIGURATIONS FIREBASE
+        // FIREBASE CONFIG (Utilise vos paramètres originaux)
         const firebaseConfig = {
             apiKey: "AIzaSyCEJJGhcyYWqmeI9D_lwk_qgE2J2GZhIlg",
             authDomain: "communautedugabon.firebaseapp.com",
@@ -232,14 +243,14 @@
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
         const db = getFirestore(app);
-        const appId = 'echoppe241-prod-v1';
-        const SECRET_ADMIN = "GABON241";
+        const appId = 'echoppe241-prod';
+        const CODE_ADMIN = "GABON241"; 
 
         let user = null;
         let userData = null;
         let activeChatId = null;
 
-        // AUTH
+        // AUTH & PROFILE SYNC
         onAuthStateChanged(auth, async (u) => {
             if (u) {
                 user = u;
@@ -249,15 +260,14 @@
                         document.getElementById('view-auth').classList.remove('active');
                         document.getElementById('app-content').style.display = 'block';
                         syncUI();
-                        loadHome();
-                        loadConversations();
-                        if(userData.isAdmin) loadAdminInterface();
+                        initAppListeners();
                     } else {
-                        const isAdm = localStorage.getItem('tmp_is_adm') === 'true';
+                        const name = localStorage.getItem('temp_name') || 'Membre';
+                        const isAdmin = localStorage.getItem('temp_admin') === 'true';
                         setDoc(doc(db, 'artifacts', appId, 'users', u.uid), {
-                            fullName: localStorage.getItem('tmp_name') || 'Membre Echoppe',
+                            fullName: name,
                             walletBalance: 0,
-                            isAdmin: isAdm,
+                            isAdmin: isAdmin,
                             avatar: `https://api.dicebear.com/7.x/avataaars/svg?seed=${u.uid}`,
                             createdAt: serverTimestamp()
                         });
@@ -268,25 +278,24 @@
                 document.getElementById('app-content').style.display = 'none';
                 document.getElementById('view-auth').classList.add('active');
             }
-            document.getElementById('splash-screen').style.opacity = '0';
-            setTimeout(() => document.getElementById('splash-screen').style.display = 'none', 500);
+            hideSplash();
         });
 
         window.handleLogin = () => {
             const e = document.getElementById('login-email').value;
             const p = document.getElementById('login-pass').value;
-            signInWithEmailAndPassword(auth, e, p).catch(err => showToast("Erreur: " + err.message));
+            signInWithEmailAndPassword(auth, e, p).catch(err => showToast(err.message));
         };
 
         window.handleRegister = () => {
             const n = document.getElementById('reg-name').value;
             const e = document.getElementById('reg-email').value;
             const p = document.getElementById('reg-pass').value;
-            const a = document.getElementById('reg-admin').value;
-            if(!n || !e || p.length < 6) return showToast("Vérifiez vos informations.");
+            const c = document.getElementById('reg-invite').value;
+            if(!n || !e || p.length < 6) return showToast("Veuillez remplir correctement les champs.");
             
-            localStorage.setItem('tmp_name', n);
-            localStorage.setItem('tmp_is_adm', a === SECRET_ADMIN);
+            localStorage.setItem('temp_name', n);
+            localStorage.setItem('temp_admin', c === CODE_ADMIN);
             createUserWithEmailAndPassword(auth, e, p).catch(err => showToast(err.message));
         };
 
@@ -298,40 +307,69 @@
             document.getElementById('header-avatar').src = userData.avatar;
             document.getElementById('p-avatar').src = userData.avatar;
             document.getElementById('p-name').innerText = userData.fullName;
-            if(userData.isAdmin) document.getElementById('admin-badge').classList.remove('hidden');
+            if(userData.isAdmin) {
+                document.getElementById('admin-badge').classList.remove('hidden');
+                document.getElementById('admin-panel').classList.remove('hidden');
+            }
         }
 
-        // MARCHÉ
-        function loadHome() {
+        // LISTENERS (PRODUITS & CHATS)
+        function initAppListeners() {
+            // Marché
             onSnapshot(collection(db, 'artifacts', appId, 'public', 'data', 'products'), (snap) => {
                 const list = document.getElementById('product-list');
                 list.innerHTML = snap.docs.map(d => {
                     const p = d.data();
                     return `<div onclick="startChat('${p.sellerId}', '${p.sellerName}')" class="card-neo overflow-hidden active:scale-95 transition cursor-pointer">
-                        <img src="${p.image || 'https://via.placeholder.com/150'}" class="h-32 w-full object-cover">
+                        <img src="${p.image || 'https://via.placeholder.com/300'}" class="h-32 w-full object-cover bg-slate-100">
                         <div class="p-3">
-                            <p class="text-[10px] font-black text-blue-900 truncate">${p.name}</p>
+                            <p class="text-[10px] font-black text-blue-900 truncate uppercase">${p.name}</p>
                             <p class="text-blue-600 font-bold text-xs mt-1">${p.price} F</p>
                         </div>
                     </div>`;
                 }).join('');
             });
+
+            // Conversations
+            const qChat = query(collection(db, 'artifacts', appId, 'public', 'data', 'chats'), where('participants', 'array-contains', user.uid));
+            onSnapshot(qChat, (snap) => {
+                const list = document.getElementById('conversations-list');
+                list.innerHTML = snap.docs.map(d => {
+                    const c = d.data();
+                    const otherId = c.participants.find(p => p !== user.uid);
+                    const otherName = c.names[otherId] || "Utilisateur";
+                    return `<div onclick="openChatUI('${d.id}', '${otherName}')" class="p-4 bg-white border border-slate-50 rounded-2xl flex items-center gap-4 active:bg-slate-50">
+                        <div class="w-12 h-12 bg-blue-50 rounded-2xl flex items-center justify-center text-blue-600 font-black text-lg">${otherName[0]}</div>
+                        <div class="flex-1">
+                            <p class="text-sm font-black text-blue-900">${otherName}</p>
+                            <p class="text-[9px] text-slate-400 font-medium">Cliquer pour voir les messages</p>
+                        </div>
+                    </div>`;
+                }).join('');
+            });
+
+            // Tâches Admin
+            if(userData.isAdmin) {
+                const qAdmin = query(collection(db, 'artifacts', appId, 'public', 'data', 'admin_tasks'), where('status', '==', 'pending'));
+                onSnapshot(qAdmin, (snap) => {
+                    const box = document.getElementById('admin-tasks');
+                    box.innerHTML = snap.docs.map(d => {
+                        const t = d.data();
+                        const isRecharge = t.type === 'recharge';
+                        return `<div class="bg-white p-4 rounded-2xl flex items-center justify-between border-2 border-slate-50">
+                            <div>
+                                <p class="text-[8px] font-black uppercase ${isRecharge ? 'text-blue-600' : 'text-green-600'}">${isRecharge ? 'DÉPÔT' : 'VENTE'}</p>
+                                <p class="text-xs font-bold text-blue-900">${t.userName || t.buyerName}</p>
+                                <p class="text-[10px] font-black mt-1">${t.amount} FCFA</p>
+                            </div>
+                            <button onclick="approveTask('${d.id}')" class="bg-blue-600 text-white text-[9px] font-black px-4 py-2 rounded-xl">APPROUVER</button>
+                        </div>`;
+                    }).join('');
+                });
+            }
         }
 
-        window.publishArticle = async () => {
-            const n = document.getElementById('pub-name').value;
-            const p = document.getElementById('pub-price').value;
-            const i = document.getElementById('pub-img-url').value;
-            if(!n || !p) return showToast("Informations manquantes.");
-            
-            await addDoc(collection(db, 'artifacts', appId, 'public', 'data', 'products'), {
-                name: n, price: parseInt(p), image: i, sellerId: user.uid, sellerName: userData.fullName, createdAt: serverTimestamp()
-            });
-            showToast("Annonce publiée !");
-            closeModal('publish-modal');
-        };
-
-        // CHAT
+        // CHAT ENGINE
         window.startChat = async (sid, sname) => {
             if(sid === user.uid) return navigateTo('profile');
             const cid = [user.uid, sid].sort().join('_');
@@ -348,25 +386,6 @@
             openChatUI(cid, sname);
         };
 
-        function loadConversations() {
-            const q = query(collection(db, 'artifacts', appId, 'public', 'data', 'chats'), where('participants', 'array-contains', user.uid));
-            onSnapshot(q, (snap) => {
-                const list = document.getElementById('conversations-list');
-                list.innerHTML = snap.docs.map(d => {
-                    const c = d.data();
-                    const otherId = c.participants.find(p => p !== user.uid);
-                    const name = c.names[otherId] || "Utilisateur";
-                    return `<div onclick="openChatUI('${d.id}', '${name}')" class="p-4 bg-white border border-slate-50 rounded-2xl flex items-center gap-3 active:bg-slate-50">
-                        <div class="w-10 h-10 bg-blue-50 rounded-xl flex items-center justify-center text-blue-600 font-black">${name[0]}</div>
-                        <div class="flex-1">
-                            <p class="text-xs font-black text-blue-900">${name}</p>
-                            <p class="text-[9px] text-slate-400">Ouvrir la discussion</p>
-                        </div>
-                    </div>`;
-                }).join('');
-            });
-        }
-
         window.openChatUI = (cid, name) => {
             activeChatId = cid;
             document.getElementById('chat-title').innerText = name;
@@ -378,112 +397,107 @@
                 box.innerHTML = snap.docs.map(d => {
                     const m = d.data();
                     const isMe = m.senderId === user.uid;
-                    let body = m.text;
+                    let content = m.text;
 
                     if(m.type === 'order') {
-                        const status = m.status === 'validated' ? '✅ LIVRÉ' : (m.status === 'paid' ? '💰 PAYÉ (EN ATTENTE ADMIN)' : '🕒 EN ATTENTE');
-                        body = `<div class="order-card">
+                        const statusColor = m.status === 'validated' ? 'text-green-500' : (m.status === 'paid' ? 'text-blue-500' : 'text-orange-500');
+                        content = `<div class="order-card">
                             <p class="text-[7px] font-black uppercase text-blue-500 mb-2">BON DE COMMANDE</p>
                             <p class="text-sm font-bold text-blue-900">${m.item}</p>
-                            <p class="text-xs font-black text-blue-600 mt-1">${m.price} FCFA</p>
+                            <p class="text-lg font-black text-blue-600">${m.price} FCFA</p>
                             <div class="mt-4 flex items-center justify-between border-t border-slate-50 pt-3">
-                                <span class="text-[8px] font-black text-slate-300">${status}</span>
-                                ${(!isMe && m.status === 'pending') ? `<button onclick="processPayment('${d.id}', ${m.price}, '${m.senderId}')" class="bg-green-600 text-white text-[8px] font-black px-4 py-2 rounded-full">PAYER</button>` : ''}
+                                <span class="text-[8px] font-black ${statusColor} uppercase">${m.status}</span>
+                                ${(!isMe && m.status === 'pending') ? `<button onclick="payOrder('${d.id}', ${m.price}, '${m.senderId}')" class="bg-blue-600 text-white text-[8px] font-black px-4 py-2 rounded-lg">PAYER MAINTENANT</button>` : ''}
                             </div>
                         </div>`;
                     }
-                    return `<div class="chat-bubble ${isMe ? 'chat-me' : 'chat-them'}">${body}</div>`;
+                    return `<div class="chat-bubble ${isMe ? 'chat-me' : 'chat-them'}">${content}</div>`;
                 }).join('');
                 box.scrollTop = box.scrollHeight;
             });
         };
 
         window.sendMessage = async () => {
-            const i = document.getElementById('chat-input');
-            if(!i.value.trim()) return;
+            const input = document.getElementById('chat-input');
+            if(!input.value.trim()) return;
             await addDoc(collection(db, 'artifacts', appId, 'public', 'data', 'chats', activeChatId, 'messages'), {
-                senderId: user.uid, text: i.value, type: 'text', timestamp: serverTimestamp()
+                senderId: user.uid, text: input.value, type: 'text', timestamp: serverTimestamp()
             });
-            i.value = '';
+            input.value = '';
         };
 
+        // GESTION DES BONS
         window.submitOrder = async () => {
             const item = document.getElementById('order-item').value;
             const price = document.getElementById('order-price').value;
-            if(!item || !price) return showToast("Vérifiez les champs.");
+            if(!item || !price) return showToast("Détails manquants.");
 
             await addDoc(collection(db, 'artifacts', appId, 'public', 'data', 'chats', activeChatId, 'messages'), {
                 senderId: user.uid, item, price: parseInt(price), type: 'order', status: 'pending', timestamp: serverTimestamp()
             });
             closeModal('create-order-modal');
+            showToast("Bon envoyé.");
         };
 
-        window.processPayment = async (msgId, amount, sellerId) => {
+        window.payOrder = async (msgId, amount, sellerId) => {
             if(userData.walletBalance < amount) return showToast("Solde insuffisant.");
             try {
                 await runTransaction(db, async (tx) => {
-                    const buyerRef = doc(db, 'artifacts', appId, 'users', user.uid);
-                    tx.update(buyerRef, { walletBalance: increment(-amount) });
-                    const msgRef = doc(db, 'artifacts', appId, 'public', 'data', 'chats', activeChatId, 'messages', msgId);
-                    tx.update(msgRef, { status: 'paid' });
-                    const adminTask = doc(collection(db, 'artifacts', appId, 'public', 'data', 'admin_tasks'));
-                    tx.set(adminTask, {
+                    tx.update(doc(db, 'artifacts', appId, 'users', user.uid), { walletBalance: increment(-amount) });
+                    tx.update(doc(db, 'artifacts', appId, 'public', 'data', 'chats', activeChatId, 'messages', msgId), { status: 'paid' });
+                    
+                    const adminTaskRef = doc(collection(db, 'artifacts', appId, 'public', 'data', 'admin_tasks'));
+                    tx.set(adminTaskRef, {
                         type: 'payout', amount, sellerId, buyerId: user.uid, buyerName: userData.fullName, 
                         msgId, chatId: activeChatId, status: 'pending', createdAt: serverTimestamp()
                     });
                 });
-                showToast("Paiement effectué !");
-            } catch(e) { showToast("Erreur transaction."); }
+                showToast("Paiement sous séquestre réussi !");
+            } catch(e) { showToast("Échec de la transaction."); }
         };
 
-        // ADMIN
-        function loadAdminInterface() {
-            document.getElementById('admin-panel').classList.remove('hidden');
-            const q = query(collection(db, 'artifacts', appId, 'public', 'data', 'admin_tasks'), where('status', '==', 'pending'));
-            onSnapshot(q, (snap) => {
-                const box = document.getElementById('admin-tasks');
-                box.innerHTML = snap.docs.map(d => {
-                    const t = d.data();
-                    const isRech = t.type === 'recharge';
-                    return `<div class="bg-slate-50 p-4 rounded-2xl flex items-center justify-between border border-slate-100">
-                        <div>
-                            <p class="text-[8px] font-black uppercase text-blue-600">${isRech ? 'DÉPÔT' : 'VENTE'}</p>
-                            <p class="text-xs font-bold text-blue-900">${t.userName || t.buyerName}</p>
-                            <p class="text-[9px] font-bold">${t.amount} FCFA</p>
-                        </div>
-                        <button onclick="approveTask('${d.id}')" class="bg-blue-600 text-white text-[8px] font-black px-4 py-2 rounded-xl">OK</button>
-                    </div>`;
-                }).join('');
-            });
-        }
-
+        // FONCTIONS ADMIN & PUBLICATION
         window.approveTask = async (tid) => {
             const tRef = doc(db, 'artifacts', appId, 'public', 'data', 'admin_tasks', tid);
             const tSnap = await getDoc(tRef);
+            if(!tSnap.exists()) return;
             const t = tSnap.data();
 
             if(t.type === 'recharge') {
                 await updateDoc(doc(db, 'artifacts', appId, 'users', t.uid), { walletBalance: increment(t.amount) });
-            } else {
+            } else if(t.type === 'payout') {
                 await updateDoc(doc(db, 'artifacts', appId, 'users', t.sellerId), { walletBalance: increment(t.amount) });
                 await updateDoc(doc(db, 'artifacts', appId, 'public', 'data', 'chats', t.chatId, 'messages', t.msgId), { status: 'validated' });
             }
             await updateDoc(tRef, { status: 'completed' });
-            showToast("Approuvé !");
+            showToast("Action confirmée.");
+        };
+
+        window.publishArticle = async () => {
+            const n = document.getElementById('pub-name').value;
+            const p = document.getElementById('pub-price').value;
+            const i = document.getElementById('pub-img').value;
+            if(!n || !p) return showToast("Veuillez remplir le titre et le prix.");
+            
+            await addDoc(collection(db, 'artifacts', appId, 'public', 'data', 'products'), {
+                name: n, price: parseInt(p), image: i, sellerId: user.uid, sellerName: userData.fullName, createdAt: serverTimestamp()
+            });
+            showToast("Annonce publiée !");
+            closeModal('publish-modal');
         };
 
         window.requestRecharge = async () => {
             const a = document.getElementById('rech-amount').value;
             const r = document.getElementById('rech-ref').value;
-            if(!a || !r) return showToast("Informations requises.");
+            if(!a || !r) return showToast("Veuillez remplir tous les champs.");
             await addDoc(collection(db, 'artifacts', appId, 'public', 'data', 'admin_tasks'), {
                 type: 'recharge', uid: user.uid, userName: userData.fullName, amount: parseInt(a), ref: r, status: 'pending', createdAt: serverTimestamp()
             });
-            showToast("Demande envoyée.");
+            showToast("Demande soumise !");
             closeModal('recharge-modal');
         };
 
-        // NAV
+        // NAVIGATION & UI HELPERS
         window.navigateTo = (v) => {
             document.querySelectorAll('.view').forEach(el => el.classList.remove('active'));
             document.getElementById(`view-${v}`).classList.add('active');
@@ -500,6 +514,12 @@
             const t = document.getElementById('toast'); t.innerText = m; t.style.display = 'block';
             setTimeout(() => t.style.display = 'none', 3000);
         };
+        function hideSplash() {
+            setTimeout(() => {
+                const s = document.getElementById('splash-screen');
+                if (s) { s.style.opacity = '0'; setTimeout(() => s.style.display = 'none', 500); }
+            }, 1000);
+        }
     </script>
 </body>
 </html>
