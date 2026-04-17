@@ -5,13 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Echoppe241 | Supply Chain & ERP</title>
     
-    <!-- PWA Meta Tags -->
+    <!-- PWA Meta Tags & Icons -->
     <meta name="theme-color" content="#0f172a">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="Echoppe241">
-    <link rel="icon" type="image/png" href="https://i.ibb.co/2Q73j3X/echoppe241-logo.png">
-    <link rel="apple-touch-icon" href="https://i.ibb.co/2Q73j3X/echoppe241-logo.png">
+    <!-- Utilisation de l'icône officielle Echoppe241 -->
+    <link rel="icon" type="image/png" href="https://i.ibb.co/RkhcRdCs/echoppe241-logo.png">
+    <link rel="apple-touch-icon" href="https://i.ibb.co/RkhcRdCs/echoppe241-logo.png">
 
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
@@ -48,10 +49,6 @@
         @keyframes flow { from { background-position: 0 0; } to { background-position: 40px 0; } }
         .hidden { display: none !important; }
         
-        .status-badge { font-size: 9px; font-weight: 900; padding: 4px 10px; border-radius: 12px; text-transform: uppercase; }
-        .status-pending { background: #fef3c7; color: #92400e; }
-        .status-active { background: #d1fae5; color: #065f46; }
-
         .chat-bubble { max-width: 85%; padding: 12px 16px; border-radius: 20px; margin-bottom: 8px; font-size: 14px; }
         .chat-mine { background: var(--brand-blue); color: white; align-self: flex-end; border-bottom-right-radius: 4px; }
         .chat-theirs { background: #f1f5f9; color: var(--brand-dark); align-self: flex-start; border-bottom-left-radius: 4px; }
@@ -76,7 +73,8 @@
         </div>
         <div class="max-w-7xl mx-auto px-4 py-3 flex justify-between items-center">
             <div class="flex items-center gap-2 cursor-pointer" onclick="location.reload()">
-                <img src="https://i.ibb.co/2Q73j3X/echoppe241-logo.png" alt="Echoppe241" class="h-8">
+                <!-- Logo mis à jour ici également -->
+                <img src="https://i.ibb.co/RkhcRdCs/echoppe241-logo.png" alt="Echoppe241" class="h-10">
                 <span class="font-black text-lg tracking-tighter uppercase">ECHOPPE<span class="text-amber-500">241</span></span>
             </div>
             
@@ -97,30 +95,30 @@
         <section id="view-admin" class="hidden space-y-6">
             <h2 class="text-2xl font-black uppercase tracking-tighter italic">Administration Centrale</h2>
             <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
-                <div class="bg-white p-5 rounded-3xl border">
+                <div class="bg-white p-5 rounded-3xl border shadow-sm">
                     <h5 class="text-[9px] font-black uppercase text-slate-400">Utilisateurs</h5>
                     <p class="text-2xl font-black" id="stat-users">0</p>
                 </div>
-                <div class="bg-white p-5 rounded-3xl border border-amber-200 bg-amber-50">
+                <div class="bg-white p-5 rounded-3xl border border-amber-200 bg-amber-50 shadow-sm">
                     <h5 class="text-[9px] font-black uppercase text-amber-600">Producteurs en attente</h5>
                     <p class="text-2xl font-black text-amber-700" id="stat-pending">0</p>
                 </div>
-                <div class="bg-white p-5 rounded-3xl border">
+                <div class="bg-white p-5 rounded-3xl border shadow-sm">
                     <h5 class="text-[9px] font-black uppercase text-slate-400">Produits Actifs</h5>
                     <p class="text-2xl font-black" id="stat-products">0</p>
                 </div>
-                <div class="bg-white p-5 rounded-3xl border">
+                <div class="bg-white p-5 rounded-3xl border shadow-sm">
                     <h5 class="text-[9px] font-black uppercase text-slate-400">Volume Transit</h5>
                     <p class="text-2xl font-black text-blue-600" id="stat-transit">0</p>
                 </div>
             </div>
 
-            <div class="bg-white rounded-[2rem] p-6 border">
+            <div class="bg-white rounded-[2rem] p-6 border shadow-sm">
                 <h3 class="font-black text-sm mb-4 uppercase tracking-widest flex items-center gap-2">
                     <i class="fa-solid fa-user-clock text-amber-500"></i> Validation Producteurs
                 </h3>
                 <div id="admin-pending-list" class="space-y-3">
-                    <p class="text-xs text-slate-400 italic">Aucune demande en attente.</p>
+                    <p class="text-xs text-slate-400 italic text-center py-10">Aucune demande en attente.</p>
                 </div>
             </div>
         </section>
@@ -143,11 +141,11 @@
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
                 <div class="lg:col-span-1 space-y-6">
                     <div class="bg-white p-6 rounded-[2rem] border shadow-sm">
-                        <h3 class="font-black text-[10px] mb-4 uppercase text-slate-400 tracking-widest">État du Réseau</h3>
+                        <h3 class="font-black text-[10px] mb-4 uppercase text-slate-400 tracking-widest">État du Réseau Logistique</h3>
                         <div class="logistics-graph border p-4 flex items-center justify-between px-6">
                             <div class="flex flex-col items-center gap-1">
                                 <i class="fa-solid fa-warehouse text-emerald-500"></i>
-                                <span class="text-[8px] font-black uppercase">Source</span>
+                                <span class="text-[8px] font-black uppercase">Origine</span>
                             </div>
                             <div class="flex-grow mx-2 relative h-1 bg-slate-100 rounded-full">
                                 <div class="line-animate w-full h-full rounded-full"></div>
@@ -158,12 +156,8 @@
                             </div>
                         </div>
                     </div>
-                    <div class="bg-white p-6 rounded-[2rem] border">
-                        <h3 class="font-black text-[10px] mb-4 uppercase text-slate-400 tracking-widest">Discussions Clients</h3>
-                        <div id="producer-chats" class="space-y-3"></div>
-                    </div>
                 </div>
-                <div class="lg:col-span-2 bg-white p-6 rounded-[2rem] border">
+                <div class="lg:col-span-2 bg-white p-6 rounded-[2rem] border shadow-sm">
                     <h3 class="font-black text-[10px] mb-4 uppercase text-slate-400 tracking-widest">Inventaire en temps réel</h3>
                     <div id="producer-inventory" class="grid grid-cols-1 md:grid-cols-2 gap-4"></div>
                 </div>
@@ -175,37 +169,37 @@
             <div class="relative bg-slate-900 rounded-[2.5rem] p-10 text-white overflow-hidden min-h-[350px] flex items-center">
                 <div class="absolute inset-0 bg-cover bg-center opacity-30" style="background-image: url('https://images.unsplash.com/photo-1542601906990-b4d3fb773b09?auto=format&fit=crop&w=800&q=80');"></div>
                 <div class="relative z-10 max-w-xl">
-                    <span class="bg-emerald-500 text-[9px] font-black px-3 py-1 rounded-full uppercase mb-4 inline-block">Direct Producteur</span>
-                    <h2 class="text-5xl font-black leading-none tracking-tighter mb-4 italic">L'Echoppe <span class="text-amber-400">Gabonaise</span> sur Mobile.</h2>
-                    <p class="text-slate-300 text-sm font-medium mb-6">Soutenez l'économie locale. Commandez les produits de nos 9 provinces en un clic.</p>
+                    <span class="bg-emerald-500 text-[9px] font-black px-3 py-1 rounded-full uppercase mb-4 inline-block">Circuit Court Gabon</span>
+                    <h2 class="text-5xl font-black leading-none tracking-tighter mb-4 italic">L'Echoppe <span class="text-amber-400">241</span> dans votre poche.</h2>
+                    <p class="text-slate-300 text-sm font-medium mb-6">Accédez aux meilleurs produits des provinces gabonaises. Traçabilité complète et commande directe.</p>
                     <button onclick="document.getElementById('market-grid').scrollIntoView({behavior:'smooth'})" class="bg-white text-slate-900 px-8 py-4 rounded-xl font-black text-[10px] uppercase tracking-widest shadow-2xl">Explorer le marché</button>
                 </div>
             </div>
 
             <div id="market-grid" class="grid grid-cols-2 md:grid-cols-4 gap-6">
-                <!-- Produits dynamiques -->
+                <!-- Produits dynamiques via Firebase -->
             </div>
         </section>
     </main>
 
     <!-- MODAL AUTHENTIFICATION -->
     <div id="auth-modal" class="fixed inset-0 bg-slate-900/70 backdrop-blur-sm z-[500] hidden flex items-center justify-center p-4">
-        <div class="bg-white w-full max-w-md rounded-[2.5rem] p-8 relative">
+        <div class="bg-white w-full max-w-md rounded-[2.5rem] p-8 relative shadow-2xl">
             <button onclick="closeAuthModal()" class="absolute top-6 right-6 text-slate-300 text-xl">&times;</button>
             <h2 id="auth-title" class="text-2xl font-black uppercase tracking-tighter mb-6">Connexion</h2>
             
             <form id="login-form" class="space-y-4">
-                <input type="email" id="l-email" placeholder="Email" class="w-full bg-slate-50 p-4 rounded-2xl outline-none font-bold text-sm border focus:border-blue-500" required>
-                <input type="password" id="l-pass" placeholder="Mot de passe" class="w-full bg-slate-50 p-4 rounded-2xl outline-none font-bold text-sm border focus:border-blue-500" required>
-                <button type="submit" class="w-full bg-slate-900 text-white py-4 rounded-2xl font-black uppercase text-[10px] tracking-widest">Entrer</button>
+                <input type="email" id="l-email" placeholder="Email" class="w-full bg-slate-50 p-4 rounded-2xl outline-none font-bold text-sm border focus:border-blue-500 transition-all" required>
+                <input type="password" id="l-pass" placeholder="Mot de passe" class="w-full bg-slate-50 p-4 rounded-2xl outline-none font-bold text-sm border focus:border-blue-500 transition-all" required>
+                <button type="submit" class="w-full bg-slate-900 text-white py-4 rounded-2xl font-black uppercase text-[10px] tracking-widest hover:bg-slate-800 transition-all">Entrer dans l'Echoppe</button>
                 <p class="text-center text-[10px] font-bold text-slate-400 uppercase">Nouveau ? <button type="button" onclick="toggleAuthMode('reg')" class="text-amber-600 underline">Créer un compte</button></p>
             </form>
 
             <form id="reg-form" class="space-y-3 hidden">
-                <input type="text" id="r-name" placeholder="Nom Complet / Entreprise" class="w-full bg-slate-50 p-3.5 rounded-2xl outline-none font-bold text-sm border focus:border-amber-500" required>
-                <input type="email" id="r-email" placeholder="Email professionnel" class="w-full bg-slate-50 p-3.5 rounded-2xl outline-none font-bold text-sm border focus:border-amber-500" required>
-                <input type="tel" id="r-phone" placeholder="WhatsApp (+241)" class="w-full bg-slate-50 p-3.5 rounded-2xl outline-none font-bold text-sm border focus:border-amber-500" required>
-                <input type="password" id="r-pass" placeholder="Mot de passe" class="w-full bg-slate-50 p-3.5 rounded-2xl outline-none font-bold text-sm border focus:border-amber-500" required>
+                <input type="text" id="r-name" placeholder="Nom Complet / Entreprise" class="w-full bg-slate-50 p-3.5 rounded-2xl outline-none font-bold text-sm border focus:border-amber-500 transition-all" required>
+                <input type="email" id="r-email" placeholder="Email professionnel" class="w-full bg-slate-50 p-3.5 rounded-2xl outline-none font-bold text-sm border focus:border-amber-500 transition-all" required>
+                <input type="tel" id="r-phone" placeholder="WhatsApp (+241)" class="w-full bg-slate-50 p-3.5 rounded-2xl outline-none font-bold text-sm border focus:border-amber-500 transition-all" required>
+                <input type="password" id="r-pass" placeholder="Mot de passe" class="w-full bg-slate-50 p-3.5 rounded-2xl outline-none font-bold text-sm border focus:border-amber-500 transition-all" required>
                 <div class="grid grid-cols-2 gap-2 pt-2">
                     <div onclick="setRegRole('buyer')" id="role-b" class="role-card active p-3 rounded-xl bg-slate-50 text-center border">
                         <i class="fa-solid fa-shopping-basket block mb-1"></i>
@@ -216,7 +210,7 @@
                         <span class="text-[8px] font-black uppercase">Producteur</span>
                     </div>
                 </div>
-                <button type="submit" class="w-full bg-amber-500 text-white py-4 rounded-2xl font-black uppercase text-[10px] tracking-widest mt-2 shadow-lg shadow-amber-100">Créer mon compte</button>
+                <button type="submit" class="w-full bg-amber-500 text-white py-4 rounded-2xl font-black uppercase text-[10px] tracking-widest mt-2 shadow-lg shadow-amber-100 hover:bg-amber-600 transition-all">Créer mon compte</button>
                 <p class="text-center text-[10px] font-bold text-slate-400 uppercase">Déjà membre ? <button type="button" onclick="toggleAuthMode('login')" class="text-blue-600 underline">Se connecter</button></p>
             </form>
         </div>
@@ -224,21 +218,21 @@
 
     <!-- MODAL PUBLICATION (WMS) -->
     <div id="publish-modal" class="fixed inset-0 bg-slate-900/80 backdrop-blur-sm z-[200] hidden flex items-center justify-center p-4">
-        <div class="bg-white w-full max-w-lg rounded-[2.5rem] p-8 relative">
+        <div class="bg-white w-full max-w-lg rounded-[2.5rem] p-8 relative shadow-2xl">
             <button onclick="document.getElementById('publish-modal').classList.add('hidden')" class="absolute top-6 right-6 text-slate-300 text-xl">&times;</button>
-            <h3 class="text-2xl font-black mb-6 uppercase tracking-tighter italic">Nouveau Stock</h3>
+            <h3 class="text-2xl font-black mb-6 uppercase tracking-tighter italic">Nouveau Stock WMS</h3>
             <form id="product-form" class="space-y-4">
-                <input type="text" id="p-name" placeholder="Nom du produit (ex: Piment de Bikélé)" class="w-full bg-slate-50 p-4 rounded-2xl outline-none font-bold text-sm border" required>
+                <input type="text" id="p-name" placeholder="Nom du produit" class="w-full bg-slate-50 p-4 rounded-2xl outline-none font-bold text-sm border" required>
                 <div class="grid grid-cols-2 gap-4">
                     <input type="number" id="p-price" placeholder="Prix (FCFA)" class="w-full bg-slate-50 p-4 rounded-2xl outline-none font-bold text-sm border" required>
-                    <input type="number" id="p-qty" placeholder="Quantité dispo" class="w-full bg-slate-50 p-4 rounded-2xl outline-none font-bold text-sm border" required>
+                    <input type="number" id="p-qty" placeholder="Quantité initiale" class="w-full bg-slate-50 p-4 rounded-2xl outline-none font-bold text-sm border" required>
                 </div>
                 <select id="p-prov" class="w-full bg-slate-50 p-4 rounded-2xl outline-none font-bold text-sm border">
                     <option value="" disabled selected>Province d'origine</option>
                     <option>Estuaire</option><option>Haut-Ogooué</option><option>Moyen-Ogooué</option><option>Ngounié</option>
                     <option>Nyanga</option><option>Ogooué-Ivindo</option><option>Ogooué-Lolo</option><option>Ogooué-Maritime</option><option>Woleu-Ntem</option>
                 </select>
-                <button type="submit" class="w-full bg-emerald-600 text-white py-4 rounded-2xl font-black uppercase text-[10px] tracking-widest shadow-xl shadow-emerald-50">Publier sur le réseau</button>
+                <button type="submit" class="w-full bg-emerald-600 text-white py-4 rounded-2xl font-black uppercase text-[10px] tracking-widest shadow-xl hover:bg-emerald-700 transition-all">Publier et Tracer</button>
             </form>
         </div>
     </div>
@@ -247,16 +241,21 @@
     <div id="chat-modal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-md z-[600] hidden flex items-center justify-end p-4">
         <div class="bg-white w-full max-w-md h-[85vh] rounded-[2.5rem] shadow-2xl flex flex-col overflow-hidden">
             <div class="p-6 bg-slate-900 text-white flex justify-between items-center">
-                <div>
-                    <h4 id="chat-target" class="font-black text-lg uppercase tracking-tighter italic">Négociation</h4>
-                    <p class="text-[8px] font-bold text-amber-400 uppercase tracking-widest">Messagerie sécurisée Echoppe241</p>
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center border border-white/20">
+                        <i class="fa-solid fa-user text-xs"></i>
+                    </div>
+                    <div>
+                        <h4 id="chat-target" class="font-black text-sm uppercase tracking-tighter italic">Négociation</h4>
+                        <p class="text-[8px] font-bold text-amber-400 uppercase tracking-widest">Connecté avec Echoppe241</p>
+                    </div>
                 </div>
-                <button onclick="closeChat()" class="text-white text-2xl">&times;</button>
+                <button onclick="closeChat()" class="text-white/50 hover:text-white text-2xl transition-all">&times;</button>
             </div>
             <div id="chat-messages" class="flex-grow p-5 overflow-y-auto flex flex-col gap-2 bg-slate-50"></div>
             <form id="chat-form" class="p-4 bg-white border-t flex gap-2">
-                <input type="text" id="chat-input" placeholder="Votre message..." class="flex-grow bg-slate-50 p-3.5 rounded-xl outline-none font-bold text-sm border shadow-inner">
-                <button class="bg-blue-600 text-white w-12 h-12 rounded-xl flex items-center justify-center"><i class="fa-solid fa-paper-plane"></i></button>
+                <input type="text" id="chat-input" placeholder="Discuter du prix ou de la livraison..." class="flex-grow bg-slate-50 p-3.5 rounded-xl outline-none font-bold text-sm border shadow-inner transition-all focus:border-blue-500">
+                <button class="bg-blue-600 text-white w-12 h-12 rounded-xl flex items-center justify-center shadow-lg hover:bg-blue-700 transition-all"><i class="fa-solid fa-paper-plane"></i></button>
             </form>
         </div>
     </div>
@@ -315,7 +314,7 @@
                     createdAt: serverTimestamp()
                 });
                 closeAuthModal();
-                showToast("Compte créé avec succès !");
+                showToast("Bienvenue sur Echoppe241 !");
             } catch (err) { showToast(err.message); }
         };
 
@@ -325,7 +324,7 @@
             try {
                 await signInWithEmailAndPassword(auth, document.getElementById('l-email').value, document.getElementById('l-pass').value);
                 closeAuthModal();
-            } catch (err) { showToast("Erreur de connexion"); }
+            } catch (err) { showToast("Vérifiez vos accès"); }
         };
 
         // --- UI UPDATES ---
@@ -356,16 +355,13 @@
 
         // --- DATA SYNC ---
         function syncData() {
-            // Stats Globale (ERP)
             onSnapshot(collection(db, 'artifacts', appId, 'users'), (snap) => {
                 document.getElementById('stat-users').innerText = snap.size;
                 const pending = snap.docs.filter(d => d.data().status === 'pending');
                 document.getElementById('stat-pending').innerText = pending.length;
-                
                 if (currentUser?.role === 'admin') renderAdminPending(pending);
             });
 
-            // Produits (Market + WMS)
             onSnapshot(collection(db, 'artifacts', appId, 'public', 'data', 'products'), (snap) => {
                 document.getElementById('stat-products').innerText = snap.size;
                 const products = snap.docs.map(d => ({ id: d.id, ...d.data() }));
@@ -376,17 +372,17 @@
 
         function renderAdminPending(list) {
             const container = document.getElementById('admin-pending-list');
-            container.innerHTML = list.length ? '' : '<p class="text-xs text-slate-400 italic">Aucune demande.</p>';
+            container.innerHTML = list.length ? '' : '<p class="text-xs text-slate-400 italic text-center py-10">Aucune demande en attente.</p>';
             list.forEach(docSnap => {
                 const u = docSnap.data();
                 const div = document.createElement('div');
                 div.className = "flex justify-between items-center bg-slate-50 p-4 rounded-2xl border border-slate-100";
                 div.innerHTML = `
                     <div>
-                        <p class="text-xs font-black uppercase">${u.fullName}</p>
-                        <p class="text-[9px] font-bold text-slate-400">${u.phone}</p>
+                        <p class="text-xs font-black uppercase text-slate-900">${u.fullName}</p>
+                        <p class="text-[9px] font-bold text-slate-400">WhatsApp: ${u.phone}</p>
                     </div>
-                    <button onclick="approveProducer('${docSnap.id}')" class="bg-emerald-600 text-white px-4 py-2 rounded-xl text-[9px] font-black uppercase">Approuver</button>
+                    <button onclick="approveProducer('${docSnap.id}')" class="bg-emerald-600 text-white px-4 py-2 rounded-xl text-[9px] font-black uppercase shadow-lg shadow-emerald-50">Valider</button>
                 `;
                 container.appendChild(div);
             });
@@ -402,19 +398,20 @@
             container.innerHTML = '';
             products.forEach(p => {
                 const card = document.createElement('div');
-                card.className = "bg-white p-4 rounded-[2rem] border shadow-sm flex flex-col gap-3 group cursor-pointer";
+                card.className = "bg-white p-4 rounded-[2rem] border shadow-sm flex flex-col gap-3 group cursor-pointer hover:shadow-xl transition-all";
                 card.onclick = () => openChatWith(p.ownerId, p.ownerName);
                 card.innerHTML = `
-                    <div class="h-32 bg-slate-100 rounded-2xl overflow-hidden relative">
-                         <div class="absolute top-3 left-3 bg-white/90 backdrop-blur px-2 py-1 rounded-lg text-[8px] font-black uppercase text-blue-600">${p.province}</div>
+                    <div class="h-32 bg-slate-100 rounded-2xl overflow-hidden relative flex items-center justify-center">
+                         <div class="absolute top-3 left-3 bg-white/90 backdrop-blur px-2 py-1 rounded-lg text-[8px] font-black uppercase text-blue-600 shadow-sm">${p.province}</div>
+                         <i class="fa-solid fa-box-open text-slate-300 text-3xl"></i>
                     </div>
                     <div>
                         <h4 class="font-black text-xs uppercase group-hover:text-blue-600 transition truncate">${p.name}</h4>
-                        <p class="text-lg font-black mt-1">${p.price} <span class="text-[10px] text-slate-400">FCFA</span></p>
+                        <p class="text-lg font-black mt-1 text-slate-900">${p.price} <span class="text-[10px] text-slate-400">FCFA</span></p>
                     </div>
                     <div class="flex justify-between items-center mt-auto pt-2 border-t border-dashed">
                         <span class="text-[9px] font-bold text-slate-400 uppercase tracking-tighter">${p.ownerName}</span>
-                        <div class="w-8 h-8 bg-blue-50 text-blue-600 rounded-lg flex items-center justify-center text-xs"><i class="fa-solid fa-message"></i></div>
+                        <div class="w-8 h-8 bg-blue-50 text-blue-600 rounded-lg flex items-center justify-center text-xs shadow-inner"><i class="fa-solid fa-message"></i></div>
                     </div>
                 `;
                 container.appendChild(card);
@@ -423,18 +420,18 @@
 
         function renderInventory(myProducts) {
             const container = document.getElementById('producer-inventory');
-            container.innerHTML = myProducts.length ? '' : '<p class="text-xs text-slate-400 italic">Aucun produit en stock.</p>';
+            container.innerHTML = myProducts.length ? '' : '<p class="text-xs text-slate-400 italic">Votre stock est vide.</p>';
             myProducts.forEach(p => {
                 const div = document.createElement('div');
                 div.className = "bg-slate-50 p-4 rounded-2xl border flex justify-between items-center";
                 div.innerHTML = `
                     <div>
-                        <p class="text-[10px] font-black uppercase">${p.name}</p>
-                        <p class="text-lg font-black">${p.qty} <span class="text-[9px] text-slate-400">Unités</span></p>
+                        <p class="text-[10px] font-black uppercase text-slate-900">${p.name}</p>
+                        <p class="text-xl font-black">${p.qty} <span class="text-[9px] text-slate-400">Unités</span></p>
                     </div>
                     <div class="flex gap-2">
-                         <button onclick="updateQty('${p.id}', ${p.qty + 1})" class="w-8 h-8 bg-white border rounded-lg text-xs">+</button>
-                         <button onclick="updateQty('${p.id}', ${Math.max(0, p.qty - 1)})" class="w-8 h-8 bg-white border rounded-lg text-xs">-</button>
+                         <button onclick="updateQty('${p.id}', ${p.qty + 1})" class="w-10 h-10 bg-white border rounded-xl text-sm font-black shadow-sm">+</button>
+                         <button onclick="updateQty('${p.id}', ${Math.max(0, p.qty - 1)})" class="w-10 h-10 bg-white border rounded-xl text-sm font-black shadow-sm">-</button>
                     </div>
                 `;
                 container.appendChild(div);
@@ -448,12 +445,12 @@
         // --- PRODUCT PUBLISH ---
         document.getElementById('product-form').onsubmit = async (e) => {
             e.preventDefault();
-            if (!currentUser || currentUser.status !== 'active') return showToast("Compte non validé");
+            if (!currentUser || currentUser.status !== 'active') return showToast("En attente de validation Admin");
             
             try {
                 await addDoc(collection(db, 'artifacts', appId, 'public', 'data', 'products'), {
                     name: document.getElementById('p-name').value,
-                    price: document.getElementById('p-price').value,
+                    price: Number(document.getElementById('p-price').value),
                     qty: Number(document.getElementById('p-qty').value),
                     province: document.getElementById('p-prov').value,
                     ownerId: currentUser.uid,
@@ -461,8 +458,8 @@
                     createdAt: serverTimestamp()
                 });
                 document.getElementById('publish-modal').classList.add('hidden');
-                showToast("Produit ajouté au WMS !");
-            } catch (err) { showToast("Erreur de publication"); }
+                showToast("Mis en stock WMS !");
+            } catch (err) { showToast("Erreur lors de la publication"); }
         };
 
         // --- MESSAGERIE ---
@@ -470,8 +467,6 @@
             if (!currentUser || currentUser.uid === targetId) return;
             document.getElementById('chat-modal').classList.remove('hidden');
             document.getElementById('chat-target').innerText = targetName;
-            
-            // ID de chat unique entre deux personnes
             currentChatId = [currentUser.uid, targetId].sort().join('_');
             
             onSnapshot(query(collection(db, 'artifacts', appId, 'public', 'data', 'chats', currentChatId, 'messages'), orderBy('createdAt', 'asc')), (snap) => {
@@ -492,34 +487,20 @@
             e.preventDefault();
             const input = document.getElementById('chat-input');
             if (!input.value.trim() || !currentChatId) return;
-
-            const targetId = currentChatId.replace(currentUser.uid, '').replace('_', '');
-
             await addDoc(collection(db, 'artifacts', appId, 'public', 'data', 'chats', currentChatId, 'messages'), {
                 text: input.value,
                 senderId: currentUser.uid,
                 createdAt: serverTimestamp()
             });
-            
-            // Mise à jour de la liste des conversations pour les deux
-            await setDoc(doc(db, 'artifacts', appId, 'public', 'data', 'user_chats', currentUser.uid, 'conversations', targetId), {
-                lastMsg: input.value,
-                updatedAt: serverTimestamp()
-            });
-             await setDoc(doc(db, 'artifacts', appId, 'public', 'data', 'user_chats', targetId, 'conversations', currentUser.uid), {
-                lastMsg: input.value,
-                updatedAt: serverTimestamp()
-            });
-
             input.value = '';
         };
 
-        // --- PWA HELPERS ---
+        // --- HELPERS ---
         function showToast(msg) {
             const t = document.getElementById('toast');
             document.getElementById('toast-msg').innerText = msg;
             t.classList.remove('hidden');
-            setTimeout(() => t.classList.add('hidden'), 3000);
+            setTimeout(() => t.classList.add('hidden'), 3500);
         }
 
         window.openAuthModal = () => document.getElementById('auth-modal').classList.remove('hidden');
@@ -528,7 +509,7 @@
         window.toggleAuthMode = (m) => {
             document.getElementById('login-form').classList.toggle('hidden', m === 'reg');
             document.getElementById('reg-form').classList.toggle('hidden', m === 'login');
-            document.getElementById('auth-title').innerText = m === 'reg' ? "Inscription" : "Connexion";
+            document.getElementById('auth-title').innerText = m === 'reg' ? "Créer un compte" : "Connexion";
         };
         window.setRegRole = (r) => {
             selectedRegRole = r;
@@ -538,15 +519,20 @@
         window.openPublishModal = () => document.getElementById('publish-modal').classList.remove('hidden');
         window.handleLogout = () => signOut(auth).then(() => location.reload());
 
-        // --- PWA SETUP (Simulé pour le preview) ---
+        // --- PWA SETUP (Simulé avec le logo officiel) ---
         const manifest = {
-            name: "Echoppe 241 ERP",
+            name: "Echoppe 241",
             short_name: "Echoppe241",
             start_url: ".",
             display: "standalone",
             background_color: "#f8fafc",
             theme_color: "#0f172a",
-            icons: [{ src: "https://i.ibb.co/2Q73j3X/echoppe241-logo.png", sizes: "512x512", type: "image/png" }]
+            icons: [{ 
+                src: "https://i.ibb.co/RkhcRdCs/echoppe241-logo.png", 
+                sizes: "512x512", 
+                type: "image/png",
+                purpose: "any maskable"
+            }]
         };
         const manifestBlob = new Blob([JSON.stringify(manifest)], {type: 'application/json'});
         const manifestURL = URL.createObjectURL(manifestBlob);
