@@ -344,6 +344,22 @@
           appId: "1:647862371022:web:b209bfc8eb81accb1fc69f",
           measurementId: "G-T7415FPS91"
         };
+        // Fonction pour supprimer un produit
+window.deleteProduct = async (productId) => {
+    if (confirm("Voulez-vous vraiment retirer cet article de la vente ?")) {
+        try {
+            // Importez 'deleteDoc' en haut de votre script si ce n'est pas fait
+            // import { deleteDoc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+            
+            await deleteDoc(doc(db, 'artifacts', appId, 'public', 'data', 'products', productId));
+            showToast("Article supprimé avec succès");
+            closeModal('detail-modal'); // Ferme la vue détail après suppression
+        } catch (error) {
+            showToast("Erreur lors de la suppression");
+            console.error(error);
+        }
+    }
+};
 
         // Initialisation de Firebase
         const app = initializeApp(firebaseConfig);
@@ -559,6 +575,37 @@
             onSnapshot(doc(db, 'artifacts', appId, 'public', 'data', 'products', id), (snap) => {
                 if(!snap.exists()) return;
                 const p = snap.data();
+       // RECHERCHEZ CE BLOC :
+window.openProduct = (id) => {
+    onSnapshot(doc(db, 'artifacts', appId, 'public', 'data', 'products', id), (snap) => {
+        if(!snap.exists()) return;
+        const p = snap.data();
+
+        // --- C'EST ICI QU'ON AJOUTE LA LOGIQUE DE SUPPRESSION ---
+        let deleteBtn = '';
+        if (userData.isAdmin || p.sellerId === user.uid) {
+            deleteBtn = `
+                <button onclick="deleteProduct('${id}')" 
+                        class="w-full p-4 mb-3 border-2 border-red-500 text-red-500 rounded-2xl font-black text-[10px] uppercase active:bg-red-50">
+                    <i class="fa-solid fa-trash-can mr-2"></i> Supprimer cette annonce
+                </button>`;
+        }
+        // -------------------------------------------------------
+
+        document.getElementById('detail-content').innerHTML = `
+            <button onclick="closeModal('detail-modal')" class="mb-4 w-10 h-10 bg-slate-50 rounded-full flex items-center justify-center"><i class="fa-solid fa-arrow-left"></i></button>
+            <img src="${p.image}" class="w-full h-64 object-cover rounded-3xl shadow-lg mb-6">
+            
+            ${deleteBtn} <button onclick="initiateChat('${p.sellerId}', '${p.sellerName}')" class="btn-blue w-full">Lancer la négociation</button>
+        `;
+        openModal('detail-modal');
+    });
+};
+
+document.getElementById('detail-content').innerHTML = `
+    ${deleteBtn}
+    <button onclick="initiateChat('${p.sellerId}', '${p.sellerName}')" class="btn-blue w-full">Lancer la négociation</button>
+`;
                 document.getElementById('detail-content').innerHTML = `
                     <button onclick="closeModal('detail-modal')" class="mb-4 w-10 h-10 bg-slate-50 rounded-full flex items-center justify-center"><i class="fa-solid fa-arrow-left"></i></button>
                     <img src="${p.image}" class="w-full h-64 object-cover rounded-3xl shadow-lg mb-6">
